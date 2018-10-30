@@ -17,6 +17,8 @@
 		24F8EBB32187ADDA0069EA00 /* UserSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */; };
 		4E3D9281892FECD53164A29F /* Pods_Remembral.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */; };
 		FB62D136217910D80048D9EA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62D135217910D80048D9EA /* MapViewController.swift */; };
+		FF557EE32186B80900644DEF /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557EE22186B80900644DEF /* ThirdViewController.swift */; };
+		FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		54567D690C3D2D53F6CAACF8 /* Pods-Remembral.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remembral.release.xcconfig"; path = "Pods/Target Support Files/Pods-Remembral/Pods-Remembral.release.xcconfig"; sourceTree = "<group>"; };
 		9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Remembral.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB62D135217910D80048D9EA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FF557EE22186B80900644DEF /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
+		FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,8 @@
 				24B447E621559D4F002E4425 /* AppDelegate.swift */,
 				24B447E821559D4F002E4425 /* FirstViewController.swift */,
 				24B447EA21559D4F002E4425 /* SecondViewController.swift */,
+				FF557EE22186B80900644DEF /* ThirdViewController.swift */,
+				FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */,
 				FB62D135217910D80048D9EA /* MapViewController.swift */,
 				24B447EC21559D4F002E4425 /* Main.storyboard */,
 				24B447EF21559D4F002E4425 /* Assets.xcassets */,
@@ -246,8 +252,10 @@
 			files = (
 				24B447EB21559D4F002E4425 /* SecondViewController.swift in Sources */,
 				24B447E721559D4F002E4425 /* AppDelegate.swift in Sources */,
+				FF557EE32186B80900644DEF /* ThirdViewController.swift in Sources */,
 				24F8EBB32187ADDA0069EA00 /* UserSelectorViewController.swift in Sources */,
 				24B447E921559D4F002E4425 /* FirstViewController.swift in Sources */,
+				FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */,
 				FB62D136217910D80048D9EA /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
