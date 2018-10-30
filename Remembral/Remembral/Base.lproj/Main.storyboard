@@ -315,7 +315,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="OnUserPtient:" destination="pCz-MC-EKN" eventType="touchUpInside" id="Uns-gt-Baf"/>
+                                    <action selector="onUserPtient:" destination="pCz-MC-EKN" eventType="touchUpInside" id="qLw-td-Hgo"/>
                                     <segue destination="49e-Tb-3d3" kind="show" id="FXv-fh-NWL"/>
                                 </connections>
                             </button>
@@ -329,7 +329,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="OnUserCaretaker:" destination="pCz-MC-EKN" eventType="touchUpInside" id="8Kc-e6-4Qz"/>
+                                    <action selector="onUserCaretaker:" destination="pCz-MC-EKN" eventType="touchUpInside" id="XY8-jw-DWG"/>
                                     <segue destination="cjB-6a-dXc" kind="show" id="Pdu-8D-vN9"/>
                                 </connections>
                             </button>

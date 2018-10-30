@@ -7,25 +7,58 @@
 //
 
 import UIKit
+import Firebase
+import SwiftKeychainWrapper
 
 class UserSelectorViewController: UIViewController {
     
+    var userUID: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func onUserPtient(_ sender: Any) {
+        let email = "patient@remembral.com"
+        let password = "PatientPassword"
+        
+        Auth.auth().signIn(withEmail: email, password: password, completion: {(authResult,error) in
+            if error == nil {
+                self.userUID = authResult?.user.uid
+                KeychainWrapper.standard.set(self.userUID, forKey: "uid")
+            }else {
+                self.createUser(email: email, password: password)
+            }
+        })
     }
     
-    @IBAction func OnUserPtient(_ sender: Any) {
+    @IBAction func onUserCaretaker(_ sender: Any) {
+        let email = "caretaker@remembral.com"
+        let password = "CaretakerPassword"
+        
+        Auth.auth().signIn(withEmail: email, password: password, completion: {(authResult,error) in
+            if error == nil {
+                self.userUID = authResult?.user.uid
+                KeychainWrapper.standard.set(self.userUID, forKey: "uid")
+            }else {
+                self.createUser(email: email, password: password)
+            }
+        })
     }
     
-    @IBAction func OnUserCaretaker(_ sender: Any) {
+    func createUser(email: String, password: String){
+        Auth.auth().createUser(withEmail: email, password: password, completion: { (authResult, error) in
+            if error != nil {
+                print("There was an error")
+                return
+            }
+        self.userUID = authResult?.user.uid
+        KeychainWrapper.standard.set(self.userUID, forKey: "uid")
+        //successfully created user user
+        })
     }
+    
     /*
     // MARK: - Navigation
 
