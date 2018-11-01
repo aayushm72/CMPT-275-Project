@@ -284,7 +284,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5F7-KQ-fk6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1900.0000000000002" y="920.08928571428567"/>
+            <point key="canvasLocation" x="1750" y="921"/>
         </scene>
         <!--Reminders_Navigation-->
         <scene sceneID="snV-dk-8Pa">
@@ -541,10 +541,10 @@
             </objects>
             <point key="canvasLocation" x="-3682" y="1168"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Patient Tab Bar View Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="PatientTabBarViewController" customModule="Remembral" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
