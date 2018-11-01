@@ -87,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0OJ-eV-4ps">
-                                <rect key="frame" x="112" y="94" width="151" height="36"/>
+                                <rect key="frame" x="122" y="64" width="141" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="+ Add Reminder">
@@ -98,7 +98,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="200" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LEy-dr-2Oh">
-                                <rect key="frame" x="0.0" y="148" width="375" height="470"/>
+                                <rect key="frame" x="0.0" y="99" width="375" height="519"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReminderTableViewCell" rowHeight="200" id="ap4-Jo-ou2" customClass="ReminderTableViewCell" customModule="Remembral" customModuleProvider="target">
@@ -115,11 +115,17 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                                     <state key="normal" title="DONE"/>
+                                                    <connections>
+                                                        <action selector="onPressDone:" destination="ap4-Jo-ou2" eventType="touchUpInside" id="8yg-vt-Aab"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="h3C-AY-Gbx">
                                                     <rect key="frame" x="225" y="99" width="150" height="100"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                                     <state key="normal" title="SNOOZE 5 minutes"/>
+                                                    <connections>
+                                                        <action selector="onSnooze:" destination="ap4-Jo-ou2" eventType="touchUpInside" id="hET-dE-MEu"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuR-YV-Dnx">
                                                     <rect key="frame" x="22" y="39" width="181" height="120"/>
@@ -144,7 +150,9 @@
                                         </tableViewCellContentView>
                                         <accessibility key="accessibilityConfiguration" identifier="ReminderTableViewCell"/>
                                         <connections>
+                                            <outlet property="DoneButton" destination="EUv-vU-FHb" id="JHG-q4-Zad"/>
                                             <outlet property="ReminderLabel" destination="fuR-YV-Dnx" id="D7H-09-gUS"/>
+                                            <outlet property="snoozeButton" destination="h3C-AY-Gbx" id="2Oo-Fk-2ae"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -160,10 +168,18 @@
                             <constraint firstItem="LEy-dr-2Oh" firstAttribute="width" secondItem="wHn-oa-yyx" secondAttribute="width" id="KIv-ZO-Gmv"/>
                             <constraint firstItem="0OJ-eV-4ps" firstAttribute="trailing" secondItem="a8K-lN-9do" secondAttribute="trailingMargin" constant="-96" id="Lcr-pC-5k2"/>
                             <constraint firstItem="LEy-dr-2Oh" firstAttribute="bottom" secondItem="wHn-oa-yyx" secondAttribute="bottom" id="MrX-lI-MwE"/>
-                            <constraint firstItem="LEy-dr-2Oh" firstAttribute="top" secondItem="wHn-oa-yyx" secondAttribute="top" constant="84" id="NdS-yw-D8n"/>
+                            <constraint firstItem="LEy-dr-2Oh" firstAttribute="top" secondItem="wHn-oa-yyx" secondAttribute="top" constant="35" id="NdS-yw-D8n"/>
+                            <constraint firstItem="0OJ-eV-4ps" firstAttribute="top" secondItem="wHn-oa-yyx" secondAttribute="top" id="h63-K0-YWP"/>
+                            <constraint firstItem="0OJ-eV-4ps" firstAttribute="top" secondItem="wHn-oa-yyx" secondAttribute="top" constant="1" id="oRA-h6-emr"/>
                             <constraint firstItem="LEy-dr-2Oh" firstAttribute="centerX" secondItem="wHn-oa-yyx" secondAttribute="centerX" id="pBh-e0-fEZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wHn-oa-yyx"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="CSU-vq-FaE"/>
+                                <exclude reference="oRA-h6-emr"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Reminders" id="wDG-V0-6Ts"/>
                     <navigationItem key="navigationItem" title="Reminders" id="sBL-xf-qp5"/>
@@ -176,7 +192,6 @@
         <!--Add A Reminder-->
         <scene sceneID="wXl-L8-DLX">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5F7-KQ-fk6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Add A Reminder" id="RcR-X0-yLg" customClass="AddReminderViewController" customModule="Remembral" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FV3-ee-Pxo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -313,6 +328,7 @@
                         <outlet property="pickerView" destination="luG-xW-dTJ" id="FhY-5h-fcW"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5F7-KQ-fk6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1900" y="778"/>
         </scene>
@@ -2826,7 +2842,4 @@ AQCHAAEAmQABAJwAAQChAAAAAAAABAEAAAAAAAAAbQAAAAAAAAAAAAAAAAABAKM
 </mutableData>
         </image>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="E2d-fl-8cD"/>
-    </inferredMetricsTieBreakers>
 </document>

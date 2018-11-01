@@ -11,9 +11,20 @@ import UIKit
 class ReminderTableViewCell: UITableViewCell {
 
     @IBOutlet weak var ReminderLabel: UILabel!
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var snoozeButton: UIButton!
+    
+    @IBAction func onPressDone(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func onSnooze(_ sender: UIButton) {
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
