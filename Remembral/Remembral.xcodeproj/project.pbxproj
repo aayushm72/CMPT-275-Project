@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		241122A2218B82A700C29B1D /* FirebaseReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241122A1218B82A700C29B1D /* FirebaseReminders.swift */; };
 		24A0250C2183C96D007F91A3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24A0250B2183C96D007F91A3 /* GoogleService-Info.plist */; };
 		24B447E721559D4F002E4425 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B447E621559D4F002E4425 /* AppDelegate.swift */; };
 		24B447E921559D4F002E4425 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B447E821559D4F002E4425 /* FirstViewController.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		18BA0D1F5C3C264CE6C13FE7 /* Pods-Remembral.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remembral.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Remembral/Pods-Remembral.debug.xcconfig"; sourceTree = "<group>"; };
+		241122A1218B82A700C29B1D /* FirebaseReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseReminders.swift; sourceTree = "<group>"; };
 		24A0250B2183C96D007F91A3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24B447E321559D4F002E4425 /* Remembral.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remembral.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B447E621559D4F002E4425 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 		24B447E521559D4F002E4425 /* Remembral */ = {
 			isa = PBXGroup;
 			children = (
+				241122A1218B82A700C29B1D /* FirebaseReminders.swift */,
 				24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */,
 				24B447E621559D4F002E4425 /* AppDelegate.swift */,
 				24B447E821559D4F002E4425 /* FirstViewController.swift */,
@@ -257,6 +260,7 @@
 				24B447E921559D4F002E4425 /* FirstViewController.swift in Sources */,
 				FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */,
 				FB62D136217910D80048D9EA /* MapViewController.swift in Sources */,
+				241122A2218B82A700C29B1D /* FirebaseReminders.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
