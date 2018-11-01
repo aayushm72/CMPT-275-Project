@@ -94,24 +94,80 @@
                                     <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
-                                    <segue destination="RcR-X0-yLg" kind="show" identifier="add_a_reminder_1" id="E2d-fl-8cD"/>
+                                    <segue destination="RcR-X0-yLg" kind="show" identifier="add_a_reminder" id="E2d-fl-8cD"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="200" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LEy-dr-2Oh">
+                                <rect key="frame" x="0.0" y="148" width="375" height="470"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReminderTableViewCell" rowHeight="200" id="ap4-Jo-ou2" customClass="ReminderTableViewCell" customModule="Remembral" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ap4-Jo-ou2" id="NFe-Y7-R9h">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUv-vU-FHb">
+                                                    <rect key="frame" x="225" y="0.0" width="150" height="100"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="150" id="a6M-5c-Bfu"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                                    <state key="normal" title="DONE"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="h3C-AY-Gbx">
+                                                    <rect key="frame" x="225" y="99" width="150" height="100"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                                    <state key="normal" title="SNOOZE 5 minutes"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuR-YV-Dnx">
+                                                    <rect key="frame" x="22" y="39" width="181" height="120"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="EUv-vU-FHb" secondAttribute="trailing" id="0U3-iB-gJy"/>
+                                                <constraint firstItem="EUv-vU-FHb" firstAttribute="top" secondItem="NFe-Y7-R9h" secondAttribute="top" id="2AN-wb-LfX"/>
+                                                <constraint firstItem="EUv-vU-FHb" firstAttribute="trailing" secondItem="h3C-AY-Gbx" secondAttribute="trailing" id="AFy-VB-vdu"/>
+                                                <constraint firstItem="EUv-vU-FHb" firstAttribute="leading" secondItem="h3C-AY-Gbx" secondAttribute="leading" id="HK3-YD-NHh"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="EUv-vU-FHb" secondAttribute="bottom" constant="89" id="OLg-Z6-4gd"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="h3C-AY-Gbx" secondAttribute="bottom" constant="-10" id="XFs-6z-uxb"/>
+                                                <constraint firstItem="fuR-YV-Dnx" firstAttribute="centerY" secondItem="NFe-Y7-R9h" secondAttribute="centerY" id="hJQ-62-UGN"/>
+                                                <constraint firstItem="fuR-YV-Dnx" firstAttribute="leading" secondItem="NFe-Y7-R9h" secondAttribute="leadingMargin" constant="6" id="p0y-3V-k7E"/>
+                                                <constraint firstItem="h3C-AY-Gbx" firstAttribute="top" secondItem="NFe-Y7-R9h" secondAttribute="topMargin" constant="68" id="pWg-4a-gio"/>
+                                                <constraint firstItem="EUv-vU-FHb" firstAttribute="leading" secondItem="fuR-YV-Dnx" secondAttribute="trailing" constant="22" id="qWN-pu-xu9"/>
+                                                <constraint firstItem="fuR-YV-Dnx" firstAttribute="top" secondItem="NFe-Y7-R9h" secondAttribute="topMargin" constant="8" id="yGB-2p-w2E"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration" identifier="ReminderTableViewCell"/>
+                                        <connections>
+                                            <outlet property="ReminderLabel" destination="fuR-YV-Dnx" id="D7H-09-gUS"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="JHu-6L-zhe" id="FIf-ll-BYz"/>
+                                    <outlet property="delegate" destination="JHu-6L-zhe" id="0UY-td-Ilj"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="0OJ-eV-4ps" firstAttribute="leading" secondItem="wHn-oa-yyx" secondAttribute="leading" constant="112" id="EoY-Qd-C6b"/>
-                            <constraint firstItem="wHn-oa-yyx" firstAttribute="trailing" secondItem="0OJ-eV-4ps" secondAttribute="trailing" constant="112" id="hPX-D4-jmE"/>
-                            <constraint firstItem="0OJ-eV-4ps" firstAttribute="top" secondItem="wHn-oa-yyx" secondAttribute="top" constant="30" id="iK2-eG-YZU"/>
+                            <constraint firstItem="0OJ-eV-4ps" firstAttribute="top" secondItem="wHn-oa-yyx" secondAttribute="top" constant="37" id="CSU-vq-FaE"/>
+                            <constraint firstItem="LEy-dr-2Oh" firstAttribute="width" secondItem="wHn-oa-yyx" secondAttribute="width" id="KIv-ZO-Gmv"/>
+                            <constraint firstItem="0OJ-eV-4ps" firstAttribute="trailing" secondItem="a8K-lN-9do" secondAttribute="trailingMargin" constant="-96" id="Lcr-pC-5k2"/>
+                            <constraint firstItem="LEy-dr-2Oh" firstAttribute="bottom" secondItem="wHn-oa-yyx" secondAttribute="bottom" id="MrX-lI-MwE"/>
+                            <constraint firstItem="LEy-dr-2Oh" firstAttribute="top" secondItem="wHn-oa-yyx" secondAttribute="top" constant="84" id="NdS-yw-D8n"/>
+                            <constraint firstItem="LEy-dr-2Oh" firstAttribute="centerX" secondItem="wHn-oa-yyx" secondAttribute="centerX" id="pBh-e0-fEZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wHn-oa-yyx"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Reminders" id="wDG-V0-6Ts"/>
                     <navigationItem key="navigationItem" title="Reminders" id="sBL-xf-qp5"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <segue destination="RcR-X0-yLg" kind="show" identifier="add_a_reminder" id="2SJ-x0-Kxy"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OVr-kR-hbQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -258,7 +314,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1900" y="778.56071964017997"/>
+            <point key="canvasLocation" x="1900" y="778"/>
         </scene>
         <!--Reminders_Navigation-->
         <scene sceneID="snV-dk-8Pa">
@@ -515,10 +571,10 @@
             </objects>
             <point key="canvasLocation" x="-3682" y="1168"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Patient Tab Bar View Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="PatientTabBarViewController" customModule="Remembral" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
