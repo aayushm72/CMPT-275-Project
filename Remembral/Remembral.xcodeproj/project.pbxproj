@@ -16,6 +16,8 @@
 		24B447F321559D4F002E4425 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24B447F121559D4F002E4425 /* LaunchScreen.storyboard */; };
 		24F8EBB32187ADDA0069EA00 /* UserSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */; };
 		4E3D9281892FECD53164A29F /* Pods_Remembral.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */; };
+		C45EE489218B7E0D00224524 /* EditPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45EE488218B7E0D00224524 /* EditPersonalInfoViewController.swift */; };
+		C4A1E7ED218B7147008F5958 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A1E7EC218B7147008F5958 /* CollectionViewCell.swift */; };
 		FB62D136217910D80048D9EA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62D135217910D80048D9EA /* MapViewController.swift */; };
 		FF557EE32186B80900644DEF /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557EE22186B80900644DEF /* ThirdViewController.swift */; };
 		FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */; };
@@ -35,6 +37,8 @@
 		24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSelectorViewController.swift; sourceTree = "<group>"; };
 		54567D690C3D2D53F6CAACF8 /* Pods-Remembral.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remembral.release.xcconfig"; path = "Pods/Target Support Files/Pods-Remembral/Pods-Remembral.release.xcconfig"; sourceTree = "<group>"; };
 		9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Remembral.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C45EE488218B7E0D00224524 /* EditPersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPersonalInfoViewController.swift; sourceTree = "<group>"; };
+		C4A1E7EC218B7147008F5958 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		FB62D135217910D80048D9EA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FF557EE22186B80900644DEF /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 				24B447F121559D4F002E4425 /* LaunchScreen.storyboard */,
 				24B447F421559D4F002E4425 /* Info.plist */,
 				24A0250B2183C96D007F91A3 /* GoogleService-Info.plist */,
+				C4A1E7EC218B7147008F5958 /* CollectionViewCell.swift */,
+				C45EE488218B7E0D00224524 /* EditPersonalInfoViewController.swift */,
 			);
 			path = Remembral;
 			sourceTree = "<group>";
@@ -252,9 +258,11 @@
 			files = (
 				24B447EB21559D4F002E4425 /* SecondViewController.swift in Sources */,
 				24B447E721559D4F002E4425 /* AppDelegate.swift in Sources */,
+				C4A1E7ED218B7147008F5958 /* CollectionViewCell.swift in Sources */,
 				FF557EE32186B80900644DEF /* ThirdViewController.swift in Sources */,
 				24F8EBB32187ADDA0069EA00 /* UserSelectorViewController.swift in Sources */,
 				24B447E921559D4F002E4425 /* FirstViewController.swift in Sources */,
+				C45EE489218B7E0D00224524 /* EditPersonalInfoViewController.swift in Sources */,
 				FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */,
 				FB62D136217910D80048D9EA /* MapViewController.swift in Sources */,
 			);
