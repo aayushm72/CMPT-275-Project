@@ -746,6 +746,7 @@
                                 <color key="tintColor" red="0.80938309590000002" green="0.174930058" blue="0.14727018610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="SOS"/>
                                 <connections>
+                                    <action selector="sendSOS:" destination="iON-IL-qEb" eventType="touchUpInside" id="AYb-WL-iza"/>
                                     <segue destination="IZ6-G7-khz" kind="show" id="fYS-p1-EMb"/>
                                 </connections>
                             </button>

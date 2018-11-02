@@ -17,18 +17,23 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
     var caretakerName:String = "Jane Doe"
     var caretakerPhoneNumber:String = "987 654 3210"
     lazy var items = ["My Name:", patientName, "My Address:", patientAddress, "My Phone Number:", patientPhoneNumber, "My Caretaker:", caretakerName, "My Caretaker's Phone Number:", caretakerPhoneNumber]
+    let alertMessage = UIAlertController(title: "Message Sent", message: "Your caretaker has recieved your SOS call", preferredStyle: .alert)
+    let dismissControl = UIControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    @IBAction func sendSOS(_ sender: UIButton) {
+        self.present(alertMessage, animated: true, completion:{
+            self.alertMessage.view.superview?.isUserInteractionEnabled = true
+            self.alertMessage.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissAlert)))
+        })
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -51,6 +56,10 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
             EditPersonalInfoViewController.intitialCaretakerName = caretakerName
             EditPersonalInfoViewController.intitialCaretakerPhoneNumber = caretakerPhoneNumber
         }
+    }
+    
+    @objc func dismissAlert() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
