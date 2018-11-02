@@ -87,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0OJ-eV-4ps">
-                                <rect key="frame" x="122" y="64" width="141" height="36"/>
+                                <rect key="frame" x="117" y="64" width="141" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="+ Add Reminder">
@@ -169,12 +169,12 @@
                         <constraints>
                             <constraint firstItem="0OJ-eV-4ps" firstAttribute="top" secondItem="wHn-oa-yyx" secondAttribute="top" constant="37" id="CSU-vq-FaE"/>
                             <constraint firstItem="LEy-dr-2Oh" firstAttribute="width" secondItem="wHn-oa-yyx" secondAttribute="width" id="KIv-ZO-Gmv"/>
-                            <constraint firstItem="0OJ-eV-4ps" firstAttribute="trailing" secondItem="a8K-lN-9do" secondAttribute="trailingMargin" constant="-96" id="Lcr-pC-5k2"/>
                             <constraint firstItem="LEy-dr-2Oh" firstAttribute="bottom" secondItem="wHn-oa-yyx" secondAttribute="bottom" id="MrX-lI-MwE"/>
                             <constraint firstItem="LEy-dr-2Oh" firstAttribute="top" secondItem="wHn-oa-yyx" secondAttribute="top" constant="35" id="NdS-yw-D8n"/>
                             <constraint firstItem="0OJ-eV-4ps" firstAttribute="top" secondItem="wHn-oa-yyx" secondAttribute="top" id="h63-K0-YWP"/>
                             <constraint firstItem="0OJ-eV-4ps" firstAttribute="top" secondItem="wHn-oa-yyx" secondAttribute="top" constant="1" id="oRA-h6-emr"/>
                             <constraint firstItem="LEy-dr-2Oh" firstAttribute="centerX" secondItem="wHn-oa-yyx" secondAttribute="centerX" id="pBh-e0-fEZ"/>
+                            <constraint firstItem="0OJ-eV-4ps" firstAttribute="centerX" secondItem="a8K-lN-9do" secondAttribute="centerX" id="qwJ-0a-9yh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wHn-oa-yyx"/>
                         <variation key="default">

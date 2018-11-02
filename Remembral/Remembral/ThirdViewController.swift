@@ -46,6 +46,7 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         labelText.append("Set by: Me")
         
         cell.ReminderLabel.text = labelText
+        //cell.backgroundColor = UIColor.lightGray
         
         return cell
     }
