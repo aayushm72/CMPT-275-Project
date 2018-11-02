@@ -31,6 +31,7 @@ class UserSelectorViewController: UIViewController {
                 self.createUser(email: email, password: password)
             }
         })
+        //FirebaseDatabase.sharedInstance
     }
     
     @IBAction func onUserCaretaker(_ sender: Any) {

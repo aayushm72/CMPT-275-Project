@@ -34,14 +34,53 @@ class FirebaseDatabase: NSObject{
     let reminderRef = Database.database().reference(fromURL: "https://remembral-c17af.firebaseio.com/").root.child("reminders")
     let usersRef = Database.database().reference(fromURL: "https://remembral-c17af.firebaseio.com/").root.child("users")
     
-    var userObj:User!
+    var userObj: User!
+    var reminderList = [Reminder]()
     
     override init()
     {
         super.init()
-        self.UpdateFromFirebase()
+        /*self.UpdateFromFirebase{
+            (isFinish) in print(isFinish)
+        }*/
+        updateReminder {
+            (dict) in
+            FirebaseDatabase.sharedInstance.reminderList += dict
+        }
+        
     }
-    
+    class var sharedInstance: FirebaseDatabase {
+        struct Static {
+            static var instance: FirebaseDatabase = FirebaseDatabase()
+        }
+        return Static.instance
+    }
+    func updateReminder(completion:(([Reminder]) -> Void)?){
+        reminderRef.queryOrdered(byChild: "date").observe(.value, with: { (snapshot: DataSnapshot) in
+            var asdf = [Reminder]()
+            for snap in snapshot.children {
+                if let rData = (snap as! DataSnapshot).value as? [String:Any]{
+                    let newR = Reminder(sender: rData["sender"] as! String,
+                                        reciever: rData["reciever"] as! String,
+                                        description: rData["description"] as! String,
+                                        date: rData["date"] as! Int,
+                                        month: (rData["month"] ?? 1) as! Int,
+                                        hour: rData["hour"] as! Int,
+                                        minute: rData["minute"] as! Int,
+                                        recurrence: rData["recurrence"] as! String,
+                                        status: rData["status"] as! Bool )
+                   asdf += [newR]
+                    print("Add new element")
+                } else {
+                    print("Not add")
+                    
+                }
+            }
+            completion? (asdf)
+            //let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            // ...
+        })
+    }
     func getCurrentDayReminder(){
         let day = 1234567
         let query = reminderRef.queryOrdered(byChild: "date").queryEqual(toValue: day)
@@ -78,22 +117,27 @@ class FirebaseDatabase: NSObject{
                       "caretakerPhNo": arg.caretakerPhNo]
         childRef.updateChildValues(values)
     }
-    
-    func UpdateFromFirebase(){
+
+    func UpdateFromFirebase(completion: ((Bool) -> Void)?){
         let userID = Auth.auth().currentUser?.uid
         let childRef = usersRef.child(userID!)
         childRef.observeSingleEvent(of: .value, with: { (snapshot) in
             let userDict = snapshot.value as! [String:String]
+            print(userDict)
+            self.userObj = User(name: userDict["name"],
+                                address: userDict["address"],
+                                phNo: userDict["phNo"],
+                                caretakerName: userDict["caretakerName"],
+                                caretakerPhNo: userDict["caretakerPhNo"]
+            )
             
-            self.userObj.name = userDict["name"]
-            self.userObj.address = userDict["address"]
-            self.userObj.name = userDict["phNo"]
-            self.userObj.address = userDict["caretakerName"]
-            self.userObj.name = userDict["caretakerPhNO"]
+            completion? (true)
         })
     }
     
     func getUserData() -> User {
         return self.userObj
     }
+    
+    
 }
