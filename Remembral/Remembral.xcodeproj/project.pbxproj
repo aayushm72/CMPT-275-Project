@@ -18,6 +18,8 @@
 		24F8EBB32187ADDA0069EA00 /* UserSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */; };
 		4E3D9281892FECD53164A29F /* Pods_Remembral.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */; };
 		FB62D136217910D80048D9EA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62D135217910D80048D9EA /* MapViewController.swift */; };
+		FB651A5D218A73D4004A9B61 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */; };
+		FB8D2B7A218A8186001B81D3 /* PatientTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8D2B79218A8186001B81D3 /* PatientTabBarViewController.swift */; };
 		FF557EE32186B80900644DEF /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557EE22186B80900644DEF /* ThirdViewController.swift */; };
 		FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +40,8 @@
 		54567D690C3D2D53F6CAACF8 /* Pods-Remembral.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remembral.release.xcconfig"; path = "Pods/Target Support Files/Pods-Remembral/Pods-Remembral.release.xcconfig"; sourceTree = "<group>"; };
 		9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Remembral.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB62D135217910D80048D9EA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
+		FB8D2B79218A8186001B81D3 /* PatientTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientTabBarViewController.swift; sourceTree = "<group>"; };
 		FF557EE22186B80900644DEF /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,6 +88,8 @@
 				FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */,
 				FB62D135217910D80048D9EA /* MapViewController.swift */,
 				24B447EC21559D4F002E4425 /* Main.storyboard */,
+				FB8D2B79218A8186001B81D3 /* PatientTabBarViewController.swift */,
+				FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */,
 				24B447EF21559D4F002E4425 /* Assets.xcassets */,
 				24B447F121559D4F002E4425 /* LaunchScreen.storyboard */,
 				24B447F421559D4F002E4425 /* Info.plist */,
@@ -261,6 +267,8 @@
 				FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */,
 				FB62D136217910D80048D9EA /* MapViewController.swift in Sources */,
 				241122A2218B82A700C29B1D /* FirebaseReminders.swift in Sources */,
+				FB651A5D218A73D4004A9B61 /* ReminderTableViewCell.swift in Sources */,
+				FB8D2B7A218A8186001B81D3 /* PatientTabBarViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
