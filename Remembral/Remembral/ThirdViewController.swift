@@ -41,11 +41,21 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Fetches the appropriate meal for the data source layout.
         let reminder = reminders[indexPath.row]
         
-        cell.ReminderLabel.text = reminder
+        var labelText = "Task: " + reminder + "\n"
+        labelText.append("Time: Today @ 15:00\n")
+        labelText.append("Set by: Me")
+        
+        cell.ReminderLabel.text = labelText
         
         return cell
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
