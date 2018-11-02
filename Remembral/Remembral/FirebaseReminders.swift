@@ -17,16 +17,17 @@ struct Reminder {
     var hour: Int?
     var minute: Int?
     var recurrence: String?
-    var status = Bool?
+    var status = false
 }
 
 class FirebaseReminders{
-    let reminderRef = Database.database().reference().child("reminders")
+    
+    let reminderRef = Database.database().reference(fromURL: "https://remembral-c17af.firebaseio.com/").root.child("reminders")
     
     func getCurrentDayReminder(){
-        let date = Date()
-        let calender = Calendar.current
-        let day = calender.component(.day, from: date)
+        let day = 1234567
+        let query = reminderRef.queryOrdered(byChild: "date").queryEqual(toValue: day)
+//        query.obser
         
     }
     
@@ -34,9 +35,16 @@ class FirebaseReminders{
         
     }
     
-    func setReminder(arg: Reminder) {
+    func setReminder(arg: Reminder!) {
         let childRef = reminderRef.childByAutoId()
-        let values = ["sender": arg.sender, "reciever": arg.reciever, "description": arg.description, "recurrence": arg.recurrence, "status": arg.status]
-        childRef.updateChildValues(values)
+        let values : [String:Any] = ["sender": arg!.sender as Any,
+                                     "reciever": arg!.reciever as Any,
+                                     "description": arg!.description as Any,
+                                     "recurrence": arg!.recurrence as Any,
+                                     "status": arg!.status,
+                                     "date": arg.date as Any,
+                                     "hour": arg.hour as Any,
+                                     "minute": arg.minute as Any]
+        childRef.setValue(values)
     }
 }

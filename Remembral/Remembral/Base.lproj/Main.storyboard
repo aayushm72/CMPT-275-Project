@@ -87,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0OJ-eV-4ps">
-                                <rect key="frame" x="112" y="94" width="151" height="36"/>
+                                <rect key="frame" x="122" y="101" width="141" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="+ Add Reminder">
@@ -176,7 +176,6 @@
         <!--Add A Reminder-->
         <scene sceneID="wXl-L8-DLX">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5F7-KQ-fk6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Add A Reminder" id="RcR-X0-yLg" customClass="AddReminderViewController" customModule="Remembral" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FV3-ee-Pxo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -313,6 +312,7 @@
                         <outlet property="pickerView" destination="luG-xW-dTJ" id="FhY-5h-fcW"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5F7-KQ-fk6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1900" y="778"/>
         </scene>
@@ -2826,7 +2826,4 @@ AQCHAAEAmQABAJwAAQChAAAAAAAABAEAAAAAAAAAbQAAAAAAAAAAAAAAAAABAKM
 </mutableData>
         </image>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="E2d-fl-8cD"/>
-    </inferredMetricsTieBreakers>
 </document>

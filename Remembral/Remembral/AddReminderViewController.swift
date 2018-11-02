@@ -33,8 +33,18 @@ class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPic
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        var test = Reminder()
+        test.description = "Test Reminder"
+        test.sender = "Aayush"
+        test.date = 1234567
+        test.hour = 345345
+        test.minute = 687
+        test.reciever = "Atush"
+        test.recurrence = "Weekly"
+        test.status = false
         
-        
+        let out = FirebaseReminders()
+        out.setReminder(arg: test)
     }
     
     override func didReceiveMemoryWarning() {
