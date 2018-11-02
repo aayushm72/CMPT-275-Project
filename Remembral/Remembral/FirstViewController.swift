@@ -22,6 +22,7 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        patientName = FirebaseDatabase.sharedInstance.userObj.name
         // Do any additional setup after loading the view, typically from a nib.
     }
     @IBAction func sendSOS(_ sender: UIButton) {

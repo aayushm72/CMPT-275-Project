@@ -19,6 +19,7 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         createSampleReminders()
+        print(FirebaseDatabase.sharedInstance.reminderList)
         
     }
     private func createSampleReminders(){
@@ -28,7 +29,7 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         return 1;
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reminders.count
+        return FirebaseDatabase.sharedInstance.reminderList.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Table view cells are reused and should be dequeued using a cell identifier.
@@ -39,11 +40,12 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         // Fetches the appropriate meal for the data source layout.
-        let reminder = reminders[indexPath.row]
+        let reminderData = FirebaseDatabase.sharedInstance.reminderList[indexPath.row]
         
-        var labelText = "Task: " + reminder + "\n"
+        var labelText = "Task: " + reminderData.description as String + "\n"
         labelText.append("Time: Today @ 15:00\n")
-        labelText.append("Set by: Me")
+        labelText.append("Set by: ")
+        labelText.append(reminderData.sender as String)
         
         cell.ReminderLabel.text = labelText
         //cell.backgroundColor = UIColor.lightGray
