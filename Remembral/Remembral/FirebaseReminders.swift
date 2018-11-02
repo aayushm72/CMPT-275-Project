@@ -34,13 +34,15 @@ class FirebaseDatabase: NSObject{
     let reminderRef = Database.database().reference(fromURL: "https://remembral-c17af.firebaseio.com/").root.child("reminders")
     let usersRef = Database.database().reference(fromURL: "https://remembral-c17af.firebaseio.com/").root.child("users")
     
-    var userObj = User()
+    var userObj: User!
     var reminderList = [Reminder]()
     
     override init()
     {
         super.init()
-        //self.UpdateFromFirebase(completionHandler: nil)
+        /*self.UpdateFromFirebase{
+            (isFinish) in print(isFinish)
+        }*/
         updateReminder {
             (dict) in
             FirebaseDatabase.sharedInstance.reminderList += dict
@@ -57,13 +59,12 @@ class FirebaseDatabase: NSObject{
         reminderRef.queryOrdered(byChild: "date").observe(.value, with: { (snapshot: DataSnapshot) in
             var asdf = [Reminder]()
             for snap in snapshot.children {
-                print((snap as! DataSnapshot).key, (snap as! DataSnapshot).value)
                 if let rData = (snap as! DataSnapshot).value as? [String:Any]{
                     let newR = Reminder(sender: rData["sender"] as! String,
                                         reciever: rData["reciever"] as! String,
                                         description: rData["description"] as! String,
                                         date: rData["date"] as! Int,
-                                        month: 1, //rData["month"] as! Int,
+                                        month: (rData["month"] ?? 1) as! Int,
                                         hour: rData["hour"] as! Int,
                                         minute: rData["minute"] as! Int,
                                         recurrence: rData["recurrence"] as! String,
@@ -116,26 +117,21 @@ class FirebaseDatabase: NSObject{
                       "caretakerPhNo": arg.caretakerPhNo]
         childRef.updateChildValues(values)
     }
-    typealias UpdateComplete = (Bool?) -> Void
-    func UpdateFromFirebase(completionHandler:@escaping UpdateComplete){
+
+    func UpdateFromFirebase(completion: ((Bool) -> Void)?){
         let userID = Auth.auth().currentUser?.uid
         let childRef = usersRef.child(userID!)
         childRef.observeSingleEvent(of: .value, with: { (snapshot) in
             let userDict = snapshot.value as! [String:String]
+            print(userDict)
+            self.userObj = User(name: userDict["name"],
+                                address: userDict["address"],
+                                phNo: userDict["phNo"],
+                                caretakerName: userDict["caretakerName"],
+                                caretakerPhNo: userDict["caretakerPhNo"]
+            )
             
-            self.userObj.name = userDict["name"] 
-            self.userObj.address = userDict["address"]
-            self.userObj.name = userDict["phNo"]
-            self.userObj.address = userDict["caretakerName"]
-            self.userObj.name = userDict["caretakerPhNO"]
-            
-            DispatchQueue.main.async() {
-                if userDict.isEmpty{
-                    completionHandler(true)
-                }else {
-                    completionHandler(nil)
-                }
-            }
+            completion? (true)
         })
     }
     

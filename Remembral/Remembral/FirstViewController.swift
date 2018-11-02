@@ -11,8 +11,8 @@
 import UIKit
 
 class FirstViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    var patientName:String = "John Doe"
-    var patientAddress:String = "123456789123 Street, Burnaby BC"
+    var patientName:String = ""
+    var patientAddress:String = ""
     var patientPhoneNumber:String = "123 456 7890"
     var caretakerName:String = "Jane Doe"
     var caretakerPhoneNumber:String = "987 654 3210"
@@ -20,10 +20,27 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
     let alertMessage = UIAlertController(title: "Message Sent", message: "Your caretaker has recieved your SOS call", preferredStyle: .alert)
     let dismissControl = UIControl()
     
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        patientName = FirebaseDatabase.sharedInstance.userObj.name
+        FirebaseDatabase.sharedInstance.UpdateFromFirebase {
+            (isFinish) in
+            self.patientName = FirebaseDatabase.sharedInstance.userObj.name
+            self.patientAddress = FirebaseDatabase.sharedInstance.userObj.address
+            self.patientPhoneNumber = FirebaseDatabase.sharedInstance.userObj.phNo
+            self.caretakerName = FirebaseDatabase.sharedInstance.userObj.caretakerName
+            self.caretakerPhoneNumber = FirebaseDatabase.sharedInstance.userObj.caretakerPhNo
+            
+            
+            self.reloadItems()
+            self.collectionView.reloadData()
+        }
+        
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    func reloadItems(){
+        items = ["My Name:", patientName, "My Address:", patientAddress, "My Phone Number:", patientPhoneNumber, "My Caretaker:", caretakerName, "My Caretaker's Phone Number:", caretakerPhoneNumber]
     }
     @IBAction func sendSOS(_ sender: UIButton) {
         self.present(alertMessage, animated: true, completion:{

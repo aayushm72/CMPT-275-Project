@@ -769,7 +769,6 @@
                                 <state key="normal" title="SOS"/>
                                 <connections>
                                     <action selector="sendSOS:" destination="iON-IL-qEb" eventType="touchUpInside" id="AYb-WL-iza"/>
-                                    <segue destination="IZ6-G7-khz" kind="show" id="fYS-p1-EMb"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -788,6 +787,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="tabBarItem:iww-AQ-gCL:image" id="iww-AQ-gCL"/>
                     <navigationItem key="navigationItem" id="XgJ-eZ-YS5"/>
+                    <connections>
+                        <outlet property="collectionView" destination="k7N-Be-erU" id="Hkj-0O-MKP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BdW-N6-RoI" sceneMemberID="firstResponder"/>
             </objects>
@@ -3012,4 +3014,8 @@ AQCHAAEAmQABAJwAAQChAAAAAAAABAEAAAAAAAAAbQAAAAAAAAAAAAAAAAABAKM
 </mutableData>
         </image>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="WKP-Pe-KsY"/>
+        <segue reference="FYI-iS-PmP"/>
+    </inferredMetricsTieBreakers>
 </document>
