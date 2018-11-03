@@ -74,12 +74,18 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         if (reminderData.status == true){
             cell.backgroundColor =  UIColor.lightGray
-            cell.doneButton.isHidden = true
-            cell.snoozeButton.isHidden = true
+            cell.doneButton?.isHidden = true
+            cell.snoozeButton?.isHidden = true
         } else {
             cell.backgroundColor = UIColor.white
-            cell.doneButton.isHidden = false
-            cell.snoozeButton.isHidden = false
+            cell.doneButton?.isHidden = false
+            cell.snoozeButton?.isHidden = false
+        }
+        
+        if (UserSelectorViewController.currentUserType == UserSelectorViewController.UserType.Caretaker){
+            cell.doneButton?.isHidden = true
+            cell.snoozeButton?.isHidden = true
+            
         }
         
         return cell

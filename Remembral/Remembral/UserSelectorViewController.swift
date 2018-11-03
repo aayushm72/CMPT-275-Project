@@ -13,6 +13,12 @@ import SwiftKeychainWrapper
 class UserSelectorViewController: UIViewController {
     
     var userUID: String!
+    enum UserType {
+        case Patient
+        case Caretaker
+    }
+    
+    static var currentUserType = UserType.Patient
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +36,9 @@ class UserSelectorViewController: UIViewController {
             }else {
                 self.createUser(email: email, password: password)
             }
+            UserSelectorViewController.currentUserType = UserType.Patient
             self.performSegue(withIdentifier: "segueToPatient", sender: self)
+            
         })
     }
     
@@ -46,6 +54,7 @@ class UserSelectorViewController: UIViewController {
             }else {
                 self.createUser(email: email, password: password)
             }
+            UserSelectorViewController.currentUserType = UserType.Caretaker
             self.performSegue(withIdentifier: "segueToCaretaker", sender: self)
         })
     }

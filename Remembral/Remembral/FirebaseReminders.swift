@@ -70,7 +70,15 @@ class FirebaseDatabase: NSObject{
         /*self.UpdateFromFirebase{
             (isFinish) in print(isFinish)
         }*/
-        updateReminders()
+        if (UserSelectorViewController.currentUserType == UserSelectorViewController.UserType.Caretaker){
+            grabPast24Hours{
+                (dict) in
+                FirebaseDatabase.sharedInstance.reminderList += dict
+            }
+        }
+        else {
+            updateReminders()
+        }
         
     }
     class var sharedInstance: FirebaseDatabase {
@@ -84,6 +92,32 @@ class FirebaseDatabase: NSObject{
             (dict) in
             FirebaseDatabase.sharedInstance.reminderList += dict
         }
+    }
+    func grabPast24Hours(completion:(([Reminder]) -> Void)?){
+        reminderList.removeAll()
+        let timeSpan = 60 * 60 * 24;
+        let todayDate = Int(Date().timeIntervalSince1970)
+        
+        reminderRef.queryOrdered(byChild: "date").queryStarting(atValue: todayDate - timeSpan).queryEnding( atValue: todayDate ).observe(.value, with: { (snapshot: DataSnapshot) in
+            var asdf = [Reminder]()
+            for snap in snapshot.children {
+                if let rData = (snap as! DataSnapshot).value as? [String:Any]{
+                    
+                    let newR = Reminder(sender: rData["sender"] as! String,
+                                        reciever: rData["reciever"] as! String,
+                                        description: rData["description"] as! String,
+                                        date: rData["date"] as! Double,
+                                        recurrence: rData["recurrence"] as! String,
+                                        status: rData["status"] as! Bool,
+                                        databaseKey: (snap as! DataSnapshot).key)
+                    if newR.status == true{
+                        continue;
+                    }
+                    asdf += [newR]
+                }
+            }
+            completion? (asdf)
+        })
     }
     func updateRemindersThen(completion:(([Reminder]) -> Void)?){
         reminderList.removeAll()
