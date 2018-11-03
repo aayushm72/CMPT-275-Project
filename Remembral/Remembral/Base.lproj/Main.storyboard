@@ -108,6 +108,7 @@
                                         <connections>
                                             <outlet property="DoneButton" destination="EUv-vU-FHb" id="JHG-q4-Zad"/>
                                             <outlet property="ReminderLabel" destination="fuR-YV-Dnx" id="D7H-09-gUS"/>
+                                            <outlet property="doneButton" destination="EUv-vU-FHb" id="yPy-Nu-ele"/>
                                             <outlet property="snoozeButton" destination="h3C-AY-Gbx" id="2Oo-Fk-2ae"/>
                                         </connections>
                                     </tableViewCell>
@@ -591,10 +592,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vO5-eK-Y2C">
-                                <rect key="frame" x="16" y="622" width="343" height="30"/>
+                                <rect key="frame" x="16" y="573" width="343" height="30"/>
                                 <state key="normal" title="Done"/>
                                 <connections>
-                                    <segue destination="iON-IL-qEb" kind="show" id="FYI-iS-PmP"/>
+                                    <segue destination="gdO-3q-TNe" kind="unwind" identifier="unwindToHome" unwindAction="UnwindSequeWithSegue:" id="ilZ-4v-fL1"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fJk-ch-wI8">
@@ -685,8 +686,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lVw-Lw-Myi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="gdO-3q-TNe" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="876" y="-1476.6116941529237"/>
+            <point key="canvasLocation" x="1686" y="-1486"/>
         </scene>
         <!--Home-->
         <scene sceneID="d1x-Pu-hH6">
@@ -697,7 +699,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="tnD-1P-AJW">
-                                <rect key="frame" x="55" y="202" width="264" height="400"/>
+                                <rect key="frame" x="55" y="153" width="264" height="400"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="k7N-Be-erU">
                                         <rect key="frame" x="0.0" y="0.0" width="264" height="400"/>
@@ -748,14 +750,14 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PO7-3N-LH9">
-                                <rect key="frame" x="142" y="572" width="90" height="30"/>
+                                <rect key="frame" x="142" y="523" width="90" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="KWE-72-LlO"/>
                                     <constraint firstAttribute="height" constant="30" id="ued-V9-px5"/>
                                 </constraints>
                                 <state key="normal" title="Edit"/>
                                 <connections>
-                                    <segue destination="2hn-rH-IHs" kind="show" id="WKP-Pe-KsY"/>
+                                    <segue destination="2hn-rH-IHs" kind="show" id="Ldz-JG-z9G"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DKp-pp-i4z">
@@ -3014,8 +3016,4 @@ AQCHAAEAmQABAJwAAQChAAAAAAAABAEAAAAAAAAAbQAAAAAAAAAAAAAAAAABAKM
 </mutableData>
         </image>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="WKP-Pe-KsY"/>
-        <segue reference="FYI-iS-PmP"/>
-    </inferredMetricsTieBreakers>
 </document>

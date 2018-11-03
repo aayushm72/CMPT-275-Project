@@ -19,6 +19,17 @@ struct Reminder {
     var minute: Int!
     var recurrence: String!
     var status = false
+    var databaseKey: String!
+    func getDay() -> Int!{
+        return date
+    }
+    func getHour() -> Int!{
+        return hour
+    }
+    func getMinute() -> Int!{
+        return minute
+    }
+    
 }
 
 struct User {
@@ -30,6 +41,7 @@ struct User {
 }
 
 class FirebaseDatabase: NSObject{
+    
     
     let reminderRef = Database.database().reference(fromURL: "https://remembral-c17af.firebaseio.com/").root.child("reminders")
     let usersRef = Database.database().reference(fromURL: "https://remembral-c17af.firebaseio.com/").root.child("users")
@@ -43,10 +55,7 @@ class FirebaseDatabase: NSObject{
         /*self.UpdateFromFirebase{
             (isFinish) in print(isFinish)
         }*/
-        updateReminder {
-            (dict) in
-            FirebaseDatabase.sharedInstance.reminderList += dict
-        }
+        updateReminders()
         
     }
     class var sharedInstance: FirebaseDatabase {
@@ -55,11 +64,19 @@ class FirebaseDatabase: NSObject{
         }
         return Static.instance
     }
-    func updateReminder(completion:(([Reminder]) -> Void)?){
+    func updateReminders(){
+        _updateReminder {
+            (dict) in
+            FirebaseDatabase.sharedInstance.reminderList += dict
+        }
+    }
+    func _updateReminder(completion:(([Reminder]) -> Void)?){
+        reminderList.removeAll()
         reminderRef.queryOrdered(byChild: "date").observe(.value, with: { (snapshot: DataSnapshot) in
             var asdf = [Reminder]()
             for snap in snapshot.children {
                 if let rData = (snap as! DataSnapshot).value as? [String:Any]{
+                    
                     let newR = Reminder(sender: rData["sender"] as! String,
                                         reciever: rData["reciever"] as! String,
                                         description: rData["description"] as! String,
@@ -68,12 +85,9 @@ class FirebaseDatabase: NSObject{
                                         hour: rData["hour"] as! Int,
                                         minute: rData["minute"] as! Int,
                                         recurrence: rData["recurrence"] as! String,
-                                        status: rData["status"] as! Bool )
+                                        status: rData["status"] as! Bool,
+                                        databaseKey: (snap as! DataSnapshot).key)
                    asdf += [newR]
-                    print("Add new element")
-                } else {
-                    print("Not add")
-                    
                 }
             }
             completion? (asdf)
@@ -123,7 +137,6 @@ class FirebaseDatabase: NSObject{
         let childRef = usersRef.child(userID!)
         childRef.observeSingleEvent(of: .value, with: { (snapshot) in
             let userDict = snapshot.value as! [String:String]
-            print(userDict)
             self.userObj = User(name: userDict["name"],
                                 address: userDict["address"],
                                 phNo: userDict["phNo"],

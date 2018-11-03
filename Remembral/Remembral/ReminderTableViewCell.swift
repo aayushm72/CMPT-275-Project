@@ -13,9 +13,17 @@ class ReminderTableViewCell: UITableViewCell {
     @IBOutlet weak var ReminderLabel: UILabel!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var snoozeButton: UIButton!
+    var reminderDBKey: String!
+    var delegate: ThirdViewController!
     
     @IBAction func onPressDone(_ sender: UIButton) {
-        
+        let ownRef = FirebaseDatabase.sharedInstance.reminderRef.child(reminderDBKey as String)
+        ownRef.updateChildValues(["status": true])
+        FirebaseDatabase.sharedInstance._updateReminder{
+            (isFinish) in self.delegate.tableView.reloadData()
+        }
+        doneButton.isHidden = true
+        snoozeButton.isHidden = true
     }
     
     @IBAction func onSnooze(_ sender: UIButton) {
