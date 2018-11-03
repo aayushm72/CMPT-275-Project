@@ -79,5 +79,19 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
     @objc func dismissAlert() {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
+    @IBAction func UnwindToHomeScreen(_ segue: UIStoryboardSegue) {
+        if let editPage = segue.source as? EditPersonalInfoViewController {
+            print(editPage.patientName.text!)
+            self.patientName = editPage.patientName.text!
+            self.patientAddress = editPage.patientAddress.text!
+            self.patientPhoneNumber = editPage.patientPhoneNumber.text!
+            self.caretakerName = editPage.caretakerName.text!
+            self.caretakerPhoneNumber = editPage.caretakerPhoneNumber.text!
+        }
+        reloadItems()
+        collectionView.reloadData()
+    }
 }
 
