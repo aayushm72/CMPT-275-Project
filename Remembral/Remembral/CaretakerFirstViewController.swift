@@ -6,4 +6,18 @@
 //  Copyright © 2018 Aayush Malhotra. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class CaretakerFirstViewController: ThirdViewController {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        FirebaseDatabase.sharedInstance.grabPast24Hours{
+                (dict) in
+                FirebaseDatabase.sharedInstance.reminderList += dict
+
+            self.tableView.reloadData()
+        }
+    }
+}
+
