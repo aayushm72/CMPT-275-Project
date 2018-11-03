@@ -57,4 +57,13 @@ class EditPersonalInfoViewController: UIViewController {
         self.view.endEditing(true)
     }
 
+    @IBAction func Done(_ sender: UIButton) {
+        user.name = patientName.text!
+        user.address = patientAddress.text!
+        user.phNo = patientPhoneNumber.text!
+        user.caretakerName = caretakerName.text!
+        user.caretakerPhNo = caretakerPhoneNumber.text!
+        FirebaseDatabase.sharedInstance.setUserData(arg: user)
+        performSegue(withIdentifier: "UnwindToHomeScreen", sender: self)
+    }
 }

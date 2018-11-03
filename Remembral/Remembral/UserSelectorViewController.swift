@@ -30,9 +30,10 @@ class UserSelectorViewController: UIViewController {
             }else {
                 self.createUser(email: email, password: password)
             }
+            self.performSegue(withIdentifier: "segueToPatient", sender: self)
         })
-        //FirebaseDatabase.sharedInstance
     }
+    
     
     @IBAction func onUserCaretaker(_ sender: Any) {
         let email = "caretaker@remembral.com"
@@ -45,6 +46,7 @@ class UserSelectorViewController: UIViewController {
             }else {
                 self.createUser(email: email, password: password)
             }
+            self.performSegue(withIdentifier: "segueToCaretaker", sender: self)
         })
     }
     
