@@ -11,26 +11,23 @@ import UIKit
 
 class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var reminders = [String]()
+    var reminders = [Reminder]()
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        createSampleReminders()
-        //print(FirebaseDatabase.sharedInstance.reminderList)
-        
     }
-    private func createSampleReminders(){
-        reminders += ["Example1", "Example2", "Example3"]
-    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1;
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return FirebaseDatabase.sharedInstance.reminderList.count
+        print(reminders.count)
+        return reminders.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Table view cells are reused and should be dequeued using a cell identifier.
         let cellIdentifier = "ReminderTableViewCell"
@@ -40,7 +37,7 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         // Fetches the appropriate meal for the data source layout.
-        let reminderData = FirebaseDatabase.sharedInstance.reminderList[indexPath.row]
+        let reminderData = reminders[indexPath.row]
         
         var labelText = "Task: " + reminderData.description as String + "\n"
         let dateToday = Date()
@@ -90,12 +87,19 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         return cell
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        FirebaseDatabase.sharedInstance.updateRemindersThen(completion: { (dict) in
+            self.reminders = dict
+            self.tableView.reloadData()
+        })
         tableView.reloadData()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        tableView.reloadData()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

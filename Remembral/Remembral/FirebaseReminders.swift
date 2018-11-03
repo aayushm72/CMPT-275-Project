@@ -102,7 +102,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     func updateReminders(){
         updateRemindersThen{
             (dict) in
-            FirebaseDatabase.sharedInstance.reminderList += dict
+            FirebaseDatabase.sharedInstance.reminderList = dict
         }
     }
     func grabPast24Hours(completion:(([Reminder]) -> Void)?){
