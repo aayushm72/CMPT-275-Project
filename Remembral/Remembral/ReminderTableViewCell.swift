@@ -19,7 +19,7 @@ class ReminderTableViewCell: UITableViewCell {
     @IBAction func onPressDone(_ sender: UIButton) {
         let ownRef = FirebaseDatabase.sharedInstance.reminderRef.child(reminderDBKey as String)
         ownRef.updateChildValues(["status": true])
-        FirebaseDatabase.sharedInstance._updateReminder{
+        FirebaseDatabase.sharedInstance.updateRemindersThen{
             (isFinish) in self.delegate.tableView.reloadData()
         }
         doneButton.isHidden = true

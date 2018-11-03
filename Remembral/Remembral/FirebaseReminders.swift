@@ -13,22 +13,37 @@ struct Reminder {
     var sender:String!
     var reciever:String!
     var description:String!
-    var date: Int!
-    var month: Int!
-    var hour: Int!
-    var minute: Int!
+    var date: Double! //Epoch time
     var recurrence: String!
     var status = false
     var databaseKey: String!
     func getDay() -> Int!{
-        return date
+        let nsDate = Date(timeIntervalSince1970: date)
+        let day = Calendar.current.dateComponents([.day], from: nsDate)
+        return Int(day.day ?? 0)
     }
     func getHour() -> Int!{
-        return hour
+        let nsDate = Date(timeIntervalSince1970: date)
+        let hour = Calendar.current.dateComponents([.hour], from: nsDate)
+        return Int(hour.hour ?? 0)
     }
     func getMinute() -> Int!{
-        return minute
+        let nsDate = Date(timeIntervalSince1970: date)
+        let minute = Calendar.current.dateComponents([.minute], from: nsDate)
+        return Int(minute.minute ?? 0)
     }
+    
+}
+
+extension Date {
+    
+    func getMonthName() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM"
+        let strMonth = dateFormatter.string(from: self)
+        return strMonth
+    }
+    
     
 }
 
@@ -65,12 +80,12 @@ class FirebaseDatabase: NSObject{
         return Static.instance
     }
     func updateReminders(){
-        _updateReminder {
+        updateRemindersThen{
             (dict) in
             FirebaseDatabase.sharedInstance.reminderList += dict
         }
     }
-    func _updateReminder(completion:(([Reminder]) -> Void)?){
+    func updateRemindersThen(completion:(([Reminder]) -> Void)?){
         reminderList.removeAll()
         reminderRef.queryOrdered(byChild: "date").observe(.value, with: { (snapshot: DataSnapshot) in
             var asdf = [Reminder]()
@@ -80,10 +95,7 @@ class FirebaseDatabase: NSObject{
                     let newR = Reminder(sender: rData["sender"] as! String,
                                         reciever: rData["reciever"] as! String,
                                         description: rData["description"] as! String,
-                                        date: rData["date"] as! Int,
-                                        month: (rData["month"] ?? 1) as! Int,
-                                        hour: rData["hour"] as! Int,
-                                        minute: rData["minute"] as! Int,
+                                        date: rData["date"] as! Double,
                                         recurrence: rData["recurrence"] as! String,
                                         status: rData["status"] as! Bool,
                                         databaseKey: (snap as! DataSnapshot).key)
@@ -113,10 +125,7 @@ class FirebaseDatabase: NSObject{
                                      "description": arg!.description as Any,
                                      "recurrence": arg!.recurrence as Any,
                                      "status": arg!.status,
-                                     "date": arg.date as Any,
-                                     "month": arg.month as Any,
-                                     "hour": arg.hour as Any,
-                                     "minute": arg.minute as Any]
+                                     "date": arg.date as Any]
         childRef.setValue(values)
     }
     
