@@ -110,7 +110,7 @@ class FirebaseDatabase: NSObject{
                                         recurrence: rData["recurrence"] as! String,
                                         status: rData["status"] as! Bool,
                                         databaseKey: (snap as! DataSnapshot).key)
-                    if newR.status == true{
+                    if newR.status {
                         continue;
                     }
                     asdf += [newR]
@@ -121,7 +121,10 @@ class FirebaseDatabase: NSObject{
     }
     func updateRemindersThen(completion:(([Reminder]) -> Void)?){
         reminderList.removeAll()
-        reminderRef.queryOrdered(byChild: "date").observe(.value, with: { (snapshot: DataSnapshot) in
+        let timeSpan = 60 * 60 * 24;
+        let todayDate = Int(Date().timeIntervalSince1970)
+        
+        reminderRef.queryOrdered(byChild: "date").queryStarting(atValue: todayDate - timeSpan).observe(.value, with: { (snapshot: DataSnapshot) in
             var asdf = [Reminder]()
             for snap in snapshot.children {
                 if let rData = (snap as! DataSnapshot).value as? [String:Any]{
@@ -133,6 +136,9 @@ class FirebaseDatabase: NSObject{
                                         recurrence: rData["recurrence"] as! String,
                                         status: rData["status"] as! Bool,
                                         databaseKey: (snap as! DataSnapshot).key)
+                    if (UserSelectorViewController.currentUserType == UserSelectorViewController.UserType.Patient && newR.status) {
+                            continue;
+                    }
                    asdf += [newR]
                 }
             }
