@@ -9,15 +9,48 @@
 
 import UIKit
 import Firebase
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }///will bring user to the reminder view controller of the app
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void)
+    {
+        if (response.actionIdentifier == UNNotificationDismissActionIdentifier){
+            let firebaseKey = response.notification.request.identifier
+            let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
+            let date = response.notification.date
+            reminderRef.updateChildValues(["status":false, "date": date])
+        }
+        else if response.actionIdentifier == choices.answer1.identifier{
+            let date = response.notification.date + 300
+            let firebaseKey = response.notification.request.identifier
+            let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
+            reminderRef.updateChildValues(["date": date,"status":false])
+        }
+        else
+        {
+            let firebaseKey = response.notification.request.identifier
+            let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
+            reminderRef.updateChildValues(["status":true])
+        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UNUserNotificationCenter.current().delegate = self//when this is un-commented notifications pop up properly
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            print("granted: (\(granted)")
+        }
+        
         FirebaseApp.configure()
         try! Auth.auth().signOut()
         Auth.auth().addStateDidChangeListener() { (auth, user) in
