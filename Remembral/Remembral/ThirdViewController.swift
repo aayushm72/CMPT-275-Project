@@ -59,9 +59,9 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
             labelText.append(String(reminderData.getDay()))
         }
         labelText.append(" @ ")
-        labelText.append(String(reminderData.getHour()))
+        labelText.append(String(format: "%2d", reminderData.getHour()))
         labelText.append(":")
-        labelText.append(String(reminderData.getMinute()))
+        labelText.append(String(format: "%02d", reminderData.getMinute()))
         labelText.append("\nSet by: ")
         labelText.append(reminderData.sender as String)
         labelText.append("\nStatus: " )
