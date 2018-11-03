@@ -13,9 +13,9 @@ import UIKit
 class FirstViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     var patientName:String = ""
     var patientAddress:String = ""
-    var patientPhoneNumber:String = "123 456 7890"
-    var caretakerName:String = "Jane Doe"
-    var caretakerPhoneNumber:String = "987 654 3210"
+    var patientPhoneNumber:String = ""
+    var caretakerName:String = ""
+    var caretakerPhoneNumber:String = ""
     lazy var items = ["My Name:", patientName, "My Address:", patientAddress, "My Phone Number:", patientPhoneNumber, "My Caretaker:", caretakerName, "My Caretaker's Phone Number:", caretakerPhoneNumber]
     let alertMessage = UIAlertController(title: "Message Sent", message: "Your caretaker has recieved your SOS call", preferredStyle: .alert)
     let dismissControl = UIControl()
@@ -78,6 +78,20 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     @objc func dismissAlert() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func UnwindToHomeScreen(_ segue: UIStoryboardSegue) {
+        if let editPage = segue.source as? EditPersonalInfoViewController {
+            print(editPage.patientName.text!)
+            self.patientName = editPage.patientName.text!
+            self.patientAddress = editPage.patientAddress.text!
+            self.patientPhoneNumber = editPage.patientPhoneNumber.text!
+            self.caretakerName = editPage.caretakerName.text!
+            self.caretakerPhoneNumber = editPage.caretakerPhoneNumber.text!
+        }
+        reloadItems()
+        collectionView.reloadData()
     }
 }
 

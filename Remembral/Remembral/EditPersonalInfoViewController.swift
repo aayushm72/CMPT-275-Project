@@ -20,6 +20,7 @@ class EditPersonalInfoViewController: UIViewController {
     var intitialPatientPhoneNumber:String = "PhoneNumber"
     var intitialCaretakerName:String = "CName"
     var intitialCaretakerPhoneNumber:String = "CPhoneNumber"
+    var user = User()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,17 +29,21 @@ class EditPersonalInfoViewController: UIViewController {
         patientPhoneNumber.text = intitialPatientPhoneNumber
         caretakerName.text = intitialCaretakerName
         caretakerPhoneNumber.text = intitialCaretakerPhoneNumber
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let FirstViewController = segue.destination as? FirstViewController {
+            user.name = patientName.text!
+            user.address = patientAddress.text!
+            user.phNo = patientPhoneNumber.text!
+            user.caretakerName = caretakerName.text!
+            user.caretakerPhNo = caretakerPhoneNumber.text!
+            FirebaseDatabase.sharedInstance.setUserData(arg: user)
+            
             FirstViewController.patientName = patientName.text!
             FirstViewController.patientAddress = patientAddress.text!
             FirstViewController.patientPhoneNumber = patientPhoneNumber.text!
@@ -52,4 +57,13 @@ class EditPersonalInfoViewController: UIViewController {
         self.view.endEditing(true)
     }
 
+    @IBAction func Done(_ sender: UIButton) {
+        user.name = patientName.text!
+        user.address = patientAddress.text!
+        user.phNo = patientPhoneNumber.text!
+        user.caretakerName = caretakerName.text!
+        user.caretakerPhNo = caretakerPhoneNumber.text!
+        FirebaseDatabase.sharedInstance.setUserData(arg: user)
+        performSegue(withIdentifier: "UnwindToHomeScreen", sender: self)
+    }
 }
