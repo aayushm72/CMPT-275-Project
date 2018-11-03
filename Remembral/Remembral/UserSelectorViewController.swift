@@ -55,6 +55,7 @@ class UserSelectorViewController: UIViewController {
                 self.createUser(email: email, password: password)
             }
             UserSelectorViewController.currentUserType = UserType.Caretaker
+            FirebaseDatabase.sharedInstance.UpdateFromFirebase(completion: nil)
             self.performSegue(withIdentifier: "segueToCaretaker", sender: self)
         })
     }
