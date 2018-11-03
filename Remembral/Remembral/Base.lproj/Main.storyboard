@@ -494,7 +494,6 @@
                                 </state>
                                 <connections>
                                     <action selector="onUserPtient:" destination="pCz-MC-EKN" eventType="touchUpInside" id="qLw-td-Hgo"/>
-                                    <segue destination="49e-Tb-3d3" kind="show" id="FXv-fh-NWL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAc-ZO-9cw">
@@ -508,7 +507,6 @@
                                 </state>
                                 <connections>
                                     <action selector="onUserCaretaker:" destination="pCz-MC-EKN" eventType="touchUpInside" id="XY8-jw-DWG"/>
-                                    <segue destination="cjB-6a-dXc" kind="show" id="Pdu-8D-vN9"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -523,6 +521,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IUa-Vl-Yry"/>
                     </view>
+                    <connections>
+                        <segue destination="49e-Tb-3d3" kind="show" identifier="segueToPatient" id="qcd-vR-tqf"/>
+                        <segue destination="cjB-6a-dXc" kind="show" identifier="segueToCaretaker" id="Yc8-h4-o2H"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zmH-Qq-7lS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
