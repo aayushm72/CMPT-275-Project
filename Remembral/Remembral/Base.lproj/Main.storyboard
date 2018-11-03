@@ -108,6 +108,7 @@
                                         <connections>
                                             <outlet property="DoneButton" destination="EUv-vU-FHb" id="JHG-q4-Zad"/>
                                             <outlet property="ReminderLabel" destination="fuR-YV-Dnx" id="D7H-09-gUS"/>
+                                            <outlet property="doneButton" destination="EUv-vU-FHb" id="yPy-Nu-ele"/>
                                             <outlet property="snoozeButton" destination="h3C-AY-Gbx" id="2Oo-Fk-2ae"/>
                                         </connections>
                                     </tableViewCell>
@@ -669,7 +670,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lVw-Lw-Myi" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="0S3-GR-VtS" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="876" y="-1476.6116941529237"/>
+            <point key="canvasLocation" x="1686" y="-1486"/>
         </scene>
         <!--Home-->
         <scene sceneID="d1x-Pu-hH6">
@@ -738,7 +739,7 @@
                                 </constraints>
                                 <state key="normal" title="Edit"/>
                                 <connections>
-                                    <segue destination="2hn-rH-IHs" kind="show" id="WKP-Pe-KsY"/>
+                                    <segue destination="2hn-rH-IHs" kind="show" id="Ldz-JG-z9G"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DKp-pp-i4z">

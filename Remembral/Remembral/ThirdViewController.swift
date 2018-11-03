@@ -19,7 +19,7 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         createSampleReminders()
-        print(FirebaseDatabase.sharedInstance.reminderList)
+        //print(FirebaseDatabase.sharedInstance.reminderList)
         
     }
     private func createSampleReminders(){
@@ -43,12 +43,44 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         let reminderData = FirebaseDatabase.sharedInstance.reminderList[indexPath.row]
         
         var labelText = "Task: " + reminderData.description as String + "\n"
-        labelText.append("Time: Today @ 15:00\n")
-        labelText.append("Set by: ")
+        let dateToday = Date()
+        let dayOfToday = Calendar.current.dateComponents([.day], from: dateToday).day
+        
+        labelText.append("Time: ")
+        if dayOfToday == reminderData.getDay() {
+            labelText.append("Today")
+        }
+        else if dayOfToday == reminderData.getDay() - 1{
+            labelText.append("Tomorrow")
+        }
+        else {
+            let otherDate = Date(timeIntervalSince1970: reminderData.date)
+            labelText.append(otherDate.getMonthName() + " ")
+            labelText.append(String(reminderData.getDay()))
+        }
+        labelText.append(" @ ")
+        labelText.append(String(reminderData.getHour()))
+        labelText.append(":")
+        labelText.append(String(reminderData.getMinute()))
+        labelText.append("\nSet by: ")
         labelText.append(reminderData.sender as String)
+        labelText.append("\nStatus: " )
+        
+        labelText.append(reminderData.status ? "Complete" : "NotComplete")
         
         cell.ReminderLabel.text = labelText
-        //cell.backgroundColor = UIColor.lightGray
+        cell.reminderDBKey = reminderData.databaseKey
+        cell.delegate = self
+        
+        if (reminderData.status == true){
+            cell.backgroundColor =  UIColor.lightGray
+            cell.doneButton.isHidden = true
+            cell.snoozeButton.isHidden = true
+        } else {
+            cell.backgroundColor = UIColor.white
+            cell.doneButton.isHidden = false
+            cell.snoozeButton.isHidden = false
+        }
         
         return cell
     }
