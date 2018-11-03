@@ -14,7 +14,7 @@ class CaretakerThirdViewController: ThirdViewController {
         super.viewWillAppear(animated)
         FirebaseDatabase.sharedInstance.updateRemindersThen {
             (dict) in
-            FirebaseDatabase.sharedInstance.reminderList += dict
+            self.reminders = dict
             self.tableView.reloadData()
         }
     }

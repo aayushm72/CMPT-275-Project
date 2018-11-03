@@ -14,8 +14,7 @@ class CaretakerFirstViewController: ThirdViewController {
         super.viewWillAppear(animated)
         FirebaseDatabase.sharedInstance.grabPast24Hours{
                 (dict) in
-                FirebaseDatabase.sharedInstance.reminderList += dict
-
+            self.reminders = dict
             self.tableView.reloadData()
         }
     }
