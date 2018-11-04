@@ -17,6 +17,7 @@
 		24B447F321559D4F002E4425 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24B447F121559D4F002E4425 /* LaunchScreen.storyboard */; };
 		24F8EBB32187ADDA0069EA00 /* UserSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */; };
 		4E3D9281892FECD53164A29F /* Pods_Remembral.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */; };
+		7D5A44B5218E7A0D00CD61FA /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5A44B4218E7A0D00CD61FA /* MessagesViewController.swift */; };
 		C48F09D3218BF54600CEB128 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48F09D2218BF54500CEB128 /* CollectionViewCell.swift */; };
 		C48F09D5218BF59200CEB128 /* EditPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48F09D4218BF59200CEB128 /* EditPersonalInfoViewController.swift */; };
 		FB196335218D53A0003C604E /* CaretakerThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB196334218D53A0003C604E /* CaretakerThirdViewController.swift */; };
@@ -64,6 +65,7 @@
 		24B447F421559D4F002E4425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSelectorViewController.swift; sourceTree = "<group>"; };
 		54567D690C3D2D53F6CAACF8 /* Pods-Remembral.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remembral.release.xcconfig"; path = "Pods/Target Support Files/Pods-Remembral/Pods-Remembral.release.xcconfig"; sourceTree = "<group>"; };
+		7D5A44B4218E7A0D00CD61FA /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Remembral.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C48F09D2218BF54500CEB128 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		C48F09D4218BF59200CEB128 /* EditPersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPersonalInfoViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				C48F09D4218BF59200CEB128 /* EditPersonalInfoViewController.swift */,
 				C48F09D2218BF54500CEB128 /* CollectionViewCell.swift */,
 				24A0250B2183C96D007F91A3 /* GoogleService-Info.plist */,
+				7D5A44B4218E7A0D00CD61FA /* MessagesViewController.swift */,
 			);
 			path = Remembral;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D5A44B5218E7A0D00CD61FA /* MessagesViewController.swift in Sources */,
 				C48F09D3218BF54600CEB128 /* CollectionViewCell.swift in Sources */,
 				24B447EB21559D4F002E4425 /* SecondViewController.swift in Sources */,
 				24B447E721559D4F002E4425 /* AppDelegate.swift in Sources */,

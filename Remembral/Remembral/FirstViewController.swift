@@ -10,6 +10,7 @@
 
 import UIKit
 import UserNotifications
+import MessageUI
 
 struct choices {
     static let answer1 = UNNotificationAction(identifier: "answer1", title: "Snooze" , options: UNNotificationActionOptions.foreground)
@@ -17,7 +18,7 @@ struct choices {
     static let answer2 = UNNotificationAction(identifier: "answer2", title: "Done" , options: UNNotificationActionOptions.foreground)
 }
 
-class FirstViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class FirstViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MFMessageComposeViewControllerDelegate {
     var patientName:String = ""
     var patientAddress:String = ""
     var patientPhoneNumber:String = ""
@@ -43,55 +44,34 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
             self.reloadItems()
             self.collectionView.reloadData()
         }
-       /* let category = UNNotificationCategory(identifier: "myCategory", actions: [choices.answer1, choices.answer2], intentIdentifiers: [], options: [])
-        UNUserNotificationCenter.current().setNotificationCategories([category])
-        let content = UNMutableNotificationContent()
-        
-        
-        ///should be puled from one of the list arrays list[indexPath.row]
-        content.title = "Title"
-        content.categoryIdentifier = "myCategory"
-        content.body = "Body"///should be puled from one of the list arrays
-        content.sound = UNNotificationSound.default()
-        
-        var dateComponents = DateComponents()
-        dateComponents.day = 3
-        dateComponents.month  = 11
-        dateComponents.hour = 14 /// pulled from
-        dateComponents.minute = 25
-        
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)///This should be a calendar notification
-        
-        let request = UNNotificationRequest(identifier: "testID", content: content, trigger: trigger)
-        
-        //UNUserNotificationCenter.current().delegate = (self as! UNUserNotificationCenterDelegate)//with this un-commented the choices work
-        
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)*/
-        // Do any additional setup after loading the view, typically from a nib.
+     
     }
-    
-   /* func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void)
-    {
-        if response.actionIdentifier == "answer1"
-        {
-            print("CORRECT")//where
-            
-        }
-        else
-        {
-            print("false")
-        }
-    }*/
-    
+
     func reloadItems(){
         items = ["My Name:", patientName, "My Address:", patientAddress, "My Phone Number:", patientPhoneNumber, "My Caretaker:", caretakerName, "My Caretaker's Phone Number:", caretakerPhoneNumber]
     }
     @IBAction func sendSOS(_ sender: UIButton) {
+        
+        print(MFMessageComposeViewController.canSendText())
+        if (MFMessageComposeViewController.canSendText()){
+            
+        
+            let msgVC = MFMessageComposeViewController()
+        
+            msgVC.body = "SOS"
+            msgVC.recipients = [FirebaseDatabase.sharedInstance.userObj.caretakerPhNo]
+            msgVC.messageComposeDelegate = self
+        
+            self.present(msgVC, animated: true, completion: nil)
+        
         self.present(alertMessage, animated: true, completion:{
             self.alertMessage.view.superview?.isUserInteractionEnabled = true
             self.alertMessage.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissAlert)))
         })
+        }
+    }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
     }
     
     override func didReceiveMemoryWarning() {
