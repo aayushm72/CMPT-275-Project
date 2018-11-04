@@ -25,14 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         if (response.actionIdentifier == UNNotificationDismissActionIdentifier){
             let firebaseKey = response.notification.request.identifier
             let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
-            let date = response.notification.date
+            let date = response.notification.date.timeIntervalSince1970
             reminderRef.updateChildValues(["status":false, "date": date])
         }
         else if response.actionIdentifier == choices.answer1.identifier{
-            let date = response.notification.date + 300
+            let date = response.notification.date.timeIntervalSince1970 + 300
             let firebaseKey = response.notification.request.identifier
             let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
-            reminderRef.updateChildValues(["date": date,"status":false])
+            let values:[String: Any] = ["date": date as Any,
+                                        "status": false as Any]
+            reminderRef.updateChildValues(values)
         }
         else
         {
