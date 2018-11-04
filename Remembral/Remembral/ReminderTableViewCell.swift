@@ -35,6 +35,8 @@ class ReminderTableViewCell: UITableViewCell {
         // Initialization code
         //Add code to check if current time is close to sceduled time, allowing the user to press "Done early"
         //Snooze is only enabled when Reminder has been triggered.
+      
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -9,8 +9,16 @@
 
 
 import UIKit
+import UserNotifications
+import MessageUI
 
-class FirstViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+struct choices {
+    static let answer1 = UNNotificationAction(identifier: "answer1", title: "Snooze" , options: UNNotificationActionOptions.foreground)
+    
+    static let answer2 = UNNotificationAction(identifier: "answer2", title: "Done" , options: UNNotificationActionOptions.foreground)
+}
+
+class FirstViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MFMessageComposeViewControllerDelegate {
     var patientName:String = ""
     var patientAddress:String = ""
     var patientPhoneNumber:String = ""
@@ -36,17 +44,34 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
             self.reloadItems()
             self.collectionView.reloadData()
         }
-        
-        // Do any additional setup after loading the view, typically from a nib.
+     
     }
+
     func reloadItems(){
         items = ["My Name:", patientName, "My Address:", patientAddress, "My Phone Number:", patientPhoneNumber, "My Caretaker:", caretakerName, "My Caretaker's Phone Number:", caretakerPhoneNumber]
     }
     @IBAction func sendSOS(_ sender: UIButton) {
+        
+        print(MFMessageComposeViewController.canSendText())
+        if (MFMessageComposeViewController.canSendText()){
+            
+        
+            let msgVC = MFMessageComposeViewController()
+        
+            msgVC.body = "SOS"
+            msgVC.recipients = [FirebaseDatabase.sharedInstance.userObj.caretakerPhNo]
+            msgVC.messageComposeDelegate = self
+        
+            self.present(msgVC, animated: true, completion: nil)
+        
         self.present(alertMessage, animated: true, completion:{
             self.alertMessage.view.superview?.isUserInteractionEnabled = true
             self.alertMessage.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissAlert)))
         })
+        }
+    }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
     }
     
     override func didReceiveMemoryWarning() {

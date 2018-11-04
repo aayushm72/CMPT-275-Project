@@ -13,6 +13,7 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var reminders = [Reminder]()
     
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -24,7 +25,6 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(reminders.count)
         return reminders.count
     }
     
@@ -44,6 +44,7 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         let dayOfToday = Calendar.current.dateComponents([.day], from: dateToday).day
         
         labelText.append("Time: ")
+        
         if dayOfToday == reminderData.getDay() {
             labelText.append("Today")
         }
@@ -51,8 +52,8 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
             labelText.append("Tomorrow")
         }
         else {
-            let otherDate = Date(timeIntervalSince1970: reminderData.date)
-            labelText.append(otherDate.getMonthName() + " ")
+            let reminderDate = reminderData.getDateOf()
+            labelText.append(reminderDate.getMonthName() + " ")
             labelText.append(String(reminderData.getDay()))
         }
         labelText.append(" @ ")
@@ -69,20 +70,18 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.reminderDBKey = reminderData.databaseKey
         cell.delegate = self
         
+        cell.snoozeButton?.isHidden = true
+        
         if (reminderData.status == true){
             cell.backgroundColor =  UIColor.lightGray
             cell.doneButton?.isHidden = true
-            cell.snoozeButton?.isHidden = true
         } else {
             cell.backgroundColor = UIColor.white
             cell.doneButton?.isHidden = false
-            cell.snoozeButton?.isHidden = false
         }
         
         if (UserSelectorViewController.currentUserType == UserSelectorViewController.UserType.Caretaker){
             cell.doneButton?.isHidden = true
-            cell.snoozeButton?.isHidden = true
-            
         }
         
         return cell
@@ -94,7 +93,6 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.reminders = dict
             self.tableView.reloadData()
         })
-        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {

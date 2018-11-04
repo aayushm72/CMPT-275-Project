@@ -9,12 +9,13 @@
 import UIKit
 
 class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-    @IBOutlet weak var taskAsignee: UITextField!
+    @IBOutlet weak var taskAssignee: UITextField!
     @IBOutlet weak var taskDescription: UITextField!
     @IBOutlet weak var taskDateTime: UIDatePicker!
     @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var taskAssigneeLabel: UILabel!
     
-    let dataValues = ["No Recurrence", "Weekly", "Monthly"]
+    let dataValues = ["No Recurrence", "Daily", "Weekly", "Monthly"]
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -33,12 +34,15 @@ class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPic
         // Do any additional setup after loading the view, typically from a nib.
         let date = Date()
         taskDateTime.minimumDate = date
+        taskAssignee?.isHidden = true
+        taskAssigneeLabel?.isHidden = true
+        
     }
     
     @IBAction func onSubmit(_ sender: Any) {
         var reminder = Reminder()
         reminder.sender = FirebaseDatabase.sharedInstance.userObj.name
-        reminder.reciever = taskAsignee.text
+        reminder.reciever = taskAssignee.text
         reminder.description = taskDescription.text
         reminder.date = taskDateTime.date.timeIntervalSince1970
         reminder.recurrence = dataValues[pickerView.selectedRow(inComponent: 0)]
@@ -48,6 +52,10 @@ class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPic
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    override func touchesBegan(_ touches: Set<UITouch>,
+                               with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     
