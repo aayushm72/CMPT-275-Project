@@ -369,7 +369,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="ZrA-dN-Fsl" kind="relationship" relationship="viewControllers" id="cLZ-LM-DM0"/>
-                        <segue destination="Lck-i3-Ega" kind="relationship" relationship="viewControllers" id="IqD-3d-Dhs"/>
                         <segue destination="ujg-1U-BSV" kind="relationship" relationship="viewControllers" id="fww-hQ-zlU"/>
                     </connections>
                 </tabBarController>
@@ -510,7 +509,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="gis-0v-CHB" kind="relationship" relationship="viewControllers" id="5vd-Nm-TUk"/>
-                        <segue destination="cgV-Im-MMX" kind="relationship" relationship="viewControllers" id="oMH-JK-ZwB"/>
                         <segue destination="h6A-ms-bA8" kind="relationship" relationship="viewControllers" id="Bal-jJ-7XK"/>
                     </connections>
                 </tabBarController>
@@ -642,21 +640,6 @@
                 <exit id="0S3-GR-VtS" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1686" y="-1486"/>
-        </scene>
-        <!--Messages View Controller-->
-        <scene sceneID="cLK-ZZ-dR2">
-            <objects>
-                <viewController id="1Se-iB-o7i" customClass="MessagesViewController" customModule="Remembral" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="JDf-hX-ZWM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="lYu-Y1-6DI"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vfo-XY-cTt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="495" y="-1706"/>
         </scene>
         <!--Home-->
         <scene sceneID="d1x-Pu-hH6">
