@@ -289,7 +289,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                                         "status": false as Any]
             reminderRef.updateChildValues(values)
         }
-        else
+        else if response.actionIdentifier == choices.answer2.identifier
         {
             let firebaseKey = response.notification.request.identifier
             let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
