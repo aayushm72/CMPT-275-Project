@@ -33,6 +33,9 @@ struct Reminder {
         let minute = Calendar.current.dateComponents([.minute], from: nsDate)
         return Int(minute.minute ?? 0)
     }
+    func getDateOf() -> Date{
+        return Date(timeIntervalSince1970: date)
+    }
     func getMonth() -> Int!{
         let nsDate = Date(timeIntervalSince1970: date)
         let month = Calendar.current.dateComponents([.month], from: nsDate)
@@ -81,15 +84,9 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         /*self.UpdateFromFirebase{
             (isFinish) in print(isFinish)
         }*/
-        if (UserSelectorViewController.currentUserType == UserSelectorViewController.UserType.Caretaker){
-            grabPast24Hours{
-                (dict) in
-                FirebaseDatabase.sharedInstance.reminderList += dict
-            }
-        }
-        else {
+
+        if (UserSelectorViewController.currentUserType == .Patient){
             initializeReminderNotificaions()
-            updateReminders()
         }
         
     }
@@ -105,13 +102,13 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
             FirebaseDatabase.sharedInstance.reminderList = dict
         }
     }
-    func grabPast24Hours(completion:(([Reminder]) -> Void)?){
+    func grabPast24Hours(withStatus: Bool = true, completion:(([Reminder]) -> Void)?){
         reminderList.removeAll()
         let timeSpan = 60 * 60 * 24;
         let todayDate = Int(Date().timeIntervalSince1970)
         
         reminderRef.queryOrdered(byChild: "date").queryStarting(atValue: todayDate - timeSpan).queryEnding( atValue: todayDate ).observe(.value, with: { (snapshot: DataSnapshot) in
-            var asdf = [Reminder]()
+            var newListReminders = [Reminder]()
             for snap in snapshot.children {
                 if let rData = (snap as! DataSnapshot).value as? [String:Any]{
                     
@@ -122,13 +119,13 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                                         recurrence: rData["recurrence"] as! String,
                                         status: rData["status"] as! Bool,
                                         databaseKey: (snap as! DataSnapshot).key)
-                    if newR.status == true{
+                    if newR.status == withStatus{
                         continue;
                     }
-                    asdf += [newR]
+                    newListReminders += [newR]
                 }
             }
-            completion? (asdf)
+            completion? (newListReminders)
         })
     }
     func updateRemindersThen(completion:(([Reminder]) -> Void)?){

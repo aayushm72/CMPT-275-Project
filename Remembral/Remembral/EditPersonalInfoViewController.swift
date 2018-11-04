@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditPersonalInfoViewController: UIViewController {
+class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var patientName: UITextField!
     @IBOutlet weak var patientAddress: UITextField!
     @IBOutlet weak var patientPhoneNumber: UITextField!
@@ -29,6 +29,13 @@ class EditPersonalInfoViewController: UIViewController {
         patientPhoneNumber.text = intitialPatientPhoneNumber
         caretakerName.text = intitialCaretakerName
         caretakerPhoneNumber.text = intitialCaretakerPhoneNumber
+        
+        
+        patientName.delegate = self
+        patientAddress.delegate = self
+        patientPhoneNumber.delegate = self
+        caretakerName.delegate = self
+        caretakerPhoneNumber.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,6 +62,10 @@ class EditPersonalInfoViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>,
                                with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 
     @IBAction func Done(_ sender: UIButton) {

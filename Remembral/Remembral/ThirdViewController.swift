@@ -43,6 +43,7 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         let dayOfToday = Calendar.current.dateComponents([.day], from: dateToday).day
         
         labelText.append("Time: ")
+        
         if dayOfToday == reminderData.getDay() {
             labelText.append("Today")
         }
@@ -50,8 +51,8 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
             labelText.append("Tomorrow")
         }
         else {
-            let otherDate = Date(timeIntervalSince1970: reminderData.date)
-            labelText.append(otherDate.getMonthName() + " ")
+            let reminderDate = reminderData.getDateOf()
+            labelText.append(reminderDate.getMonthName() + " ")
             labelText.append(String(reminderData.getDay()))
         }
         labelText.append(" @ ")
@@ -93,7 +94,6 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.reminders = dict
             self.tableView.reloadData()
         })
-        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
