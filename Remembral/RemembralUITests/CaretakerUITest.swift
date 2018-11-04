@@ -28,9 +28,23 @@ class CaretakerUITest: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testCaretaker() {
+        let app = XCUIApplication()
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let exists = NSPredicate(format: "exists == true")
+        let loadCaretakerButton = app.buttons["Caretaker"]
+        let buttonExpectation = expectation(for: exists, evaluatedWith: loadCaretakerButton, handler: nil)
+        let result = XCTWaiter().wait(for: [buttonExpectation], timeout: 10)
+        assert(result == .completed)
+        
+        loadCaretakerButton.tap()
     }
     
+    func testThirdViewAccess(){
+        let app = XCUIApplication()
+        app.buttons["Caretaker"].tap()
+        app.tabBars.buttons["Reminders"].tap()
+        app.buttons["+ Add Reminder"].tap()
+    }
 }

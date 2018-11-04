@@ -25,11 +25,11 @@
 		FB1B9AA9218E523F00D8A0B7 /* RemembralTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B9AA8218E523F00D8A0B7 /* RemembralTests.swift */; };
 		FB1B9AB1218E53E600D8A0B7 /* ReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B9AB0218E53E600D8A0B7 /* ReminderTests.swift */; };
 		FB1B9ABB218E589A00D8A0B7 /* RemembralUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B9ABA218E589A00D8A0B7 /* RemembralUITests.swift */; };
-		FB1B9AC3218E58AA00D8A0B7 /* UserSelectorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B9AC2218E58AA00D8A0B7 /* UserSelectorTest.swift */; };
 		FB62D136217910D80048D9EA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62D135217910D80048D9EA /* MapViewController.swift */; };
 		FB651A5D218A73D4004A9B61 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */; };
 		FB8D2B7A218A8186001B81D3 /* PatientTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8D2B79218A8186001B81D3 /* PatientTabBarViewController.swift */; };
 		FBFE7BD3218E5FD300177BA1 /* PatientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFE7BD2218E5FD300177BA1 /* PatientUITests.swift */; };
+		FBFE7BD5218E8CC000177BA1 /* CaretakerUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFE7BD4218E8CC000177BA1 /* CaretakerUITest.swift */; };
 		FF557EE32186B80900644DEF /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557EE22186B80900644DEF /* ThirdViewController.swift */; };
 		FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */; };
 /* End PBXBuildFile section */
@@ -78,11 +78,11 @@
 		FB1B9AB8218E589A00D8A0B7 /* RemembralUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemembralUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB1B9ABA218E589A00D8A0B7 /* RemembralUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemembralUITests.swift; sourceTree = "<group>"; };
 		FB1B9ABC218E589A00D8A0B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FB1B9AC2218E58AA00D8A0B7 /* UserSelectorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSelectorTest.swift; sourceTree = "<group>"; };
 		FB62D135217910D80048D9EA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
 		FB8D2B79218A8186001B81D3 /* PatientTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientTabBarViewController.swift; sourceTree = "<group>"; };
 		FBFE7BD2218E5FD300177BA1 /* PatientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientUITests.swift; sourceTree = "<group>"; };
+		FBFE7BD4218E8CC000177BA1 /* CaretakerUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerUITest.swift; sourceTree = "<group>"; };
 		FF557EE22186B80900644DEF /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,8 +192,8 @@
 		FB1B9AB9218E589A00D8A0B7 /* RemembralUITests */ = {
 			isa = PBXGroup;
 			children = (
+				FBFE7BD4218E8CC000177BA1 /* CaretakerUITest.swift */,
 				FBFE7BD2218E5FD300177BA1 /* PatientUITests.swift */,
-				FB1B9AC2218E58AA00D8A0B7 /* UserSelectorTest.swift */,
 				FB1B9ABA218E589A00D8A0B7 /* RemembralUITests.swift */,
 				FB1B9ABC218E589A00D8A0B7 /* Info.plist */,
 			);
@@ -437,9 +437,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBFE7BD5218E8CC000177BA1 /* CaretakerUITest.swift in Sources */,
 				FBFE7BD3218E5FD300177BA1 /* PatientUITests.swift in Sources */,
 				FB1B9ABB218E589A00D8A0B7 /* RemembralUITests.swift in Sources */,
-				FB1B9AC3218E58AA00D8A0B7 /* UserSelectorTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

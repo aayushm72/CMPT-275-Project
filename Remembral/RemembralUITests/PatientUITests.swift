@@ -29,6 +29,19 @@ class PatientUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+    func testPatientLogin() {
+        let app = XCUIApplication()
+        // Use recording to get started writing UI tests.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let exists = NSPredicate(format: "exists == true")
+        let loadPatientButton = app.buttons["Patient"]
+        let buttonExpectation = expectation(for: exists, evaluatedWith: loadPatientButton, handler: nil)
+        let result = XCTWaiter().wait(for: [buttonExpectation], timeout: 10)
+        assert(result == .completed)
+        
+        loadPatientButton.tap()
+        
+    }
     
     func testModifyUserFields() {
         let app = XCUIApplication()
@@ -54,6 +67,14 @@ class PatientUITests: XCTestCase {
         XCTAssertNotNil(app.cells[newName]) //New name has been set correctly
         
     }
+    
+    func testThirdViewAccess(){
+        let app = XCUIApplication()
+        app.buttons["Caretaker"].tap()
+        app.tabBars.buttons["Reminders"].tap()
+        app.buttons["+ Add Reminder"].tap()
+    }
+    
     func randomString(length: Int) -> String {
         
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
