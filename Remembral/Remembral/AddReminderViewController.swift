@@ -14,7 +14,7 @@ class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPic
     @IBOutlet weak var taskDateTime: UIDatePicker!
     @IBOutlet weak var pickerView: UIPickerView!
     
-    let dataValues = ["No Recurrence", "Weekly", "Monthly"]
+    let dataValues = ["No Recurrence", "Daily", "Weekly", "Monthly"]
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

@@ -40,7 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         {
             let firebaseKey = response.notification.request.identifier
             let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
-            reminderRef.updateChildValues(["status":true])
+            let date = response.notification.date.timeIntervalSince1970
+            reminderRef.updateChildValues(["status":true, "date": date])
         }
     }
 
