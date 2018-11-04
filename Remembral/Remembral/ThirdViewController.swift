@@ -13,6 +13,7 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var reminders = [Reminder]()
     
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -69,20 +70,18 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.reminderDBKey = reminderData.databaseKey
         cell.delegate = self
         
+        cell.snoozeButton?.isHidden = true
+        
         if (reminderData.status == true){
             cell.backgroundColor =  UIColor.lightGray
             cell.doneButton?.isHidden = true
-            cell.snoozeButton?.isHidden = true
         } else {
             cell.backgroundColor = UIColor.white
             cell.doneButton?.isHidden = false
-            cell.snoozeButton?.isHidden = false
         }
         
         if (UserSelectorViewController.currentUserType == UserSelectorViewController.UserType.Caretaker){
             cell.doneButton?.isHidden = true
-            cell.snoozeButton?.isHidden = true
-            
         }
         
         return cell
