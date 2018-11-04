@@ -1,5 +1,5 @@
 //
-//  UITests.swift
+//  CaretakerUITest.swift
 //  RemembralUITests
 //
 //  Created by Alwin Leong on 11/3/18.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class UserSelectorUITest: XCTestCase {
+class CaretakerUITest: XCTestCase {
         
     override func setUp() {
         super.setUp()
@@ -28,36 +28,9 @@ class UserSelectorUITest: XCTestCase {
         super.tearDown()
     }
     
-    func testPatient() {
-        let app = XCUIApplication()
+    func testExample() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let exists = NSPredicate(format: "exists == true")
-        let loadPatientButton = app.buttons["Patient"]
-        let buttonExpectation = expectation(for: exists, evaluatedWith: loadPatientButton, handler: nil)
-        let result = XCTWaiter().wait(for: [buttonExpectation], timeout: 10)
-        assert(result == .completed)
-        
-        loadPatientButton.tap()
-
     }
-    
-    func testCaretaker() {
-        let app = XCUIApplication()
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let exists = NSPredicate(format: "exists == true")
-        let loadCaretakerButton = app.buttons["Caretaker"]
-        let buttonExpectation = expectation(for: exists, evaluatedWith: loadCaretakerButton, handler: nil)
-        let result = XCTWaiter().wait(for: [buttonExpectation], timeout: 10)
-        assert(result == .completed)
-        
-        loadCaretakerButton.tap()
-        
-        
-        
-        
-    }
-    
     
 }
