@@ -1,16 +1,20 @@
 //
-//  SecondViewController.swift
+//  ContactsViewController.swift
 //  Remembral
 //
-//  Created by Aayush Malhotra on 9/21/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//Team: Group 2
+//  Created: Aayush Malhotra on 11/1/18.
+//  Edited:
 //
-// ******For Contacts Page
-// Placeholder
+// *Contacts Page
+//  Will be used in Version 3
+//  Known bugs:
+//
+//
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class ContactsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

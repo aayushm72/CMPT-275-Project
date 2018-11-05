@@ -2,10 +2,14 @@
 //  AppDelegate.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by Aayush Malhotra on 9/21/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Aayush Malhotra, Alwin Leong, Laurent Gracia
 //
 //  Set notification settings
+//  Known bugs:
+//
+//
 
 import UIKit
 import FirebaseCore

@@ -2,9 +2,14 @@
 //  PatientTabBarViewController.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by Alwin Leong on 10/31/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Alwing Leong
 //
+//  Known bugs:
+//
+//
+
 
 import UIKit
 

@@ -1,11 +1,15 @@
 //
-//  addReminderViewController.swift
+//  AddReminderViewController.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by Dean Fernandes on 2018-10-30.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Dean Fernandes, Aayush Malhotra
 //
 //  Page for adding new reminders.
+//  Known bugs:
+//
+//
 
 import UIKit
 

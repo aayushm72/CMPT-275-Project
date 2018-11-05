@@ -2,8 +2,13 @@
 //  EditPersonalInfoViewController.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by trasmuss on 11/1/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Tyler Rasmussen, Alwin Leong
+//
+//  For editing the personal information of the user
+//  Known bugs:
+//
 //
 
 import UIKit
@@ -43,7 +48,7 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let FirstViewController = segue.destination as? FirstViewController {
+        if let FirstViewController = segue.destination as? PatientsHomeViewController {
             user.name = patientName.text!
             user.address = patientAddress.text!
             user.phNo = patientPhoneNumber.text!

@@ -1,12 +1,16 @@
 //
-//  Reminder.swift
+//  FirebaseDatabases.swift
 //  Remembral
 //
-//  Created by Aayush Malhotra on 11/1/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//Team: Group 2
+//  Created: Aayush Malhotra on 11/1/18.
+//  Edited: Aayush Malhotra, Alwin Leong, Laurent Gracia
 //
 //  Contains a Reminder object to be associated with the data.
 //  Initializes Notifications for the phone.
+//  Known bugs:
+//
+//
 
 import UIKit
 import FirebaseCore

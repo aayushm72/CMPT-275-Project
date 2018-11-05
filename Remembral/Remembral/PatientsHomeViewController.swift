@@ -1,16 +1,19 @@
 //
-//  FirstViewController.swift
+//  PatientsHomeViewController.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by Aayush Malhotra on 9/21/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Alwin Leong, Tyler Rasmussen
 //
 // ******For Home Page
 // For the Patient.
 // Shows a collection of cells displaying the user's information.
 // Allows the user to change their information, which will be updated in the database.
 // Allows the user to send SOS messages to their caretaker.
-
+//  Known bugs:
+//
+//
 
 import UIKit
 import UserNotifications
@@ -22,7 +25,7 @@ struct choices {
     static let answer2 = UNNotificationAction(identifier: "answer2", title: "Done" , options: UNNotificationActionOptions.foreground)
 }
 
-class FirstViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MFMessageComposeViewControllerDelegate {
+class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MFMessageComposeViewControllerDelegate {
     var patientName:String = ""
     var patientAddress:String = ""
     var patientPhoneNumber:String = ""

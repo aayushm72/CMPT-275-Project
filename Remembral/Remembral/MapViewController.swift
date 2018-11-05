@@ -2,8 +2,14 @@
 //  MapViewController.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by Alwin Leong on 10/18/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited:
+//
+//  Caretaker Map page
+//  Will be used in Version 2
+//  Known bugs:
+//
 //
 
 import UIKit

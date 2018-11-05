@@ -1,9 +1,13 @@
 //
-//  CollectionViewCell.swift
+//  EditPersonalInfoViewController.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by trasmuss on 11/1/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Tyler Rasmussen
+//
+//  Known bugs:
+//
 //
 
 import UIKit

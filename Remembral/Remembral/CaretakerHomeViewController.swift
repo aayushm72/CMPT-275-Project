@@ -1,14 +1,19 @@
 //
-//  CaretakerFirstViewController.swift
+//  CaretakerHomeViewController.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by Alwin Leong on 11/2/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Alwin Leong
+//
+// For Caretaker Homepage
+//  Known bugs:
+//
 //
 
 import UIKit
 
-class CaretakerFirstViewController: ThirdViewController {
+class CaretakerHomeViewController: ReminderViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

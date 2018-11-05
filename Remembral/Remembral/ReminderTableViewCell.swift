@@ -2,8 +2,12 @@
 //  ReminderTableViewCell.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by Alwin Leong on 10/31/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Alwing Leong
+//
+//  Known bugs:
+//
 //
 
 import UIKit
@@ -14,7 +18,7 @@ class ReminderTableViewCell: UITableViewCell {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var snoozeButton: UIButton!
     var reminderDBKey: String!
-    var delegate: ThirdViewController!
+    var delegate: ReminderViewController!
     
     @IBAction func onPressDone(_ sender: UIButton) {
         let ownRef = FirebaseDatabase.sharedInstance.reminderRef.child(reminderDBKey as String)

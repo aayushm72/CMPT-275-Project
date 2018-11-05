@@ -2,11 +2,16 @@
 //  UserSelectorViewViewController.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by Aayush Malhotra on 10/29/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Aayush Malhotra, Alwin Leong
 //
 //  Signs in the user as their selected user type
 //  Allows for the creation of a new user
+//  Known bugs:
+//
+//
+
 
 import UIKit
 import FirebaseCore

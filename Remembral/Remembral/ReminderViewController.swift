@@ -1,17 +1,21 @@
 //
-//  ThirdViewController.swift
+//  ReminderViewController.swift
 //  Remembral
 //
-//  Created by Dean Fernandes on 2018-10-28.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//Team: Group 2
+//  Created: Aayush Malhotra on 11/1/18.
+//  Edited: Alwin Leong
 //
 // ******For Reminders Page
 // Will show a table of reminders determined by the viewWillAppear
 // viewWillAppear can be overriden to have the table show different reminders.
+//  Known bugs:
+//
+//
 
 import UIKit
 
-class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ReminderViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var reminders = [Reminder]()
     
