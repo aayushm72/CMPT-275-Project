@@ -5,9 +5,13 @@
 //  Created by Aayush Malhotra on 11/1/18.
 //  Copyright © 2018 Aayush Malhotra. All rights reserved.
 //
+//  Contains a Reminder object to be associated with the data.
+//  Initializes Notifications for the phone.
 
 import UIKit
-import Firebase
+import FirebaseCore
+import FirebaseDatabase
+import FirebaseAuth
 import UserNotifications
 
 struct Reminder {
@@ -84,10 +88,6 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         /*self.UpdateFromFirebase{
             (isFinish) in print(isFinish)
         }*/
-
-        if (UserSelectorViewController.currentUserType == .Patient){
-            initializeReminderNotificaions()
-        }
         
     }
     class var sharedInstance: FirebaseDatabase {

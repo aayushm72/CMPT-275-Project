@@ -6,6 +6,10 @@
 //  Copyright © 2018 Aayush Malhotra. All rights reserved.
 //
 // ******For Home Page
+// For the Patient.
+// Shows a collection of cells displaying the user's information.
+// Allows the user to change their information, which will be updated in the database.
+// Allows the user to send SOS messages to their caretaker.
 
 
 import UIKit

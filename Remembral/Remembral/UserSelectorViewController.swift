@@ -5,20 +5,27 @@
 //  Created by Aayush Malhotra on 10/29/18.
 //  Copyright © 2018 Aayush Malhotra. All rights reserved.
 //
+//  Signs in the user as their selected user type
+//  Allows for the creation of a new user
 
 import UIKit
-import Firebase
+import FirebaseCore
+import FirebaseAuth
 import SwiftKeychainWrapper
 
 class UserSelectorViewController: UIViewController {
     
+    @IBOutlet weak var patientBtn: UIButton!
+    @IBOutlet weak var caretakerBtn: UIButton!
+    
     var userUID: String!
     enum UserType {
+        case UNKNOWN
         case Patient
         case Caretaker
     }
     
-    static var currentUserType = UserType.Patient
+    static var currentUserType = UserType.UNKNOWN
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +44,7 @@ class UserSelectorViewController: UIViewController {
                 self.createUser(email: email, password: password)
             }
             UserSelectorViewController.currentUserType = UserType.Patient
+            FirebaseDatabase.sharedInstance.initializeReminderNotificaions()
             self.performSegue(withIdentifier: "segueToPatient", sender: self)
             
         })
