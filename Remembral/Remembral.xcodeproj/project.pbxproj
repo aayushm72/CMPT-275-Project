@@ -23,7 +23,6 @@
 		FB196337218D56BE003C604E /* CaretakerFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB196336218D56BE003C604E /* CaretakerFirstViewController.swift */; };
 		FB1B9AA9218E523F00D8A0B7 /* RemembralTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B9AA8218E523F00D8A0B7 /* RemembralTests.swift */; };
 		FB1B9AB1218E53E600D8A0B7 /* ReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B9AB0218E53E600D8A0B7 /* ReminderTests.swift */; };
-		FB1B9ABB218E589A00D8A0B7 /* RemembralUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B9ABA218E589A00D8A0B7 /* RemembralUITests.swift */; };
 		FB62D136217910D80048D9EA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62D135217910D80048D9EA /* MapViewController.swift */; };
 		FB651A5D218A73D4004A9B61 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */; };
 		FB8D2B7A218A8186001B81D3 /* PatientTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8D2B79218A8186001B81D3 /* PatientTabBarViewController.swift */; };
@@ -74,7 +73,6 @@
 		FB1B9AAA218E523F00D8A0B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB1B9AB0218E53E600D8A0B7 /* ReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTests.swift; sourceTree = "<group>"; };
 		FB1B9AB8218E589A00D8A0B7 /* RemembralUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemembralUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB1B9ABA218E589A00D8A0B7 /* RemembralUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemembralUITests.swift; sourceTree = "<group>"; };
 		FB1B9ABC218E589A00D8A0B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB62D135217910D80048D9EA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
@@ -191,7 +189,6 @@
 			children = (
 				FBFE7BD4218E8CC000177BA1 /* CaretakerUITest.swift */,
 				FBFE7BD2218E5FD300177BA1 /* PatientUITests.swift */,
-				FB1B9ABA218E589A00D8A0B7 /* RemembralUITests.swift */,
 				FB1B9ABC218E589A00D8A0B7 /* Info.plist */,
 			);
 			path = RemembralUITests;
@@ -435,7 +432,6 @@
 			files = (
 				FBFE7BD5218E8CC000177BA1 /* CaretakerUITest.swift in Sources */,
 				FBFE7BD3218E5FD300177BA1 /* PatientUITests.swift in Sources */,
-				FB1B9ABB218E589A00D8A0B7 /* RemembralUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +521,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -594,6 +591,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"\"$(inherited)\"",
+					"\"${PODS_ROOT}/Firebase/CoreOnly/Sources\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAuthInterop\"",
+				);
 				INFOPLIST_FILE = Remembral/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sfu.Remembral;
@@ -613,6 +617,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"\"$(inherited)\"",
+					"\"${PODS_ROOT}/Firebase/CoreOnly/Sources\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAuthInterop\"",
+				);
 				INFOPLIST_FILE = Remembral/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sfu.Remembral;
@@ -629,6 +640,10 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Pods",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources\"",
+				);
 				INFOPLIST_FILE = RemembralTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sfu.RemembralTests;
@@ -644,6 +659,10 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Pods",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources\"",
+				);
 				INFOPLIST_FILE = RemembralTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sfu.RemembralTests;

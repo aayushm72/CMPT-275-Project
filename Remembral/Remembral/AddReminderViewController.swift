@@ -5,6 +5,7 @@
 //  Created by Dean Fernandes on 2018-10-30.
 //  Copyright © 2018 Aayush Malhotra. All rights reserved.
 //
+//  Page for adding new reminders.
 
 import UIKit
 

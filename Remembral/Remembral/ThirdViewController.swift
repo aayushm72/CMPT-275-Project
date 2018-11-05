@@ -6,6 +6,8 @@
 //  Copyright © 2018 Aayush Malhotra. All rights reserved.
 //
 // ******For Reminders Page
+// Will show a table of reminders determined by the viewWillAppear
+// viewWillAppear can be overriden to have the table show different reminders.
 
 import UIKit
 

@@ -5,8 +5,12 @@
 //  Created by Alwin Leong on 11/3/18.
 //  Copyright © 2018 Aayush Malhotra. All rights reserved.
 //
+//  Tests for general functions of the application
 
 import XCTest
+@testable import Remembral
+@testable import FirebaseAuth
+
 
 class RemembralTests: XCTestCase {
     
@@ -20,15 +24,35 @@ class RemembralTests: XCTestCase {
         super.tearDown()
     }
     
-    func testAuthentication() {
+    func testAuthenticationCaretaaker() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let login = storyboard.instantiateInitialViewController() as! UserSelectorViewController
+        XCTAssertNotNil(login)
+        let _ = login.view
+        login.onUserCaretaker(self)
         
+        sleep(3)
+        
+        XCTAssert(Auth.auth().currentUser?.uid != nil)
     }
     
-    func testPerformanceExample() {
+    func testAuthenticationPatient() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let login = storyboard.instantiateInitialViewController() as! UserSelectorViewController
+        XCTAssertNotNil(login)
+        let _ = login.view
+        login.onUserPtient(self)
+        
+        sleep(3)
+        
+        XCTAssert(Auth.auth().currentUser?.uid != nil)
+    }
+    /*
+    func testAuthenticationSpeed() {
 
         self.measure {
             // Put the code you want to measure the time of here.
         }
-    }
+    }*/
     
 }

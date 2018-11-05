@@ -5,10 +5,11 @@
 //  Created by Aayush Malhotra on 9/21/18.
 //  Copyright © 2018 Aayush Malhotra. All rights reserved.
 //
-// ******For Contacts Page
+//  Set notification settings
 
 import UIKit
-import Firebase
+import FirebaseCore
+import FirebaseAuth
 import UserNotifications
 import MessageUI
 
