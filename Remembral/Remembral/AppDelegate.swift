@@ -33,15 +33,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             reminderRef.updateChildValues(["status":false, "date": date])
         }
         else if response.actionIdentifier == choices.answer1.identifier{
-            let date = response.notification.date.timeIntervalSince1970 + 300
-            let firebaseKey = response.notification.request.identifier
-            let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
-            let values:[String: Any] = ["date": date as Any,
-                                        "status": false as Any]
-            reminderRef.updateChildValues(values)
+            let date = response.notification.date.addingTimeInterval(5.0 * 60.0)
+            let firebaseKey = response.notification.request.content.categoryIdentifier
+            let category = UNNotificationCategory(identifier: firebaseKey, actions: [choices.answer1, choices.answer2], intentIdentifiers: [], options: [])
+            UNUserNotificationCenter.current().setNotificationCategories([category])
+            let content = UNMutableNotificationContent()
+            
+            ///should be puled from one of the list arrays list[indexPath.row]
+            content.title = response.notification.request.content.title
+            content.categoryIdentifier = firebaseKey
+            content.body = response.notification.request.content.body///should be puled from one of the list arrays
+            let calendar = Calendar.current
+            content.sound = UNNotificationSound.default()
+            let dateComponents = calendar.dateComponents(
+                [.hour, .minute, .second],
+                from: date)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            var id = firebaseKey
+            id.append("Snooze")
+            let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+            
         }
         else if response.actionIdentifier == choices.answer2.identifier {
-            let firebaseKey = response.notification.request.identifier
+            let firebaseKey = response.notification.request.content.categoryIdentifier
             let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
             let date = response.notification.date.timeIntervalSince1970
             reminderRef.updateChildValues(["status":true, "date": date])

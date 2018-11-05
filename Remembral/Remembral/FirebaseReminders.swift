@@ -162,14 +162,16 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                                         recurrence: rData["recurrence"] as! String,
                                         status: rData["status"] as! Bool,
                                         databaseKey: snapshot.key)
-                    
-                    let category = UNNotificationCategory(identifier: "Reminder", actions: [choices.answer1, choices.answer2], intentIdentifiers: [], options: [])
+                    if(newR.status == true){
+                        return
+                    }
+                    let category = UNNotificationCategory(identifier: newR.databaseKey, actions: [choices.answer1, choices.answer2], intentIdentifiers: [], options: [])
                     UNUserNotificationCenter.current().setNotificationCategories([category])
                     let content = UNMutableNotificationContent()
                     
                     ///should be puled from one of the list arrays list[indexPath.row]
                     content.title = newR.sender
-                    content.categoryIdentifier = "Reminder"
+                    content.categoryIdentifier = newR.databaseKey
                     content.body = newR.description///should be puled from one of the list arrays
                     content.sound = UNNotificationSound.default()
                     
@@ -213,64 +215,6 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                     UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
                 }
         })
-        reminderRef.observe(.childChanged, with: { (snapshot: DataSnapshot) in
-            if let rData = snapshot.value as? [String:Any]{
-                
-                let newR = Reminder(sender: rData["sender"] as! String,
-                                    reciever: rData["reciever"] as! String,
-                                    description: rData["description"] as! String,
-                                    date: rData["date"] as! Double,
-                                    recurrence: rData["recurrence"] as! String,
-                                    status: rData["status"] as! Bool,
-                                    databaseKey: snapshot.key)
-                
-                let category = UNNotificationCategory(identifier: "Reminder", actions: [choices.answer1, choices.answer2], intentIdentifiers: [], options: [])
-                UNUserNotificationCenter.current().setNotificationCategories([category])
-                let content = UNMutableNotificationContent()
-                
-                ///should be puled from one of the list arrays list[indexPath.row]
-                content.title = newR.sender
-                content.categoryIdentifier = "Reminder"
-                content.body = newR.description///should be puled from one of the list arrays
-                content.sound = UNNotificationSound.default()
-                
-                var dateComponents = DateComponents()
-                
-                let trigger : UNCalendarNotificationTrigger
-                if(newR.recurrence == "No Recurrence"){
-                    
-                    dateComponents.day = newR.getDay()
-                    dateComponents.month  = newR.getMonth()
-                    dateComponents.hour = newR.getHour() /// pulled from
-                    dateComponents.minute = newR.getMinute()
-                    trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)///This should be a calendar notification
-                }
-                   
-                else if(newR.recurrence == "Daily"){
-                    dateComponents.hour = newR.getHour() /// pulled from
-                    dateComponents.minute = newR.getMinute()
-                    trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)///This should be a calendar notification
-                }
-                    
-                else if(newR.recurrence == "Weekly"){
-                    dateComponents.weekday = newR.getWeekDay()
-                    dateComponents.hour = newR.getHour() /// pulled from
-                    dateComponents.minute = newR.getMinute()
-                    trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)///This should be a calendar notification
-                }
-                    
-                else{
-                    dateComponents.day = newR.getDay()
-                    dateComponents.hour = newR.getHour() /// pulled from
-                    dateComponents.minute = newR.getMinute()
-                    trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)///This should be a calendar notification
-                }
-                
-                let request = UNNotificationRequest(identifier: newR.databaseKey, content: content, trigger: trigger)
-                
-                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-            }
-        })
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void)
@@ -282,16 +226,29 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
             reminderRef.updateChildValues(["status":false, "date": date])
         }
         else if response.actionIdentifier == choices.answer1.identifier{
-            let date = response.notification.date.timeIntervalSince1970 + 300
-            let firebaseKey = response.notification.request.identifier
-            let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
-            let values:[String: Any] = ["date": date as Any,
-                                        "status": false as Any]
-            reminderRef.updateChildValues(values)
+            let date = response.notification.date.addingTimeInterval(5.0 * 60.0)
+            let firebaseKey = response.notification.request.content.categoryIdentifier
+            let category = UNNotificationCategory(identifier: firebaseKey, actions: [choices.answer1, choices.answer2], intentIdentifiers: [], options: [])
+            UNUserNotificationCenter.current().setNotificationCategories([category])
+            let content = UNMutableNotificationContent()
+            
+            ///should be puled from one of the list arrays list[indexPath.row]
+            content.title = response.notification.request.content.title
+            content.categoryIdentifier = firebaseKey
+            content.body = response.notification.request.content.body///should be puled from one of the list arrays
+            let calendar = Calendar.current
+            content.sound = UNNotificationSound.default()
+            let dateComponents = calendar.dateComponents(
+                [.hour, .minute, .second],
+                from: date)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            var id = firebaseKey
+            id.append("Snooze")
+            let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         }
-        else if response.actionIdentifier == choices.answer2.identifier
-        {
-            let firebaseKey = response.notification.request.identifier
+        else if response.actionIdentifier == choices.answer2.identifier {
+            let firebaseKey = response.notification.request.content.categoryIdentifier
             let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
             let date = response.notification.date.timeIntervalSince1970
             reminderRef.updateChildValues(["status":true, "date": date])
