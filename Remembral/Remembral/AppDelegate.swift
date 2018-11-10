@@ -16,6 +16,7 @@ import FirebaseCore
 import FirebaseAuth
 import UserNotifications
 import MessageUI
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MFMessageComposeViewControllerDelegate {
@@ -76,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             print("granted: (\(granted)")
         }
-        
+        GMSServices.provideAPIKey("AIzaSyAdyfrWJKWzTOmriYBxyelkiNsdy8dIG6k")
         FirebaseApp.configure()
         try! Auth.auth().signOut()
         Auth.auth().addStateDidChangeListener() { (auth, user) in

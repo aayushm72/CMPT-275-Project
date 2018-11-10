@@ -16,7 +16,7 @@
         <scene sceneID="k9C-El-bkJ">
             <objects>
                 <navigationController title="Home_Navigation" navigationBarHidden="YES" id="gis-0v-CHB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" id="u0p-y7-Msx"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="first" id="u0p-y7-Msx"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QVI-3J-oSS">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -24,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="iON-IL-qEb" kind="relationship" relationship="rootViewController" id="FTN-hl-pBE"/>
+                        <segue destination="iON-IL-qEb" kind="relationship" relationship="rootViewController" id="9cX-9o-5yF"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z3k-Gl-oH6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -61,18 +61,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="h3C-AY-Gbx">
-                                                    <rect key="frame" x="225" y="109" width="150" height="70"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="Des-cp-L9I"/>
-                                                        <constraint firstAttribute="height" constant="70" id="kZJ-7p-6oe"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                    <state key="normal" title="SNOOZE 5 minutes"/>
-                                                    <connections>
-                                                        <action selector="onSnooze:" destination="ap4-Jo-ou2" eventType="touchUpInside" id="hET-dE-MEu"/>
-                                                    </connections>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuR-YV-Dnx">
                                                     <rect key="frame" x="21" y="19" width="194" height="160"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -80,7 +68,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUv-vU-FHb">
-                                                    <rect key="frame" x="225" y="10" width="150" height="70"/>
+                                                    <rect key="frame" x="225" y="65" width="150" height="70"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="70" id="Jtf-vI-WcL"/>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="a6M-5c-Bfu"/>
@@ -94,11 +82,8 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="EUv-vU-FHb" secondAttribute="trailing" id="0U3-iB-gJy"/>
-                                                <constraint firstItem="EUv-vU-FHb" firstAttribute="top" secondItem="NFe-Y7-R9h" secondAttribute="top" constant="10" id="2AN-wb-LfX"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="h3C-AY-Gbx" secondAttribute="bottom" constant="10" id="XFs-6z-uxb"/>
-                                                <constraint firstAttribute="trailing" secondItem="h3C-AY-Gbx" secondAttribute="trailing" id="gVn-MW-wa7"/>
+                                                <constraint firstItem="EUv-vU-FHb" firstAttribute="centerY" secondItem="NFe-Y7-R9h" secondAttribute="centerY" id="XN4-Og-DHD"/>
                                                 <constraint firstItem="fuR-YV-Dnx" firstAttribute="centerY" secondItem="NFe-Y7-R9h" secondAttribute="centerY" id="hJQ-62-UGN"/>
-                                                <constraint firstItem="h3C-AY-Gbx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fuR-YV-Dnx" secondAttribute="trailing" constant="8" symbolic="YES" id="kSM-jI-wWM"/>
                                                 <constraint firstItem="fuR-YV-Dnx" firstAttribute="leading" secondItem="NFe-Y7-R9h" secondAttribute="leadingMargin" constant="6" id="p0y-3V-k7E"/>
                                                 <constraint firstItem="EUv-vU-FHb" firstAttribute="leading" secondItem="fuR-YV-Dnx" secondAttribute="trailing" constant="10" id="qWN-pu-xu9"/>
                                                 <constraint firstItem="fuR-YV-Dnx" firstAttribute="top" secondItem="NFe-Y7-R9h" secondAttribute="topMargin" constant="8" id="yGB-2p-w2E"/>
@@ -109,7 +94,6 @@
                                             <outlet property="DoneButton" destination="EUv-vU-FHb" id="JHG-q4-Zad"/>
                                             <outlet property="ReminderLabel" destination="fuR-YV-Dnx" id="D7H-09-gUS"/>
                                             <outlet property="doneButton" destination="EUv-vU-FHb" id="yPy-Nu-ele"/>
-                                            <outlet property="snoozeButton" destination="h3C-AY-Gbx" id="2Oo-Fk-2ae"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -138,7 +122,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Reminders" id="wDG-V0-6Ts"/>
+                    <tabBarItem key="tabBarItem" title="" id="wDG-V0-6Ts"/>
                     <navigationItem key="navigationItem" title="Reminders" id="sBL-xf-qp5"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -278,7 +262,7 @@
         <scene sceneID="snV-dk-8Pa">
             <objects>
                 <navigationController title="Reminders_Navigation" id="h6A-ms-bA8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Reminders" id="W7d-UF-ozL"/>
+                    <tabBarItem key="tabBarItem" title="Reminders" image="second" id="W7d-UF-ozL"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mGu-yy-m8y">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -325,17 +309,17 @@
             </objects>
             <point key="canvasLocation" x="-210" y="2147"/>
         </scene>
-        <!--View Controller-->
+        <!--Map-->
         <scene sceneID="gUW-g5-D6Y">
             <objects>
-                <viewController id="fop-a3-A8p" sceneMemberID="viewController">
+                <viewController title="Map" id="fop-a3-A8p" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c5C-jn-t9T">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="fri-bu-DTw"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Dcz-Go-h6B"/>
+                    <navigationItem key="navigationItem" title="Map" id="Dcz-Go-h6B"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w39-T4-bmX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -369,6 +353,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="ZrA-dN-Fsl" kind="relationship" relationship="viewControllers" id="cLZ-LM-DM0"/>
+                        <segue destination="Lck-i3-Ega" kind="relationship" relationship="viewControllers" id="1ej-0a-Eoy"/>
                         <segue destination="ujg-1U-BSV" kind="relationship" relationship="viewControllers" id="fww-hQ-zlU"/>
                     </connections>
                 </tabBarController>
@@ -423,15 +408,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="MEu-n9-47n">
-                                <rect key="frame" x="0.0" y="43" width="375" height="694"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="MEu-n9-47n" firstAttribute="top" secondItem="laz-Fb-w6c" secondAttribute="top" constant="23" id="7Xf-v0-gOQ" userLabel="Map View.top = Safe Area.top + 20"/>
-                            <constraint firstItem="MEu-n9-47n" firstAttribute="width" secondItem="ltI-lW-tun" secondAttribute="width" id="Oc4-Zj-Qfh"/>
-                            <constraint firstItem="MEu-n9-47n" firstAttribute="centerX" secondItem="laz-Fb-w6c" secondAttribute="centerX" id="QcI-hE-CvP"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="MEu-n9-47n" secondAttribute="bottom" constant="-70" id="d9X-lH-Vyp"/>
+                            <constraint firstItem="MEu-n9-47n" firstAttribute="leading" secondItem="laz-Fb-w6c" secondAttribute="leading" id="PDn-BW-iXQ"/>
+                            <constraint firstItem="laz-Fb-w6c" firstAttribute="bottom" secondItem="MEu-n9-47n" secondAttribute="bottom" id="Ptt-Kd-Vc2"/>
+                            <constraint firstItem="laz-Fb-w6c" firstAttribute="trailing" secondItem="MEu-n9-47n" secondAttribute="trailing" id="QE4-4g-bIr"/>
+                            <constraint firstItem="MEu-n9-47n" firstAttribute="top" secondItem="laz-Fb-w6c" secondAttribute="top" id="heL-tV-ziE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="laz-Fb-w6c"/>
                     </view>
@@ -441,7 +426,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OeE-eD-9bs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1900" y="-791"/>
+            <point key="canvasLocation" x="1900" y="-791.15442278860576"/>
         </scene>
         <!--User Selector View Controller-->
         <scene sceneID="h3g-8X-MMK">
@@ -735,10 +720,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7VE-0N-BRb"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" image="tabBarItem:iww-AQ-gCL:image" id="iww-AQ-gCL"/>
+                    <tabBarItem key="tabBarItem" title="" image="tabBarItem:iww-AQ-gCL:image" id="iww-AQ-gCL"/>
                     <navigationItem key="navigationItem" id="XgJ-eZ-YS5"/>
                     <connections>
                         <outlet property="collectionView" destination="k7N-Be-erU" id="Hkj-0O-MKP"/>
+                        <segue destination="IZ6-G7-khz" kind="show" identifier="toNavigationMap" id="6i9-Pj-H5S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BdW-N6-RoI" sceneMemberID="firstResponder"/>
@@ -764,18 +750,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5R7-CY-AGd">
-                                                    <rect key="frame" x="225" y="109" width="150" height="70"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="01p-1e-0ko"/>
-                                                        <constraint firstAttribute="height" constant="70" id="EA5-uB-UzG"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                    <state key="normal" title="SNOOZE 5 minutes"/>
-                                                    <connections>
-                                                        <action selector="onSnooze:" destination="xhW-Rj-Fnf" eventType="touchUpInside" id="gka-pw-YLR"/>
-                                                    </connections>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1Z-S0-ci3">
                                                     <rect key="frame" x="21" y="19" width="194" height="160"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -783,7 +757,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YJu-2J-FzB">
-                                                    <rect key="frame" x="225" y="10" width="150" height="70"/>
+                                                    <rect key="frame" x="225" y="65" width="150" height="70"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="70" id="JGM-FN-oNz"/>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="mig-di-omv"/>
@@ -796,15 +770,13 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="5R7-CY-AGd" secondAttribute="trailing" id="4B8-dW-vf8"/>
                                                 <constraint firstItem="n1Z-S0-ci3" firstAttribute="centerY" secondItem="8W6-nd-9YX" secondAttribute="centerY" id="6bQ-lQ-Hov"/>
-                                                <constraint firstItem="YJu-2J-FzB" firstAttribute="top" secondItem="8W6-nd-9YX" secondAttribute="top" constant="10" id="ASu-Lh-Ajj"/>
+                                                <constraint firstItem="YJu-2J-FzB" firstAttribute="centerY" secondItem="8W6-nd-9YX" secondAttribute="centerY" id="8oj-QS-rgp"/>
                                                 <constraint firstItem="YJu-2J-FzB" firstAttribute="leading" secondItem="n1Z-S0-ci3" secondAttribute="trailing" constant="10" id="AfJ-g4-01F"/>
                                                 <constraint firstAttribute="trailing" secondItem="YJu-2J-FzB" secondAttribute="trailing" id="Gxa-7F-4R8"/>
                                                 <constraint firstItem="n1Z-S0-ci3" firstAttribute="top" secondItem="8W6-nd-9YX" secondAttribute="topMargin" constant="8" id="Mcg-lq-ZcN"/>
                                                 <constraint firstAttribute="leading" relation="greaterThanOrEqual" secondItem="n1Z-S0-ci3" secondAttribute="trailing" constant="-215" id="Spv-NZ-I22"/>
                                                 <constraint firstItem="n1Z-S0-ci3" firstAttribute="leading" secondItem="8W6-nd-9YX" secondAttribute="leadingMargin" constant="6" id="rQy-Nj-TeZ"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="5R7-CY-AGd" secondAttribute="bottom" constant="10" id="zsN-qH-vrx"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <accessibility key="accessibilityConfiguration" identifier="ReminderTableViewCell"/>
@@ -812,7 +784,6 @@
                                             <outlet property="DoneButton" destination="YJu-2J-FzB" id="9UH-ke-nmc"/>
                                             <outlet property="ReminderLabel" destination="n1Z-S0-ci3" id="bZY-hc-pN6"/>
                                             <outlet property="doneButton" destination="YJu-2J-FzB" id="jVW-zc-SKi"/>
-                                            <outlet property="snoozeButton" destination="5R7-CY-AGd" id="UWI-k8-JVz"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -831,7 +802,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bGx-0z-vYb"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" id="c8q-o7-Uwa"/>
+                    <tabBarItem key="tabBarItem" title="" id="c8q-o7-Uwa"/>
                     <navigationItem key="navigationItem" title="Home" id="30Q-y4-i3C"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -920,7 +891,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Reminders" id="1y4-wr-1NJ"/>
+                    <tabBarItem key="tabBarItem" title="" id="1y4-wr-1NJ"/>
                     <navigationItem key="navigationItem" title="Reminders" id="98h-p7-UJd"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>

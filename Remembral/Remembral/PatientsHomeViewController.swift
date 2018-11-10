@@ -32,8 +32,7 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
     var caretakerName:String = ""
     var caretakerPhoneNumber:String = ""
     lazy var items = ["My Name:", patientName, "My Address:", patientAddress, "My Phone Number:", patientPhoneNumber, "My Caretaker:", caretakerName, "My Caretaker's Phone Number:", caretakerPhoneNumber]
-    let alertMessage = UIAlertController(title: "Message Sent", message: "Your caretaker has recieved your SOS call", preferredStyle: .alert)
-    let dismissControl = UIControl()
+
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -70,15 +69,46 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
             msgVC.messageComposeDelegate = self
         
             self.present(msgVC, animated: true, completion: nil)
-        
-        self.present(alertMessage, animated: true, completion:{
-            self.alertMessage.view.superview?.isUserInteractionEnabled = true
-            self.alertMessage.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissAlert)))
-        })
         }
+        
+        let sentMessage = UIAlertController(title: "Message Sent", message: "Your SOS message has been successfully sent to your Caretaker", preferredStyle: .alert)
+        let failedMessage = UIAlertController(title: "Message Sent", message: "Your SOS message could not be sent.", preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+        }
+        let NavigateAction = UIAlertAction(title: "Take Me Home", style: .default) { (action:UIAlertAction!) in
+            self.performSegue(withIdentifier: "toNavigationMap", sender: self)
+        }
+        sentMessage.addAction(OKAction)
+        sentMessage.addAction(NavigateAction)
+        failedMessage.addAction(OKAction)
+//        if (result == MessageComposeResult.sent) {
+            self.present(sentMessage, animated: true, completion: nil)
+//        }
+//        else if (result == MessageComposeResult.failed) {
+//            self.present(failedMessage, animated: true, completion: nil)
+//        }
     }
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        controller.dismiss(animated: true, completion: nil)
+        let sentMessage = UIAlertController(title: "Message Sent", message: "Your SOS message has been successfully sent to your Caretaker", preferredStyle: .alert)
+        let failedMessage = UIAlertController(title: "Message Sent", message: "Your SOS message could not be sent.", preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+            self.dismissAlert()
+        }
+        let NavigateAction = UIAlertAction(title: "Take Me Home", style: .default) { (action:UIAlertAction!) in
+            self.dismissAlert()
+            self.performSegue(withIdentifier: "toNavigationMap", sender: self)
+        }
+        sentMessage.addAction(OKAction)
+        sentMessage.addAction(NavigateAction)
+        failedMessage.addAction(OKAction)
+        if (result == MessageComposeResult.sent) {
+            self.present(sentMessage, animated: true, completion: nil)
+        }
+        else if (result == MessageComposeResult.failed) {
+            self.present(failedMessage, animated: true, completion: nil)
+        }
     }
     
     override func didReceiveMemoryWarning() {
