@@ -30,6 +30,7 @@
 		FBFE7BD5218E8CC000177BA1 /* CaretakerUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFE7BD4218E8CC000177BA1 /* CaretakerUITest.swift */; };
 		FF557EE32186B80900644DEF /* ReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557EE22186B80900644DEF /* ReminderViewController.swift */; };
 		FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */; };
+		FFE21D55219A14FE008E624E /* CaretakerMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE21D54219A14FD008E624E /* CaretakerMapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		FBFE7BD4218E8CC000177BA1 /* CaretakerUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerUITest.swift; sourceTree = "<group>"; };
 		FF557EE22186B80900644DEF /* ReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
 		FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
+		FFE21D54219A14FD008E624E /* CaretakerMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerMapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				FF557EE22186B80900644DEF /* ReminderViewController.swift */,
 				FB196336218D56BE003C604E /* CaretakerHomeViewController.swift */,
 				FB196334218D53A0003C604E /* CaretakerReminderViewController.swift */,
+				FFE21D54219A14FD008E624E /* CaretakerMapViewController.swift */,
 				FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */,
 				FB62D135217910D80048D9EA /* MapViewController.swift */,
 				24B447EC21559D4F002E4425 /* Main.storyboard */,
@@ -409,6 +412,7 @@
 				24B447E921559D4F002E4425 /* PatientsHomeViewController.swift in Sources */,
 				FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */,
 				FB196337218D56BE003C604E /* CaretakerHomeViewController.swift in Sources */,
+				FFE21D55219A14FE008E624E /* CaretakerMapViewController.swift in Sources */,
 				FB62D136217910D80048D9EA /* MapViewController.swift in Sources */,
 				241122A2218B82A700C29B1D /* FirebaseDatabase.swift in Sources */,
 				FB651A5D218A73D4004A9B61 /* ReminderTableViewCell.swift in Sources */,
