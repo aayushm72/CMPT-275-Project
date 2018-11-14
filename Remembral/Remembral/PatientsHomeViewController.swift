@@ -18,6 +18,7 @@
 import UIKit
 import UserNotifications
 import MessageUI
+import MapKit
 
 struct choices {
     static let answer1 = UNNotificationAction(identifier: "answer1", title: "Snooze" , options: UNNotificationActionOptions.foreground)
@@ -82,7 +83,21 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
         sentMessage.addAction(NavigateAction)
         failedMessage.addAction(OKAction)
 //        if (result == MessageComposeResult.sent) {
-            self.present(sentMessage, animated: true, completion: nil)
+        //            self.performSegue(withIdentifier: "toNavigationMap", sender: self)
+        //do navigation here
+        //get destination latitude and longitude
+        let latitude:CLLocationDegrees = 37.748702
+        let longitude:CLLocationDegrees = -122.404118
+        //setup all options
+        let regionDistance:CLLocationDistance = 1000;
+        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+        let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+        let options = [MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+                       MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)]
+        let placemark = MKPlacemark(coordinate: coordinates)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = "Home"
+        mapItem.openInMaps(launchOptions: options)
 //        }
 //        else if (result == MessageComposeResult.failed) {
 //            self.present(failedMessage, animated: true, completion: nil)
@@ -94,11 +109,23 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
         let sentMessage = UIAlertController(title: "Message Sent", message: "Your SOS message has been successfully sent to your Caretaker", preferredStyle: .alert)
         let failedMessage = UIAlertController(title: "Message Sent", message: "Your SOS message could not be sent.", preferredStyle: .alert)
         let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
-            self.dismissAlert()
         }
         let NavigateAction = UIAlertAction(title: "Take Me Home", style: .default) { (action:UIAlertAction!) in
-            self.dismissAlert()
-            self.performSegue(withIdentifier: "toNavigationMap", sender: self)
+//            self.performSegue(withIdentifier: "toNavigationMap", sender: self)
+            //do navigation here
+            //get destination latitude and longitude
+            let latitude:CLLocationDegrees = 37.748702
+            let longitude:CLLocationDegrees = -122.404118
+            //setup all options
+            let regionDistance:CLLocationDistance = 1000;
+            let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+            let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+            let options = [MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+                           MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)]
+            let placemark = MKPlacemark(coordinate: coordinates)
+            let mapItem = MKMapItem(placemark: placemark)
+            mapItem.name = "Home"
+            mapItem.openInMaps(launchOptions: options)
         }
         sentMessage.addAction(OKAction)
         sentMessage.addAction(NavigateAction)

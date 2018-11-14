@@ -76,8 +76,6 @@ class ReminderViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.reminderDBKey = reminderData.databaseKey
         cell.delegate = self
         
-        cell.snoozeButton?.isHidden = true
-        
         if (reminderData.status == true){
             cell.backgroundColor =  UIColor.lightGray
             cell.doneButton?.isHidden = true
