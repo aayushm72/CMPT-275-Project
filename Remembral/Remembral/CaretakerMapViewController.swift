@@ -5,6 +5,7 @@
 //  Team: Group 2
 //  Created by Dean Fernandes on 2018-11-12.
 //  Edited: Dean
+//  Alwin
 //
 //  Caretaker Map page
 //  Will be used in Version 2
@@ -15,16 +16,14 @@
 import UIKit
 import MapKit
 import CoreLocation
+import GoogleMaps
 
 class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate {
     
-    
-    @IBOutlet weak var mapView: MKMapView!
     var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView.showsUserLocation = true;
         // Do any additional setup after loading the view.
         if CLLocationManager.locationServicesEnabled() {
             print("Location services are enabled")
@@ -41,33 +40,22 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate {
         } else {
             print("Please enabled location services")
         }
+        
+        
+        let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 12)
+        let mapView = GMSMapView(frame: .zero)
+       // let mapView = GMSMapView.map(withFrame: .zero, camera: camera)
+        mapView.isMyLocationEnabled = true
+        
+        self.view = mapView
     }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let region = MKCoordinateRegion(center:
-            CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude,
-                                   longitude: locations[0].coordinate.longitude),
-                                        span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
-        self.mapView.setRegion(region, animated: true)
+
+        //self.view = mapView
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Unable to access location")
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
