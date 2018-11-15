@@ -42,12 +42,20 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         
-        let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 12)
+        let camera = GMSCameraPosition.camera(withLatitude: 49.276765, longitude: -122.917957, zoom: 24)
         let mapView = GMSMapView(frame: .zero)
        // let mapView = GMSMapView.map(withFrame: .zero, camera: camera)
         mapView.isMyLocationEnabled = true
-        
         self.view = mapView
+        
+        
+        // Patient's Current Location Marker: Need to update Real time
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2DMake(49.276765, -122.917957)
+        marker.title = "Patient name"
+        marker.snippet = "Last Updated @ 5:00 pm"
+        marker.map = mapView
+        
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 
