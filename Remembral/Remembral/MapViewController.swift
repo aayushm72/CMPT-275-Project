@@ -15,12 +15,13 @@
 import UIKit
 import MapKit
 import CoreLocation
+import GoogleMaps
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     var locationManager = CLLocationManager()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.showsUserLocation = true;

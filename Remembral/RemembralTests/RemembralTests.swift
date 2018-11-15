@@ -24,7 +24,7 @@ class RemembralTests: XCTestCase {
         super.tearDown()
     }
     
-    func testAuthenticationCaretaaker() {
+    func testAuthenticationCaretaker() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let login = storyboard.instantiateInitialViewController() as! UserSelectorViewController
         XCTAssertNotNil(login)
@@ -33,7 +33,7 @@ class RemembralTests: XCTestCase {
         
         sleep(3)
         
-        XCTAssert(Auth.auth().currentUser?.uid != nil)
+        XCTAssertNotNil(Auth.auth().currentUser?.uid)
     }
     
     func testAuthenticationPatient() {
@@ -45,7 +45,7 @@ class RemembralTests: XCTestCase {
         
         sleep(3)
         
-        XCTAssert(Auth.auth().currentUser?.uid != nil)
+        XCTAssertNotNil(Auth.auth().currentUser?.uid)
     }
     /*
     func testAuthenticationSpeed() {

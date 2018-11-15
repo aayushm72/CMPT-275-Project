@@ -70,7 +70,7 @@ class PatientUITests: XCTestCase {
     
     func testThirdViewAccess(){
         let app = XCUIApplication()
-        app.buttons["Caretaker"].tap()
+        app.buttons["Patient"].tap()
         app.tabBars.buttons["Reminders"].tap()
         app.buttons["+ Add Reminder"].tap()
     }

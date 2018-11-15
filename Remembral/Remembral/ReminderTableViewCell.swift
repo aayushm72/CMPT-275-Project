@@ -16,7 +16,6 @@ class ReminderTableViewCell: UITableViewCell {
 
     @IBOutlet weak var ReminderLabel: UILabel!
     @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var snoozeButton: UIButton!
     var reminderDBKey: String!
     var delegate: ReminderViewController!
     
@@ -27,11 +26,6 @@ class ReminderTableViewCell: UITableViewCell {
             (isFinish) in self.delegate.tableView.reloadData()
         }
         doneButton.isHidden = true
-        snoozeButton.isHidden = true
-    }
-    
-    @IBAction func onSnooze(_ sender: UIButton) {
-        
     }
     
     override func awakeFromNib() {
