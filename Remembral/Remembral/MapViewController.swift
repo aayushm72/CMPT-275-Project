@@ -21,6 +21,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     var locationManager = CLLocationManager()
+    
+    
+    /*override func loadView() {
+        super.loadView()
+        let camera = GMSCameraPosition.camera(withLatitude: 1.285, longitude: 103.848, zoom: 12)
+        let mapView = GMSMapView.map(withFrame: .zero, camera: camera)
+        mapView.isMyLocationEnabled = true
+
+        self.view = mapView
+    }*/
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -19,6 +19,7 @@ import UIKit
 import UserNotifications
 import MessageUI
 import MapKit
+import FirebaseAuth
 import CoreLocation
 
 struct choices {
@@ -39,6 +40,8 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         FirebaseDatabase.sharedInstance.UpdateFromFirebase {
@@ -53,13 +56,26 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
             self.reloadItems()
             self.collectionView.reloadData()
         }
-        
-        // For use in foreground
-        self.locationManager.requestWhenInUseAuthorization()
+
+        //Enable tracking of Patient's location
         if CLLocationManager.locationServicesEnabled() {
+            if CLLocationManager.authorizationStatus() == .restricted ||
+                CLLocationManager.authorizationStatus() == .denied ||
+                CLLocationManager.authorizationStatus() == .notDetermined{
+                
+                locationManager.requestAlwaysAuthorization();
+                
+            }
+            if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+                locationManager.requestAlwaysAuthorization();
+            }
+            locationManager.allowsBackgroundLocationUpdates = true
+            locationManager.desiredAccuracy = 1
             locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.distanceFilter = 500 //Meters
             locationManager.startUpdatingLocation()
+        } else {
+            print("Please enabled location services")
         }
     }
 
@@ -177,6 +193,7 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = (manager.location?.coordinate)!
+        LocationServicesHandler.sendData(location: manager.location!)
     }
 }
 
@@ -213,4 +230,5 @@ func locationVCardURLFromCoordinate(coordinate: CLLocationCoordinate2D) -> URL?
     
     return URL(fileURLWithPath: vCardFilePath)
 }
+
 
