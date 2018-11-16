@@ -17,10 +17,15 @@ import UIKit
 import MapKit
 import CoreLocation
 import GoogleMaps
+import FirebaseCore
+import FirebaseDatabase
 
-class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate {
+class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     
     var locationManager = CLLocationManager()
+    
+    var marker = GMSMarker()
+    let mapView = GMSMapView(frame: .zero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,28 +47,58 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         
-        let camera = GMSCameraPosition.camera(withLatitude: 49.276765, longitude: -122.917957, zoom: 24)
-        let mapView = GMSMapView(frame: .zero)
-       // let mapView = GMSMapView.map(withFrame: .zero, camera: camera)
         mapView.isMyLocationEnabled = true
         self.view = mapView
         
         
         // Patient's Current Location Marker: Need to update Real time
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(49.276765, -122.917957)
-        marker.title = "Patient name"
-        marker.snippet = "Last Updated @ 5:00 pm"
+        marker.position = CLLocationCoordinate2DMake(0, 0)
+        
+        //Select a suitable image
+        marker.icon = UIImage(named: "first")
+        
         marker.map = mapView
+        
+        //Needs to be done using user id queries
+        //
+        let userID = "iKbAZiqWylPvVNkOLPlYfzyuzan2" //Auth.auth().currentUser?.uid
+        FirebaseDatabase.sharedInstance.usersRef.child(userID).observe(.value) { (snapshot: DataSnapshot) in
+            let userInfo = snapshot.value as! [String:Any]
+            self.marker.title = userInfo["name"] as? String ?? "undefined"
+        }
+ ;
+        
+        //Updates marker whenever there's a location update.
+        LocationServicesHandler.newestLocationUpdates(forID: userID) { (locationReturned) in
+            self.marker.position.latitude = locationReturned.latitude
+            self.marker.position.longitude = locationReturned.longitude
+            self.marker.snippet = "Last Updated @ " + String(locationReturned.time)
+            if self.mapView.selectedMarker != nil {
+                let cameraUpdate = GMSCameraUpdate.setTarget((self.mapView.selectedMarker?.position)!)
+                self.mapView.moveCamera(cameraUpdate)
+            }
+        }
+       // locationManager(
+        //let cameraMove = GMSCameraUpdate.setTarget((locationManager.location?.coordinate)!, zoom: 18)
+        //mapView.moveCamera(cameraMove)
         
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-
-        //self.view = mapView
+        if self.mapView.selectedMarker == nil{
+            let cameraMove = GMSCameraUpdate.setTarget((locationManager.location?.coordinate)!, zoom: 18)
+            mapView.moveCamera(cameraMove)
+        }
     }
+   // func locationManager(_ manager: CLLocationManager, DidResumeLocationUpdates ) {
+   //     return 0
+   // }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Unable to access location")
     }
     
+    func toggleHeatMap(){
+        
+    }
+
 }
