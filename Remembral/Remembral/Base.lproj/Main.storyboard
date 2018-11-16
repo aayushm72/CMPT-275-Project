@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pCz-MC-EKN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pCz-MC-EKN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -318,11 +316,35 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="fri-bu-DTw"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Map" id="Dcz-Go-h6B"/>
+                    <navigationItem key="navigationItem" title="Map" id="Dcz-Go-h6B">
+                        <barButtonItem key="rightBarButtonItem" title="Heat Map" id="xgj-go-9GP">
+                            <connections>
+                                <segue destination="miE-5e-dUP" kind="show" id="ek3-eu-uQd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="miE-5e-dUP" kind="show" id="I9b-pZ-SFD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w39-T4-bmX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="869.60000000000002" y="2146.776611694153"/>
+        </scene>
+        <!--Heatmap View Controller-->
+        <scene sceneID="WDA-wW-iXe">
+            <objects>
+                <viewController restorationIdentifier="HeatMap" storyboardIdentifier="HeatMap" id="miE-5e-dUP" customClass="HeatmapViewController" customModule="Remembral" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xfx-bv-OFB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="CCI-S7-n1e"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eKo-RZ-ltV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1833" y="2148"/>
         </scene>
         <!--Reminders-->
         <scene sceneID="BiA-dL-4bw">
@@ -870,12 +892,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="contact" width="25" height="25"/>
-        <image name="gmap_icon" width="25" height="25"/>
+        <image name="contact" width="37.5" height="37.5"/>
+        <image name="gmap_icon" width="37.5" height="37.5"/>
         <image name="home" width="25" height="25"/>
-        <image name="reminder" width="25" height="25"/>
+        <image name="reminder" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="E2d-fl-8cD"/>
+        <segue reference="I9b-pZ-SFD"/>
+        <segue reference="pwq-td-Tfu"/>
     </inferredMetricsTieBreakers>
 </document>

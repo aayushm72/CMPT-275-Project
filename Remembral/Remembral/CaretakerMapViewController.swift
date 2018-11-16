@@ -4,8 +4,7 @@
 //
 //  Team: Group 2
 //  Created by Dean Fernandes on 2018-11-12.
-//  Edited: Dean
-//  Alwin
+//  Edited: Dean Fernandes, Alwin Leong
 //
 //  Caretaker Map page
 //  Will be used in Version 2
@@ -49,7 +48,6 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
         
         mapView.isMyLocationEnabled = true
         self.view = mapView
-        
         
         // Patient's Current Location Marker: Need to update Real time
         marker.position = CLLocationCoordinate2DMake(0, 0)
@@ -97,8 +95,4 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
         print("Unable to access location")
     }
     
-    func toggleHeatMap(){
-        
-    }
-
 }

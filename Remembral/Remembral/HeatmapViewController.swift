@@ -1,3 +1,19 @@
+//
+//  HeatMapViewController.swift
+//  Remembral
+//
+//  Team: Group 2
+//  Created by Dean Fernandes on 2018-11-15.
+//  Edited: Dean Fernandes
+//
+//
+//  Caretaker Map page
+//  Will be used in Version 2
+//  Known bugs:
+//
+//
+
+
 /* Copyright (c) 2017 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +36,6 @@ import UIKit
 class HeatmapViewController: UIViewController, GMSMapViewDelegate {
   private var mapView: GMSMapView!
   private var heatmapLayer: GMUHeatmapTileLayer!
-  private var button: UIButton!
 
   private var gradientColors = [UIColor.green, UIColor.red]
   private var gradientStartPoints = [0.2, 1.0] as? [NSNumber]
@@ -30,7 +45,6 @@ class HeatmapViewController: UIViewController, GMSMapViewDelegate {
     mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
     mapView.delegate = self
     self.view = mapView
-    makeButton()
   }
 
   override func viewDidLoad() {
@@ -73,25 +87,9 @@ class HeatmapViewController: UIViewController, GMSMapViewDelegate {
     heatmapLayer.weightedData = list
   }
 
-    @objc func removeHeatmap() {
-    heatmapLayer.map = nil
-    heatmapLayer = nil
-    // Disable the button to prevent subsequent calls, since heatmapLayer is now nil.
-    button.isEnabled = false
-  }
 
   func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
     print("You tapped at \(coordinate.latitude), \(coordinate.longitude)")
   }
 
-  // Add a button to the view.
-  func makeButton() {
-    // A button to test removing the heatmap.
-    button = UIButton(frame: CGRect(x: 5, y: 150, width: 200, height: 35))
-    button.backgroundColor = .blue
-    button.alpha = 0.5
-    button.setTitle("Remove heatmap", for: .normal)
-    button.addTarget(self, action: #selector(removeHeatmap), for: .touchUpInside)
-    self.mapView.addSubview(button)
-  }
 }
