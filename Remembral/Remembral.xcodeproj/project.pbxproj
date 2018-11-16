@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		241122A2218B82A700C29B1D /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241122A1218B82A700C29B1D /* FirebaseDatabase.swift */; };
 		24A0250C2183C96D007F91A3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24A0250B2183C96D007F91A3 /* GoogleService-Info.plist */; };
 		24B447E721559D4F002E4425 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B447E621559D4F002E4425 /* AppDelegate.swift */; };
-		24B447E921559D4F002E4425 /* PatientsHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B447E821559D4F002E4425 /* PatientsHomeViewController.swift */; };
 		24B447EB21559D4F002E4425 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B447EA21559D4F002E4425 /* ContactsViewController.swift */; };
 		24B447EE21559D4F002E4425 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24B447EC21559D4F002E4425 /* Main.storyboard */; };
 		24B447F021559D4F002E4425 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24B447EF21559D4F002E4425 /* Assets.xcassets */; };
@@ -19,18 +17,23 @@
 		4E3D9281892FECD53164A29F /* Pods_Remembral.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */; };
 		C48F09D3218BF54600CEB128 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48F09D2218BF54500CEB128 /* CollectionViewCell.swift */; };
 		C48F09D5218BF59200CEB128 /* EditPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48F09D4218BF59200CEB128 /* EditPersonalInfoViewController.swift */; };
-		FB196335218D53A0003C604E /* CaretakerReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB196334218D53A0003C604E /* CaretakerReminderViewController.swift */; };
-		FB196337218D56BE003C604E /* CaretakerHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB196336218D56BE003C604E /* CaretakerHomeViewController.swift */; };
 		FB1B9AA9218E523F00D8A0B7 /* RemembralTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B9AA8218E523F00D8A0B7 /* RemembralTests.swift */; };
 		FB1B9AB1218E53E600D8A0B7 /* ReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B9AB0218E53E600D8A0B7 /* ReminderTests.swift */; };
+		FB34F481219D0BBF0060ACB9 /* LocationServicesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB34F480219D0BBF0060ACB9 /* LocationServicesHandler.swift */; };
 		FB62D136217910D80048D9EA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62D135217910D80048D9EA /* MapViewController.swift */; };
 		FB651A5D218A73D4004A9B61 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */; };
-		FB8D2B7A218A8186001B81D3 /* PatientTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8D2B79218A8186001B81D3 /* PatientTabBarViewController.swift */; };
+		FBB3115A219E25190025EF76 /* DatabaseHandlers in Resources */ = {isa = PBXBuildFile; fileRef = FBB31156219E25180025EF76 /* DatabaseHandlers */; };
+		FBB3115B219E25190025EF76 /* Controllers in Resources */ = {isa = PBXBuildFile; fileRef = FBB31157219E25180025EF76 /* Controllers */; };
+		FBD1DEA1219E26E3004CF2C8 /* PatientsHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA0219E26E3004CF2C8 /* PatientsHomeViewController.swift */; };
+		FBD1DEA3219E2710004CF2C8 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA2219E2710004CF2C8 /* FirebaseDatabase.swift */; };
+		FBD1DEA9219E2753004CF2C8 /* CaretakerHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */; };
+		FBD1DEAA219E2753004CF2C8 /* CaretakerReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA5219E2744004CF2C8 /* CaretakerReminderViewController.swift */; };
+		FBD1DEAB219E2753004CF2C8 /* CaretakerMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */; };
+		FBD1DEAC219E2753004CF2C8 /* ReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA7219E274F004CF2C8 /* ReminderViewController.swift */; };
+		FBD1DEAD219E2753004CF2C8 /* PatientTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA8219E2753004CF2C8 /* PatientTabBarViewController.swift */; };
 		FBFE7BD3218E5FD300177BA1 /* PatientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFE7BD2218E5FD300177BA1 /* PatientUITests.swift */; };
 		FBFE7BD5218E8CC000177BA1 /* CaretakerUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFE7BD4218E8CC000177BA1 /* CaretakerUITest.swift */; };
-		FF557EE32186B80900644DEF /* ReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557EE22186B80900644DEF /* ReminderViewController.swift */; };
 		FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */; };
-		FFE21D55219A14FE008E624E /* CaretakerMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE21D54219A14FD008E624E /* CaretakerMapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,11 +55,9 @@
 
 /* Begin PBXFileReference section */
 		18BA0D1F5C3C264CE6C13FE7 /* Pods-Remembral.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remembral.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Remembral/Pods-Remembral.debug.xcconfig"; sourceTree = "<group>"; };
-		241122A1218B82A700C29B1D /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		24A0250B2183C96D007F91A3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24B447E321559D4F002E4425 /* Remembral.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remembral.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B447E621559D4F002E4425 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		24B447E821559D4F002E4425 /* PatientsHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsHomeViewController.swift; sourceTree = "<group>"; };
 		24B447EA21559D4F002E4425 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		24B447ED21559D4F002E4425 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		24B447EF21559D4F002E4425 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,22 +68,27 @@
 		9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Remembral.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C48F09D2218BF54500CEB128 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		C48F09D4218BF59200CEB128 /* EditPersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPersonalInfoViewController.swift; sourceTree = "<group>"; };
-		FB196334218D53A0003C604E /* CaretakerReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerReminderViewController.swift; sourceTree = "<group>"; };
-		FB196336218D56BE003C604E /* CaretakerHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerHomeViewController.swift; sourceTree = "<group>"; };
 		FB1B9AA6218E523E00D8A0B7 /* RemembralTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemembralTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB1B9AA8218E523F00D8A0B7 /* RemembralTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemembralTests.swift; sourceTree = "<group>"; };
 		FB1B9AAA218E523F00D8A0B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB1B9AB0218E53E600D8A0B7 /* ReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTests.swift; sourceTree = "<group>"; };
 		FB1B9AB8218E589A00D8A0B7 /* RemembralUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemembralUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB1B9ABC218E589A00D8A0B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB34F480219D0BBF0060ACB9 /* LocationServicesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesHandler.swift; sourceTree = "<group>"; };
 		FB62D135217910D80048D9EA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
-		FB8D2B79218A8186001B81D3 /* PatientTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientTabBarViewController.swift; sourceTree = "<group>"; };
+		FBB31156219E25180025EF76 /* DatabaseHandlers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DatabaseHandlers; sourceTree = "<group>"; };
+		FBB31157219E25180025EF76 /* Controllers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Controllers; sourceTree = "<group>"; };
+		FBD1DEA0219E26E3004CF2C8 /* PatientsHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsHomeViewController.swift; sourceTree = "<group>"; };
+		FBD1DEA2219E2710004CF2C8 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
+		FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerHomeViewController.swift; sourceTree = "<group>"; };
+		FBD1DEA5219E2744004CF2C8 /* CaretakerReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerReminderViewController.swift; sourceTree = "<group>"; };
+		FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerMapViewController.swift; sourceTree = "<group>"; };
+		FBD1DEA7219E274F004CF2C8 /* ReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
+		FBD1DEA8219E2753004CF2C8 /* PatientTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientTabBarViewController.swift; sourceTree = "<group>"; };
 		FBFE7BD2218E5FD300177BA1 /* PatientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientUITests.swift; sourceTree = "<group>"; };
 		FBFE7BD4218E8CC000177BA1 /* CaretakerUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerUITest.swift; sourceTree = "<group>"; };
-		FF557EE22186B80900644DEF /* ReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
 		FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
-		FFE21D54219A14FD008E624E /* CaretakerMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerMapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,19 +142,21 @@
 		24B447E521559D4F002E4425 /* Remembral */ = {
 			isa = PBXGroup;
 			children = (
-				241122A1218B82A700C29B1D /* FirebaseDatabase.swift */,
+				FBB31157219E25180025EF76 /* Controllers */,
+				FBB31156219E25180025EF76 /* DatabaseHandlers */,
 				24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */,
+				FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */,
+				FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */,
+				FBD1DEA5219E2744004CF2C8 /* CaretakerReminderViewController.swift */,
+				FBD1DEA8219E2753004CF2C8 /* PatientTabBarViewController.swift */,
+				FBD1DEA7219E274F004CF2C8 /* ReminderViewController.swift */,
+				FBD1DEA2219E2710004CF2C8 /* FirebaseDatabase.swift */,
 				24B447E621559D4F002E4425 /* AppDelegate.swift */,
-				24B447E821559D4F002E4425 /* PatientsHomeViewController.swift */,
+				FBD1DEA0219E26E3004CF2C8 /* PatientsHomeViewController.swift */,
 				24B447EA21559D4F002E4425 /* ContactsViewController.swift */,
-				FF557EE22186B80900644DEF /* ReminderViewController.swift */,
-				FB196336218D56BE003C604E /* CaretakerHomeViewController.swift */,
-				FB196334218D53A0003C604E /* CaretakerReminderViewController.swift */,
-				FFE21D54219A14FD008E624E /* CaretakerMapViewController.swift */,
 				FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */,
 				FB62D135217910D80048D9EA /* MapViewController.swift */,
 				24B447EC21559D4F002E4425 /* Main.storyboard */,
-				FB8D2B79218A8186001B81D3 /* PatientTabBarViewController.swift */,
 				FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */,
 				24B447EF21559D4F002E4425 /* Assets.xcassets */,
 				24B447F121559D4F002E4425 /* LaunchScreen.storyboard */,
@@ -156,6 +164,7 @@
 				C48F09D4218BF59200CEB128 /* EditPersonalInfoViewController.swift */,
 				C48F09D2218BF54500CEB128 /* CollectionViewCell.swift */,
 				24A0250B2183C96D007F91A3 /* GoogleService-Info.plist */,
+				FB34F480219D0BBF0060ACB9 /* LocationServicesHandler.swift */,
 			);
 			path = Remembral;
 			sourceTree = "<group>";
@@ -270,6 +279,11 @@
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					FB1B9AA5218E523E00D8A0B7 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -312,6 +326,8 @@
 				24A0250C2183C96D007F91A3 /* GoogleService-Info.plist in Resources */,
 				24B447F021559D4F002E4425 /* Assets.xcassets in Resources */,
 				24B447EE21559D4F002E4425 /* Main.storyboard in Resources */,
+				FBB3115A219E25190025EF76 /* DatabaseHandlers in Resources */,
+				FBB3115B219E25190025EF76 /* Controllers in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,21 +419,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBD1DEAB219E2753004CF2C8 /* CaretakerMapViewController.swift in Sources */,
 				C48F09D3218BF54600CEB128 /* CollectionViewCell.swift in Sources */,
+				FBD1DEAC219E2753004CF2C8 /* ReminderViewController.swift in Sources */,
 				24B447EB21559D4F002E4425 /* ContactsViewController.swift in Sources */,
+				FBD1DEAD219E2753004CF2C8 /* PatientTabBarViewController.swift in Sources */,
 				24B447E721559D4F002E4425 /* AppDelegate.swift in Sources */,
-				FF557EE32186B80900644DEF /* ReminderViewController.swift in Sources */,
+				FB34F481219D0BBF0060ACB9 /* LocationServicesHandler.swift in Sources */,
+				FBD1DEA3219E2710004CF2C8 /* FirebaseDatabase.swift in Sources */,
 				24F8EBB32187ADDA0069EA00 /* UserSelectorViewController.swift in Sources */,
-				FB196335218D53A0003C604E /* CaretakerReminderViewController.swift in Sources */,
-				24B447E921559D4F002E4425 /* PatientsHomeViewController.swift in Sources */,
+				FBD1DEA9219E2753004CF2C8 /* CaretakerHomeViewController.swift in Sources */,
 				FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */,
-				FB196337218D56BE003C604E /* CaretakerHomeViewController.swift in Sources */,
-				FFE21D55219A14FE008E624E /* CaretakerMapViewController.swift in Sources */,
+				FBD1DEAA219E2753004CF2C8 /* CaretakerReminderViewController.swift in Sources */,
 				FB62D136217910D80048D9EA /* MapViewController.swift in Sources */,
-				241122A2218B82A700C29B1D /* FirebaseDatabase.swift in Sources */,
+				FBD1DEA1219E26E3004CF2C8 /* PatientsHomeViewController.swift in Sources */,
 				FB651A5D218A73D4004A9B61 /* ReminderTableViewCell.swift in Sources */,
 				C48F09D5218BF59200CEB128 /* EditPersonalInfoViewController.swift in Sources */,
-				FB8D2B7A218A8186001B81D3 /* PatientTabBarViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,7 +622,7 @@
 				);
 				INFOPLIST_FILE = Remembral/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sfu.RemembralTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sfu.Remembral;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -632,7 +649,7 @@
 				);
 				INFOPLIST_FILE = Remembral/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sfu.RemembralTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sfu.Remembral;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
