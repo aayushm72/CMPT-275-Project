@@ -38,7 +38,7 @@ class HeatmapViewController: UIViewController, GMSMapViewDelegate {
   private var heatmapLayer: GMUHeatmapTileLayer!
 
   private var gradientColors = [UIColor.green, UIColor.red]
-  private var gradientStartPoints = [0.2, 1.0] as? [NSNumber]
+  private var gradientStartPoints = [0.2, 1.0] as [NSNumber]
 
   override func loadView() {
     let camera = GMSCameraPosition.camera(withLatitude: -37.848, longitude: 145.001, zoom: 10)
@@ -53,7 +53,7 @@ class HeatmapViewController: UIViewController, GMSMapViewDelegate {
     heatmapLayer.radius = 80
     heatmapLayer.opacity = 0.8
     heatmapLayer.gradient = GMUGradient(colors: gradientColors,
-                                        startPoints: gradientStartPoints!,
+                                        startPoints: gradientStartPoints,
                                         colorMapSize: 256)
     addHeatmap()
 

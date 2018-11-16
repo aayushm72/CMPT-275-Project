@@ -53,7 +53,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
         marker.position = CLLocationCoordinate2DMake(0, 0)
         
         //Select a suitable image
-        marker.icon = UIImage(named: "first")
+        marker.icon = UIImage(named: "map person")
         
         marker.map = mapView
         
