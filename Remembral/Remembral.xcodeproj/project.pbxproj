@@ -22,8 +22,6 @@
 		FB34F481219D0BBF0060ACB9 /* LocationServicesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB34F480219D0BBF0060ACB9 /* LocationServicesHandler.swift */; };
 		FB62D136217910D80048D9EA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62D135217910D80048D9EA /* MapViewController.swift */; };
 		FB651A5D218A73D4004A9B61 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */; };
-		FBB3115A219E25190025EF76 /* DatabaseHandlers in Resources */ = {isa = PBXBuildFile; fileRef = FBB31156219E25180025EF76 /* DatabaseHandlers */; };
-		FBB3115B219E25190025EF76 /* Controllers in Resources */ = {isa = PBXBuildFile; fileRef = FBB31157219E25180025EF76 /* Controllers */; };
 		FBD1DEA1219E26E3004CF2C8 /* PatientsHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA0219E26E3004CF2C8 /* PatientsHomeViewController.swift */; };
 		FBD1DEA3219E2710004CF2C8 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA2219E2710004CF2C8 /* FirebaseDatabase.swift */; };
 		FBD1DEA9219E2753004CF2C8 /* CaretakerHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */; };
@@ -77,8 +75,6 @@
 		FB34F480219D0BBF0060ACB9 /* LocationServicesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesHandler.swift; sourceTree = "<group>"; };
 		FB62D135217910D80048D9EA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
-		FBB31156219E25180025EF76 /* DatabaseHandlers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DatabaseHandlers; sourceTree = "<group>"; };
-		FBB31157219E25180025EF76 /* Controllers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Controllers; sourceTree = "<group>"; };
 		FBD1DEA0219E26E3004CF2C8 /* PatientsHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsHomeViewController.swift; sourceTree = "<group>"; };
 		FBD1DEA2219E2710004CF2C8 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerHomeViewController.swift; sourceTree = "<group>"; };
@@ -142,8 +138,6 @@
 		24B447E521559D4F002E4425 /* Remembral */ = {
 			isa = PBXGroup;
 			children = (
-				FBB31157219E25180025EF76 /* Controllers */,
-				FBB31156219E25180025EF76 /* DatabaseHandlers */,
 				24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */,
 				FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */,
 				FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */,
@@ -326,8 +320,6 @@
 				24A0250C2183C96D007F91A3 /* GoogleService-Info.plist in Resources */,
 				24B447F021559D4F002E4425 /* Assets.xcassets in Resources */,
 				24B447EE21559D4F002E4425 /* Main.storyboard in Resources */,
-				FBB3115A219E25190025EF76 /* DatabaseHandlers in Resources */,
-				FBB3115B219E25190025EF76 /* Controllers in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
