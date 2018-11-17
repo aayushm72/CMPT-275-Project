@@ -59,7 +59,6 @@
 		FBD1DEAD219E2753004CF2C8 /* PatientTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA8219E2753004CF2C8 /* PatientTabBarViewController.swift */; };
 		FBFE7BD3218E5FD300177BA1 /* PatientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFE7BD2218E5FD300177BA1 /* PatientUITests.swift */; };
 		FBFE7BD5218E8CC000177BA1 /* CaretakerUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFE7BD4218E8CC000177BA1 /* CaretakerUITest.swift */; };
-		FF36299E219F458D00404907 /* police_stations.json in Resources */ = {isa = PBXBuildFile; fileRef = FF36299D219F458D00404907 /* police_stations.json */; };
 		FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -183,7 +182,6 @@
 		FBF7BB3C219E628A00DCBFAC /* Remembral-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Remembral-Bridging-Header.h"; sourceTree = "<group>"; };
 		FBFE7BD2218E5FD300177BA1 /* PatientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientUITests.swift; sourceTree = "<group>"; };
 		FBFE7BD4218E8CC000177BA1 /* CaretakerUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerUITest.swift; sourceTree = "<group>"; };
-		FF36299D219F458D00404907 /* police_stations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = police_stations.json; sourceTree = "<group>"; };
 		FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -239,7 +237,6 @@
 		24B447E521559D4F002E4425 /* Remembral */ = {
 			isa = PBXGroup;
 			children = (
-				FF36299D219F458D00404907 /* police_stations.json */,
 				24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */,
 				FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */,
 				FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */,
@@ -252,7 +249,6 @@
 				FBD1DEA0219E26E3004CF2C8 /* PatientsHomeViewController.swift */,
 				24B447EA21559D4F002E4425 /* ContactsViewController.swift */,
 				FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */,
-				FB62D135217910D80048D9EA /* MapViewController.swift */,
 				24B447EC21559D4F002E4425 /* Main.storyboard */,
 				FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */,
 				24B447EF21559D4F002E4425 /* Assets.xcassets */,
@@ -556,7 +552,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				24B447F321559D4F002E4425 /* LaunchScreen.storyboard in Resources */,
-				FF36299E219F458D00404907 /* police_stations.json in Resources */,
 				24A0250C2183C96D007F91A3 /* GoogleService-Info.plist in Resources */,
 				24B447F021559D4F002E4425 /* Assets.xcassets in Resources */,
 				24B447EE21559D4F002E4425 /* Main.storyboard in Resources */,
@@ -685,7 +680,6 @@
 				FB48B145219E677200E99ED5 /* GMUStaticCluster.m in Sources */,
 				FB48B134219E677200E99ED5 /* GMUGeometryCollection.m in Sources */,
 				FBD1DEAA219E2753004CF2C8 /* CaretakerReminderViewController.swift in Sources */,
-				FB62D136217910D80048D9EA /* MapViewController.swift in Sources */,
 				FB48B144219E677200E99ED5 /* GMUClusterManager.m in Sources */,
 				FBD1DEA1219E26E3004CF2C8 /* PatientsHomeViewController.swift in Sources */,
 				FB651A5D218A73D4004A9B61 /* ReminderTableViewCell.swift in Sources */,
