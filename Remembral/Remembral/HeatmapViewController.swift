@@ -31,14 +31,15 @@
 
 import Foundation
 import GoogleMaps
+import FirebaseDatabase
 import UIKit
 
 class HeatmapViewController: UIViewController, GMSMapViewDelegate {
   private var mapView: GMSMapView!
   private var heatmapLayer: GMUHeatmapTileLayer!
 
-  private var gradientColors = [UIColor.green, UIColor.red]
-  private var gradientStartPoints = [0.2, 1.0] as [NSNumber]
+    private var gradientColors = [UIColor.yellow, UIColor.green, UIColor.red, UIColor.purple]
+  private var gradientStartPoints = [0.1,0.4,0.7,1.0] as [NSNumber]
 
   override func loadView() {
     let camera = GMSCameraPosition.camera(withLatitude: -37.848, longitude: 145.001, zoom: 10)
@@ -51,40 +52,41 @@ class HeatmapViewController: UIViewController, GMSMapViewDelegate {
     // Set heatmap options.
     heatmapLayer = GMUHeatmapTileLayer()
     heatmapLayer.radius = 80
-    heatmapLayer.opacity = 0.8
+    heatmapLayer.opacity = 1.0
     heatmapLayer.gradient = GMUGradient(colors: gradientColors,
                                         startPoints: gradientStartPoints,
                                         colorMapSize: 256)
     addHeatmap()
-
-    // Set the heatmap to the mapview.
-    heatmapLayer.map = mapView
   }
 
   // Parse JSON data and add it to the heatmap layer.
   func addHeatmap()  {
     var list = [GMUWeightedLatLng]()
-    do {
-      // Get the data: latitude/longitude positions of police stations.
-      if let path = Bundle.main.url(forResource: "police_stations", withExtension: "json") {
-        let data = try Data(contentsOf: path)
-        let json = try JSONSerialization.jsonObject(with: data, options: [])
-        if let object = json as? [[String: Any]] {
-          for item in object {
-            let lat = item["lat"]
-            let lng = item["lng"]
+    let ref = FirebaseDatabase.sharedInstance.locationRef
+    let childRef = ref.child("iKbAZiqWylPvVNkOLPlYfzyuzan2")
+    var isFirst = true
+    var firstlat = CLLocationDegrees()
+    var firstlng = CLLocationDegrees()
+    childRef.observeSingleEvent(of: .value, with: {
+        (snapshot: DataSnapshot) in
+        for child in snapshot.children {
+            let rData = (child as! DataSnapshot).value as? [String: Any]
+            let lat = rData!["latitude"]
+            let lng = rData!["longitude"]
+            if isFirst {
+                isFirst = false
+                firstlat = rData!["latitude"] as! CLLocationDegrees
+                firstlng = rData!["longitude"] as! CLLocationDegrees
+            }
             let coords = GMUWeightedLatLng(coordinate: CLLocationCoordinate2DMake(lat as! CLLocationDegrees, lng as! CLLocationDegrees), intensity: 1.0)
             list.append(coords)
-          }
-        } else {
-          print("Could not read the JSON.")
         }
-      }
-    } catch {
-      print(error.localizedDescription)
-    }
-    // Add the latlngs to the heatmap layer.
-    heatmapLayer.weightedData = list
+    self.heatmapLayer.clearTileCache()
+    self.heatmapLayer.weightedData = list
+    self.heatmapLayer.map = self.mapView
+    let camera = GMSCameraPosition.camera(withLatitude: firstlat, longitude: firstlng, zoom: 10)
+    self.mapView.camera = camera
+    })
   }
 
 
