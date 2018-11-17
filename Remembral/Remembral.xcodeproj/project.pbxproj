@@ -47,6 +47,7 @@
 		FB48B147219E677200E99ED5 /* GMUDefaultClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = FB48B127219E677200E99ED5 /* GMUDefaultClusterRenderer.m */; };
 		FB48B148219E677200E99ED5 /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = FB48B12C219E677200E99ED5 /* GQTPointQuadTree.m */; };
 		FB48B149219E677200E99ED5 /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = FB48B12E219E677200E99ED5 /* GQTPointQuadTreeChild.m */; };
+		FB48B14B219E6AA400E99ED5 /* MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB48B14A219E6AA400E99ED5 /* MapTests.swift */; };
 		FB62D136217910D80048D9EA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB62D135217910D80048D9EA /* MapViewController.swift */; };
 		FB651A5D218A73D4004A9B61 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */; };
 		FBD1DEA1219E26E3004CF2C8 /* PatientsHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA0219E26E3004CF2C8 /* PatientsHomeViewController.swift */; };
@@ -169,6 +170,7 @@
 		FB48B12D219E677200E99ED5 /* GQTPointQuadTreeChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeChild.h; sourceTree = "<group>"; };
 		FB48B12E219E677200E99ED5 /* GQTPointQuadTreeChild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTreeChild.m; sourceTree = "<group>"; };
 		FB48B12F219E677200E99ED5 /* GQTPointQuadTreeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeItem.h; sourceTree = "<group>"; };
+		FB48B14A219E6AA400E99ED5 /* MapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTests.swift; sourceTree = "<group>"; };
 		FB62D135217910D80048D9EA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
 		FBD1DEA0219E26E3004CF2C8 /* PatientsHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsHomeViewController.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 		FB1B9AA7218E523E00D8A0B7 /* RemembralTests */ = {
 			isa = PBXGroup;
 			children = (
+				FB48B14A219E6AA400E99ED5 /* MapTests.swift */,
 				FB1B9AA8218E523F00D8A0B7 /* RemembralTests.swift */,
 				FB1B9AB0218E53E600D8A0B7 /* ReminderTests.swift */,
 				FB1B9AAA218E523F00D8A0B7 /* Info.plist */,
@@ -700,6 +703,7 @@
 			files = (
 				FB1B9AA9218E523F00D8A0B7 /* RemembralTests.swift in Sources */,
 				FB1B9AB1218E53E600D8A0B7 /* ReminderTests.swift in Sources */,
+				FB48B14B219E6AA400E99ED5 /* MapTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

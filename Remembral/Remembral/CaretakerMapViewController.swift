@@ -25,6 +25,8 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
     
     var marker = GMSMarker()
     let mapView = GMSMapView(frame: .zero)
+    var displayedFence: [XYPoint]?
+    var warningImg: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +66,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
             let userInfo = snapshot.value as! [String:Any]
             self.marker.title = userInfo["name"] as? String ?? "undefined"
         }
- ;
+
         
         //Updates marker whenever there's a location update.
         LocationServicesHandler.newestLocationUpdates(forID: userID) { (locationReturned) in
@@ -75,17 +77,30 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
                 let cameraUpdate = GMSCameraUpdate.setTarget((self.mapView.selectedMarker?.position)!)
                 self.mapView.moveCamera(cameraUpdate)
             }
+            if self.displayedFence != nil {
+//THIS LINE OF CODE TO DETECTS IF A COORDINATE IS INSIDE THE FENCE
+                 let result = LocationServicesHandler.isPointInsideFence(currentLocation: locationReturned.asCoordinate(), fence: self.displayedFence!)
+
+            }
         }
-       // locationManager(
-        //let cameraMove = GMSCameraUpdate.setTarget((locationManager.location?.coordinate)!, zoom: 18)
-        //mapView.moveCamera(cameraMove)
+
+        //Set a time range for the generation of the fence?
+        //let day_in_seconds = 60.0 * 60.0 * 24.0 / 2
+        let first = 0.0 //LocationServicesHandler.getNewEndingPoint() - 2.5 * day_in_seconds
+        LocationServicesHandler.readLocations(forID: userID, startingPoint: first){
+            (locationList) in
+            self.displayedFence = LocationServicesHandler.generateFence(forUser: userID, forLocations: locationList, mapView: self.mapView)
+            
+        }
         
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userCoord = (locationManager.location?.coordinate)!
         if self.mapView.selectedMarker == nil{
-            let cameraMove = GMSCameraUpdate.setTarget((locationManager.location?.coordinate)!, zoom: 18)
+            let cameraMove = GMSCameraUpdate.setTarget(userCoord, zoom: 18)
             mapView.moveCamera(cameraMove)
         }
+
     }
    // func locationManager(_ manager: CLLocationManager, DidResumeLocationUpdates ) {
    //     return 0
