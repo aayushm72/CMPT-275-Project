@@ -27,10 +27,26 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
     var marker = GMSMarker()
     let mapView = GMSMapView(frame: .zero)
     var displayedFence: [XYPoint]?
-    var warningImg: UIImage?
+    var warningIcon: UIImageView?
     
+    func initializeWarning() {
+        let imageName = "warning_sign"
+        let image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
+        warningIcon = UIImageView(image: image!)
+        warningIcon?.tintColor = .red
+        let navHeight = self.navigationController!.navigationBar.frame.size.height
+        let window = UIApplication.shared.keyWindow
+        let topPadding = (window?.safeAreaInsets.top)! + navHeight
+        warningIcon?.frame = CGRect(x: 5, y: topPadding, width: 50, height: 50)
+
+        self.mapView.addSubview(warningIcon!)
+        self.mapView.bringSubview(toFront: warningIcon!)
+        warningIcon?.isHidden = true
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
         if CLLocationManager.locationServicesEnabled() {
             print("Location services are enabled")
@@ -50,6 +66,12 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
         
         
         mapView.isMyLocationEnabled = true
+        
+        /*mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        mapView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        */
         self.view = mapView
         
         // Patient's Current Location Marker: Need to update Real time
@@ -82,6 +104,8 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
 //THIS LINE OF CODE TO DETECTS IF A COORDINATE IS INSIDE THE FENCE
                  let result = LocationServicesHandler.isPointInsideFence(currentLocation: locationReturned.asCoordinate(), fence: self.displayedFence!)
                 self.setAutomaticSOSNotification(shouldSetRemove: result)
+                self.warningIcon?.isHidden = result
+
             }
         }
 
@@ -94,11 +118,13 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
             
         }
         
+        initializeWarning()
+        
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userCoord = (locationManager.location?.coordinate)!
         if self.mapView.selectedMarker == nil{
-            let cameraMove = GMSCameraUpdate.setTarget(userCoord, zoom: 18)
+            let cameraMove = GMSCameraUpdate.setTarget(userCoord, zoom: 12)
             mapView.moveCamera(cameraMove)
         }
 
