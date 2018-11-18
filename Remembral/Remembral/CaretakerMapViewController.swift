@@ -18,6 +18,7 @@ import CoreLocation
 import GoogleMaps
 import FirebaseCore
 import FirebaseDatabase
+import UserNotifications
 
 class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     
@@ -80,7 +81,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
             if self.displayedFence != nil {
 //THIS LINE OF CODE TO DETECTS IF A COORDINATE IS INSIDE THE FENCE
                  let result = LocationServicesHandler.isPointInsideFence(currentLocation: locationReturned.asCoordinate(), fence: self.displayedFence!)
-
+                self.setAutomaticSOSNotification(shouldSetRemove: result)
             }
         }
 
@@ -101,6 +102,28 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
             mapView.moveCamera(cameraMove)
         }
 
+    }
+    
+    func setAutomaticSOSNotification(shouldSetRemove: Bool){
+        if !shouldSetRemove{
+            let category = UNNotificationCategory(identifier: "LocationSOS", actions: [], intentIdentifiers: [], options: [])
+            UNUserNotificationCenter.current().setNotificationCategories([category])
+            let content = UNMutableNotificationContent()
+            content.title = "ALERT!"
+            content.categoryIdentifier = "LocationSOS"
+            content.body = "Patient has been out of Safe Areas for 15 minutes."
+            content.sound = UNNotificationSound.default()
+            
+            let date = Date().addingTimeInterval(15.0 * 60.0)
+            let calendar = Calendar.current
+            let dateComponents = calendar.dateComponents([.hour, .minute, .second], from: date)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            let request = UNNotificationRequest(identifier: "LocationSOS", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
+        } else {
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["LocationSOS"])
+        }
     }
    // func locationManager(_ manager: CLLocationManager, DidResumeLocationUpdates ) {
    //     return 0
