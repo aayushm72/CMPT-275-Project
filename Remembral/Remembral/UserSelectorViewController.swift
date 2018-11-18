@@ -20,9 +20,6 @@ import SwiftKeychainWrapper
 
 class UserSelectorViewController: UIViewController {
     
-    @IBOutlet weak var patientBtn: UIButton!
-    @IBOutlet weak var caretakerBtn: UIButton!
-    
     var userUID: String!
     enum UserType {
         case UNKNOWN

@@ -4,30 +4,13 @@
 //
 //  Team: Group 2
 //  Created by Dean Fernandes on 2018-11-15.
-//  Edited: Dean Fernandes
+//  Edited: Dean Fernandes, Aayush Malhotra
 //
 //
-//  Caretaker Map page
-//  Will be used in Version 2
+//  Caretaker Heat Map page
 //  Known bugs:
 //
 //
-
-
-/* Copyright (c) 2017 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 import Foundation
 import GoogleMaps
@@ -38,7 +21,7 @@ class HeatmapViewController: UIViewController, GMSMapViewDelegate {
   private var mapView: GMSMapView!
   private var heatmapLayer: GMUHeatmapTileLayer!
 
-    private var gradientColors = [UIColor.yellow, UIColor.green, UIColor.red, UIColor.purple]
+  private var gradientColors = [ UIColor.green, UIColor.yellow, UIColor.red, UIColor.purple]
   private var gradientStartPoints = [0.1,0.4,0.7,1.0] as [NSNumber]
 
   override func loadView() {
@@ -59,7 +42,7 @@ class HeatmapViewController: UIViewController, GMSMapViewDelegate {
     addHeatmap()
   }
 
-  // Parse JSON data and add it to the heatmap layer.
+  // Get Firebase data and add it to the heatmap layer.
   func addHeatmap()  {
     var list = [GMUWeightedLatLng]()
     let ref = FirebaseDatabase.sharedInstance.locationRef
