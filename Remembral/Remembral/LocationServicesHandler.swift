@@ -4,11 +4,12 @@
 //
 //  Team: Group 2
 //  Created by Alwin Leong on 10/18/18.
-//  Edited:
+//  Edited: Alwin
 //
 //  Contains functions to aid with handling location database messages
 //  Known bugs:
-//  
+//  Implement hole detection in cluster to find empty spaces where the user has not visited.
+//  Add these holes to the fence.
 //
 
 
@@ -20,7 +21,6 @@ import FirebaseAuth
 import GoogleMaps
 
 typealias XYPoint = (x:Double,y:Double)
-
 
 struct LocationObj {
     var latitude:Double!
@@ -199,13 +199,11 @@ class LocationServicesHandler : NSObject {
         let firstPoint = workingSet[0]
         workingSet.remove(at: 0)
         hull.append(firstPoint)
-        let k = 15
+        let k = 11
         var currentPoint = firstPoint
         var step = 1
         var previousAngle = 0.0
         while (currentPoint != firstPoint || step == 1){
-            print(currentPoint)
-            print("Previous angle is", previousAngle)
             if step == 4{
                 workingSet.insert(firstPoint, at: 0)
             }
@@ -224,7 +222,7 @@ class LocationServicesHandler : NSObject {
             })
             var nextPoint = XYPoint(0,0)
             for point in test2{
-                print(atan2(point.y - currentPoint.y, point.x - currentPoint.x) - previousAngle)
+                //print(atan2(point.y - currentPoint.y, point.x - currentPoint.x) - previousAngle)
                 if (!lineCrossesList(firstLine: [currentPoint, point], otherLines: hull)){
                     nextPoint = point
                     break
@@ -241,7 +239,6 @@ class LocationServicesHandler : NSObject {
             previousAngle = atan2(hull[step-1].y - hull[step].y, hull[step-1].x - hull[step].x)
             print(nextPoint, previousAngle)
             step += 1
-            print(step , "\n\n\n\n")
         }
         print(workingSet.count)
         print(workingSet)
