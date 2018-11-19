@@ -9,7 +9,7 @@ Remembral : Memories Matter
 - Personal and Contact Info
 
 Steps to checkout project:
- - The project uses XCode IDE running on a macOS device, therefore, make sure you are running a macOS device and have XCode IDE installed.
+ - The project uses XCode IDE version 10.1+ running on a macOS device, therefore, make sure you are running a macOS device and have XCode IDE version 10.1 or higher is installed.
  - Download the project files using the "Clone or download" > "Download ZIP" option
  - Place the downloaded ZIP file where you want the project files to reside in your file structure.
  - Extract the contents of the ZIP folder
