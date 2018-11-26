@@ -18,6 +18,14 @@ import FirebaseDatabase
 import FirebaseAuth
 import UserNotifications
 
+struct Contacts {
+    var fullName:String!
+    var relationToPatient: String!
+    var emailAddress:String!
+    var residentialAddress:String!
+    var phoneNumber:String!
+}
+
 struct Reminder {
     var sender:String!
     var reciever:String!
