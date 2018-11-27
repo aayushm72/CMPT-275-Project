@@ -108,7 +108,7 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
         }
         let NavigateAction = UIAlertAction(title: "Take Me Home", style: .default) { (action:UIAlertAction!) in
             //create request for searching fome address longitude and latitude
-            let searchRequest = MKLocalSearchRequest()
+            let searchRequest = MKLocalSearch.Request()
             searchRequest.naturalLanguageQuery = FirebaseDatabase.sharedInstance.userObj.address
             
             let activeSearch = MKLocalSearch(request: searchRequest)
@@ -125,7 +125,7 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
                     let longitude = response?.boundingRegion.center.longitude
                     let regionDistance:CLLocationDistance = 1000;
                     let coordinates = CLLocationCoordinate2DMake(latitude!, longitude!)
-                    let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+                    let regionSpan = MKCoordinateRegion.init(center: coordinates, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
                     let options = [MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
                                    MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)]
                     let placemark = MKPlacemark(coordinate: coordinates)

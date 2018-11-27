@@ -118,11 +118,11 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
             for snap in snapshot.children {
                 if let rData = (snap as! DataSnapshot).value as? [String:Any]{
                     
-                    let newR = Reminder(sender: rData["sender"] as! String,
-                                        reciever: rData["reciever"] as! String,
-                                        description: rData["description"] as! String,
-                                        date: rData["date"] as! Double,
-                                        recurrence: rData["recurrence"] as! String,
+                    let newR = Reminder(sender: rData["sender"] as? String,
+                                        reciever: rData["reciever"] as? String,
+                                        description: rData["description"] as? String,
+                                        date: rData["date"] as? Double,
+                                        recurrence: rData["recurrence"] as? String,
                                         status: rData["status"] as! Bool,
                                         databaseKey: (snap as! DataSnapshot).key)
                     if newR.status == withStatus{
@@ -141,11 +141,11 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
             for snap in snapshot.children {
                 if let rData = (snap as! DataSnapshot).value as? [String:Any]{
                     
-                    let newR = Reminder(sender: rData["sender"] as! String,
-                                        reciever: rData["reciever"] as! String,
-                                        description: rData["description"] as! String,
-                                        date: rData["date"] as! Double,
-                                        recurrence: rData["recurrence"] as! String,
+                    let newR = Reminder(sender: rData["sender"] as? String,
+                                        reciever: rData["reciever"] as? String,
+                                        description: rData["description"] as? String,
+                                        date: rData["date"] as? Double,
+                                        recurrence: rData["recurrence"] as? String,
                                         status: rData["status"] as! Bool,
                                         databaseKey: (snap as! DataSnapshot).key)
                    asdf += [newR]
@@ -161,11 +161,11 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         reminderRef.observe(.childAdded, with: { (snapshot: DataSnapshot) in
                 if let rData = snapshot.value as? [String:Any]{
                     
-                    let newR = Reminder(sender: rData["sender"] as! String,
-                                        reciever: rData["reciever"] as! String,
-                                        description: rData["description"] as! String,
-                                        date: rData["date"] as! Double,
-                                        recurrence: rData["recurrence"] as! String,
+                    let newR = Reminder(sender: rData["sender"] as? String,
+                                        reciever: rData["reciever"] as? String,
+                                        description: rData["description"] as? String,
+                                        date: rData["date"] as? Double,
+                                        recurrence: rData["recurrence"] as? String,
                                         status: rData["status"] as! Bool,
                                         databaseKey: snapshot.key)
                     if(newR.status == true){
@@ -179,7 +179,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                     content.title = newR.sender
                     content.categoryIdentifier = newR.databaseKey
                     content.body = newR.description///should be puled from one of the list arrays
-                    content.sound = UNNotificationSound.default()
+                    content.sound = UNNotificationSound.default
                     
                     var dateComponents = DateComponents()
                     
@@ -243,7 +243,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
             content.categoryIdentifier = firebaseKey
             content.body = response.notification.request.content.body///should be puled from one of the list arrays
             let calendar = Calendar.current
-            content.sound = UNNotificationSound.default()
+            content.sound = UNNotificationSound.default
             let dateComponents = calendar.dateComponents(
                 [.hour, .minute, .second],
                 from: date)

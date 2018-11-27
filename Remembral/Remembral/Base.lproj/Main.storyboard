@@ -62,16 +62,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuR-YV-Dnx">
-                                                    <rect key="frame" x="21" y="19" width="194" height="162"/>
+                                                    <rect key="frame" x="21" y="19" width="223" height="162"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUv-vU-FHb">
-                                                    <rect key="frame" x="225" y="65" width="150" height="70"/>
+                                                    <rect key="frame" x="254" y="65" width="121" height="70"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="70" id="Jtf-vI-WcL"/>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="a6M-5c-Bfu"/>
+                                                        <constraint firstAttribute="width" secondItem="EUv-vU-FHb" secondAttribute="height" multiplier="121:70" id="rvW-cZ-zrX"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                     <state key="normal" title="DONE"/>
@@ -180,7 +180,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </datePicker>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="eg) take tablets" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WUJ-q4-s6p">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="eg) take tablets" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WUJ-q4-s6p">
                                 <rect key="frame" x="20" y="115" width="335" height="40"/>
                                 <color key="backgroundColor" red="0.8862745098" green="0.67843137249999996" blue="0.30588235289999999" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -313,7 +313,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="miE-5e-dUP" kind="show" id="I9b-pZ-SFD"/>
+                        <segue destination="miE-5e-dUP" kind="show" identifier="toHeatMap" id="I9b-pZ-SFD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w39-T4-bmX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -778,16 +778,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1Z-S0-ci3">
-                                                    <rect key="frame" x="21" y="19" width="194" height="161.5"/>
+                                                    <rect key="frame" x="21" y="19" width="207" height="161.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YJu-2J-FzB">
-                                                    <rect key="frame" x="225" y="65" width="150" height="70"/>
+                                                    <rect key="frame" x="238" y="65" width="122" height="70"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="70" id="JGM-FN-oNz"/>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="mig-di-omv"/>
+                                                        <constraint firstAttribute="width" secondItem="YJu-2J-FzB" secondAttribute="height" multiplier="61:35" id="gmC-E2-VTI"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                     <state key="normal" title="DONE"/>
@@ -799,11 +799,10 @@
                                             <constraints>
                                                 <constraint firstItem="n1Z-S0-ci3" firstAttribute="centerY" secondItem="8W6-nd-9YX" secondAttribute="centerY" id="6bQ-lQ-Hov"/>
                                                 <constraint firstItem="YJu-2J-FzB" firstAttribute="centerY" secondItem="8W6-nd-9YX" secondAttribute="centerY" id="8oj-QS-rgp"/>
-                                                <constraint firstItem="YJu-2J-FzB" firstAttribute="leading" secondItem="n1Z-S0-ci3" secondAttribute="trailing" constant="10" id="AfJ-g4-01F"/>
-                                                <constraint firstAttribute="trailing" secondItem="YJu-2J-FzB" secondAttribute="trailing" id="Gxa-7F-4R8"/>
                                                 <constraint firstItem="n1Z-S0-ci3" firstAttribute="top" secondItem="8W6-nd-9YX" secondAttribute="topMargin" constant="8" id="Mcg-lq-ZcN"/>
-                                                <constraint firstAttribute="leading" relation="greaterThanOrEqual" secondItem="n1Z-S0-ci3" secondAttribute="trailing" constant="-215" id="Spv-NZ-I22"/>
+                                                <constraint firstItem="YJu-2J-FzB" firstAttribute="leading" secondItem="n1Z-S0-ci3" secondAttribute="trailing" constant="10" id="hZQ-He-7IO"/>
                                                 <constraint firstItem="n1Z-S0-ci3" firstAttribute="leading" secondItem="8W6-nd-9YX" secondAttribute="leadingMargin" constant="6" id="rQy-Nj-TeZ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="YJu-2J-FzB" secondAttribute="trailing" id="xhs-vl-sQM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <accessibility key="accessibilityConfiguration" identifier="ReminderTableViewCell"/>
@@ -837,7 +836,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jey-fp-cEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="876" y="1470"/>
+            <point key="canvasLocation" x="876" y="1469.4152923538231"/>
         </scene>
         <!--Reminders-->
         <scene sceneID="poQ-j2-DmY">

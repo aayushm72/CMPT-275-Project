@@ -40,7 +40,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
         warningIcon?.frame = CGRect(x: 5, y: topPadding, width: 50, height: 50)
 
         self.mapView.addSubview(warningIcon!)
-        self.mapView.bringSubview(toFront: warningIcon!)
+        self.mapView.bringSubviewToFront(warningIcon!)
         warningIcon?.isHidden = true
 
     }
@@ -138,7 +138,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
             content.title = "ALERT!"
             content.categoryIdentifier = "LocationSOS"
             content.body = "Patient has been out of Safe Areas for 15 minutes."
-            content.sound = UNNotificationSound.default()
+            content.sound = UNNotificationSound.default
             
             let date = Date().addingTimeInterval(15.0 * 60.0)
             let calendar = Calendar.current

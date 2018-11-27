@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             content.categoryIdentifier = firebaseKey
             content.body = response.notification.request.content.body///should be puled from one of the list arrays
             let calendar = Calendar.current
-            content.sound = UNNotificationSound.default()
+            content.sound = UNNotificationSound.default
             let dateComponents = calendar.dateComponents(
                 [.hour, .minute, .second],
                 from: date)
@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         UNUserNotificationCenter.current().delegate = self//when this is un-commented notifications pop up properly
