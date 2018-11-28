@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		248A753921AE2C2000A19AF4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248A753821AE2C1F00A19AF4 /* LoginViewController.swift */; };
+		248A753B21AE2C8800A19AF4 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248A753A21AE2C8800A19AF4 /* RegisterViewController.swift */; };
 		24A0250C2183C96D007F91A3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24A0250B2183C96D007F91A3 /* GoogleService-Info.plist */; };
 		24B447E721559D4F002E4425 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B447E621559D4F002E4425 /* AppDelegate.swift */; };
 		24B447EB21559D4F002E4425 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B447EA21559D4F002E4425 /* ContactsViewController.swift */; };
@@ -82,6 +84,8 @@
 
 /* Begin PBXFileReference section */
 		18BA0D1F5C3C264CE6C13FE7 /* Pods-Remembral.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remembral.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Remembral/Pods-Remembral.debug.xcconfig"; sourceTree = "<group>"; };
+		248A753821AE2C1F00A19AF4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		248A753A21AE2C8800A19AF4 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		24A0250B2183C96D007F91A3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24B447E321559D4F002E4425 /* Remembral.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remembral.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B447E621559D4F002E4425 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -239,6 +243,7 @@
 		24B447E521559D4F002E4425 /* Remembral */ = {
 			isa = PBXGroup;
 			children = (
+				248A753821AE2C1F00A19AF4 /* LoginViewController.swift */,
 				24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */,
 				FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */,
 				FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */,
@@ -252,6 +257,7 @@
 				24B447EA21559D4F002E4425 /* ContactsViewController.swift */,
 				FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */,
 				24B447EC21559D4F002E4425 /* Main.storyboard */,
+				248A753A21AE2C8800A19AF4 /* RegisterViewController.swift */,
 				FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */,
 				24B447EF21559D4F002E4425 /* Assets.xcassets */,
 				24B447F121559D4F002E4425 /* LaunchScreen.storyboard */,
@@ -670,6 +676,7 @@
 				FFDD2A9A21AA492100365DA7 /* ContactPerson.swift in Sources */,
 				24B447E721559D4F002E4425 /* AppDelegate.swift in Sources */,
 				FB48B133219E677200E99ED5 /* GMUFeature.m in Sources */,
+				248A753921AE2C2000A19AF4 /* LoginViewController.swift in Sources */,
 				FB34F481219D0BBF0060ACB9 /* LocationServicesHandler.swift in Sources */,
 				FBD1DEA3219E2710004CF2C8 /* FirebaseDatabase.swift in Sources */,
 				24F8EBB32187ADDA0069EA00 /* UserSelectorViewController.swift in Sources */,
@@ -688,6 +695,7 @@
 				FB48B134219E677200E99ED5 /* GMUGeometryCollection.m in Sources */,
 				FBD1DEAA219E2753004CF2C8 /* CaretakerReminderViewController.swift in Sources */,
 				FB48B144219E677200E99ED5 /* GMUClusterManager.m in Sources */,
+				248A753B21AE2C8800A19AF4 /* RegisterViewController.swift in Sources */,
 				FBD1DEA1219E26E3004CF2C8 /* PatientsHomeViewController.swift in Sources */,
 				FB651A5D218A73D4004A9B61 /* ReminderTableViewCell.swift in Sources */,
 				FB48B13F219E677200E99ED5 /* GMUWeightedLatLng.m in Sources */,

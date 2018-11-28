@@ -75,6 +75,7 @@ struct User {
     var phNo: String!
     var caretakerName: String!
     var caretakerPhNo: String!
+    var type: String!
 }
 
 class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCenterDelegate{
@@ -293,7 +294,8 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                                 address: userDict["address"],
                                 phNo: userDict["phNo"],
                                 caretakerName: userDict["caretakerName"],
-                                caretakerPhNo: userDict["caretakerPhNo"]
+                                caretakerPhNo: userDict["caretakerPhNo"],
+                                type: userDict["type"]
             )
             
             completion? (true)
