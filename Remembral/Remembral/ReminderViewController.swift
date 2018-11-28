@@ -93,6 +93,9 @@ class ReminderViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        updateReminderTable()
+    }
+    func updateReminderTable(){
         FirebaseDatabase.sharedInstance.updateRemindersThen(completion: { (dict) in
             self.reminders = dict
             self.tableView.reloadData()

@@ -11,6 +11,9 @@
 //  Implement hole detection in cluster to find empty spaces where the user has not visited.
 //  Add these holes to the fence.
 //
+//  Completed: Method of find extra clusters.
+//  Todo: Detect if cluster should be included.
+//
 
 
 import Foundation
@@ -21,27 +24,37 @@ import FirebaseAuth
 import GoogleMaps
 
 typealias XYPoint = (x:Double,y:Double)
+typealias GeoFence = (inclusion: [XYPoint], exclusion: [XYPoint])
+
+
+let emptyPoints = [XYPoint]()
+
+/* This struct is used to store location data and allow for easy conversions using meters */
 
 struct LocationObj {
     var latitude:Double!
     var longitude:Double!
     var time:Double!
     var weight:Double?
+    
     init(latitude: Double, longitude: Double, time: Double){
         self.latitude = latitude
         self.longitude = longitude
         self.time = time
         self.weight = 1.0;
     }
+    
     init (coord: CLLocationCoordinate2D, time: Double, weight: Double){
         self.latitude = coord.latitude
         self.longitude = coord.longitude
         self.time = time
         self.weight = weight
     }
+    
     func asCoordinate() -> CLLocationCoordinate2D{
         return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
     }
+    
     func distance(other: LocationObj) -> Double {
         let R = 6378.137; // Radius of earth in KM
         let lat1  = latitude!;
@@ -58,24 +71,46 @@ struct LocationObj {
         let d = R * c;
         return d * 1000; // meters
     }
+    
     mutating func averageWith(other: LocationObj) {
         self.latitude = (self.latitude + other.latitude) / 2
         self.longitude = (self.longitude + other.longitude) / 2
     }
+    
     func getInMeters() -> (x: Double, y:Double) {
         let mPerDegLat =  111132.954 - 559.822 * cos( 2 * latitude ) + 1.175 * cos( 4 * latitude)
         let mPerDegLong = 111132.954 * cos ( latitude )
-        return (x: latitude * mPerDegLat, y: longitude * mPerDegLong)
+        return (x: longitude * mPerDegLong, y: latitude * mPerDegLat)
     }
+    
     func addMeters(x: Double, y: Double) -> LocationObj{
         let mPerDegLat =  111132.954 - 559.822 * cos( 2 * latitude ) + 1.175 * cos( 4 * latitude)
         let mPerDegLong = 111132.954 * cos ( latitude )
-        return LocationObj(latitude: self.latitude + x / mPerDegLat, longitude: self.longitude + y / mPerDegLong, time: self.time)
+        return LocationObj(latitude: self.latitude + y / mPerDegLat, longitude: self.longitude + x / mPerDegLong, time: self.time)
     }
+    
     func asXY() -> XYPoint{
+        //Cartesion coordinates takes the form if (Longitude, Latitude) or Vertical, Horizontal
         return (x: self.longitude, y:self.latitude)
     }
 }
+
+
+extension Array {
+    mutating func remove(at indexes: [Int]) {
+        var lastIndex: Int? = nil
+        for index in indexes.sorted(by: >) {
+            guard lastIndex != index else {
+                continue
+            }
+            remove(at: index)
+            lastIndex = index
+        }
+    }
+}
+
+
+// MARK: Main Class
 
 class LocationServicesHandler : NSObject {
     struct LOCATION_SETTINGS {
@@ -85,54 +120,156 @@ class LocationServicesHandler : NSObject {
     override init(){
         super.init()
     }
-    static let min_radius = 300.0
+    static let min_radius = 200.0
     
-    static func generateFence(forUser: String, forLocations: [LocationObj], mapView: GMSMapView)-> [XYPoint]{
-        /*newList.sort { (lhs: LocationObj, rhs: LocationObj) -> Bool in
-            return lhs.latitude < rhs.latitude || (lhs.latitude == rhs.latitude && lhs.longitude < rhs.longitude)
-        }*/
+
+/* This function will generate a polygon (list of vertices) which enclose the given locations if
+   their locations are close enough 
+*/
+    
+    static func generateFence(forUser: String, forLocations: [LocationObj], mapView: GMSMapView)-> [GeoFence]{
+
         
         /*for location in newList{
             let newCircle = GMSCircle(position: location.asCoordinate(), radius: min_radius)
                 newCircle.strokeColor = .red
                 newCircle.map = mapView
         }*/
-        let firstReduce = LocationServicesHandler.simplifyLocationList(locationList: forLocations)
-        let groupedLocations = LocationServicesHandler.reduceLocationListOverlap(locationList: firstReduce)
         
+        //Separate clusters
+
         
-        var rectPoints = [(x:Double, y:Double)]()
-        for location in groupedLocations{
-            let radius = min_radius * (location.weight ?? 1.0)
-            rectPoints.append(location.addMeters(x: radius, y: radius).asXY())
-            rectPoints.append(location.addMeters(x: radius, y: -radius).asXY())
-            rectPoints.append(location.addMeters(x: -radius, y: -radius).asXY())
-            rectPoints.append(location.addMeters(x: -radius, y: radius).asXY())
-        }
+//        let firstReduce = LocationServicesHandler.simplifyLocationList(locationList: forLocations)
+//        let groupedLocations = LocationServicesHandler.reduceLocationListOverlap(locationList: firstReduce)
         
+        let clusterResult = cluster(locationList: forLocations)
         
-        let result = generateConcaveHull(locationList: rectPoints)
-        print(result)
-        let FinalPolygon = GMSMutablePath()
-        
-        for index in 0..<result.count-1{
-            let point = result[index]
-            var radius = Double(1000 - index * 120)
-            if radius < 100{
-                radius = 100
+        var groupedLocationsC = [[LocationObj]]()
+        for clusterConst in clusterResult{
+            var cluster = clusterConst
+            if cluster.count == 0{
+                continue
             }
-            let newLocation = CLLocationCoordinate2D(latitude: point.y, longitude: point.x)
-            FinalPolygon.add(newLocation)
+            cluster.sort(by: {
+                $0.time < $1.time
+            })
+            let firstReduce = LocationServicesHandler.simplifyLocationList(locationList: cluster)
+            let grouped = LocationServicesHandler.reduceLocationListOverlap(locationList: firstReduce)
+            if grouped.count < 2{
+                continue
+            }
+            groupedLocationsC += [grouped] //[]
         }
-        let polygon = GMSPolygon(path: FinalPolygon)
-            polygon.fillColor = UIColor(red: 0.8, green: 0.5, blue: 0, alpha: 0.3);
-            polygon.strokeColor = .black
-            polygon.strokeWidth = 2
-            polygon.map = mapView
+        /*
+        for each in groupedLocationsC {
+            print("Cluster")
+            print(each)
+            var opacity = 0.1
+            for each2 in each {
+                let newCircle = GMSCircle(position: each2.asCoordinate(), radius: min_radius * (each2.weight ?? 1.0))
+                newCircle.strokeColor = .red
+                newCircle.fillColor = UIColor(red: 1, green: 1, blue: CGFloat(opacity), alpha: CGFloat(opacity))
+                newCircle.map = mapView
+                opacity += 0.1
+            }
+        }*/
+        /*
+        for location in groupedLocations{
+            let newCircle = GMSCircle(position: location.asCoordinate(), radius: min_radius * (location.weight ?? 1.0))
+            newCircle.strokeColor = .red
+            newCircle.map = mapView
+        }*/
         
-        return result
+        //Separate clusters here. Then plug each cluster into the algorithm separately.
+        
+        var rectPoints = [[XYPoint]]()
+        for cluster in groupedLocationsC {
+            var clusterRectPoints = [XYPoint]()
+            for location in cluster{
+                let radius = min_radius * (location.weight ?? 1.0)
+                clusterRectPoints.append(location.addMeters(x: radius, y: radius).asXY())
+                clusterRectPoints.append(location.addMeters(x: radius, y: -radius).asXY())
+                clusterRectPoints.append(location.addMeters(x: -radius, y: -radius).asXY())
+                clusterRectPoints.append(location.addMeters(x: -radius, y: radius).asXY())
+
+            }
+            rectPoints += [clusterRectPoints]
+            
+        }
+        
+        var pointsOutsideHull = [XYPoint]()
+        var retVal = [GeoFence]()
+        
+        for cluster in rectPoints{
+            let hull = generateConcaveHull(locationList: cluster, otherPoints: &pointsOutsideHull)
+            retVal.append((inclusion: hull, exclusion: emptyPoints))
+        }
+
+        //Also generate inner fence.
+        
+        
+        //print(result)
+        for result in retVal{
+            let FinalPolygon = createPolygonFromPoints(pointList: result.inclusion)
+            
+            let polygon = GMSPolygon(path: FinalPolygon)
+                polygon.fillColor = UIColor(red: 0.8, green: 0.5, blue: 0, alpha: 0.3);
+                polygon.strokeColor = .black
+                polygon.strokeWidth = 2
+                polygon.map = mapView
+        }
+        return retVal
+    }
+    static func detectHolesInCluster(){
+        
+    }
+    static private func cluster(locationList: [LocationObj]) -> [[LocationObj]]{
+        //Based on OPTICS clustering algorithm
+        var sortedList = locationList
+        var currentPoints = [LocationObj]()
+        let max_distance = 2 * 0.01 * 0.01
+        let k = 5
+        var clusters = [[LocationObj]]()
+        clusters += [[LocationObj]()]
+        var clusters_counted = 0
+        
+        while (sortedList.count > 0){
+            currentPoints.append(sortedList[0])
+            clusters += [[LocationObj]()]
+            let core = sortedList[0]
+            sortedList.remove(at: 0)
+
+            while currentPoints.count > 0{
+                let point = currentPoints[0]; currentPoints.remove(at: 0)
+                sortByDistance(firstPoint: point, otherPoints: &sortedList)
+                var indicesToRemove = [Int]()
+                for index in 0..<min(k,sortedList.count){
+                    if min(distance2(p1: core.asXY(), p2: sortedList[index].asXY()),
+                           distance2(p1: point.asXY(), p2: sortedList[index].asXY())) < max_distance {
+                        
+                        clusters[clusters_counted].append(sortedList[index])
+                        currentPoints.append(sortedList[index])
+                        indicesToRemove.append(index)
+                    
+                    }
+                }
+                sortedList.remove(at: indicesToRemove)
+            }
+            clusters_counted += 1
+        }
+        
+        return clusters
     }
     
+    static private func createPolygonFromPoints(pointList: [XYPoint]) -> GMSMutablePath {
+        let returnPoly = GMSMutablePath()
+        for index in 0..<pointList.count-1{
+            let point = pointList[index]
+            let newLocation = CLLocationCoordinate2D(latitude: point.y, longitude: point.x)
+            returnPoly.add(newLocation)
+        }
+        return returnPoly
+    }
     static func convertToPointList(locationList: [LocationObj]) -> [(x:Double,y:Double)]{
 
         var newPoints = [(x:Double, y:Double)]()
@@ -148,7 +285,15 @@ class LocationServicesHandler : NSObject {
          }
         return simplifyLocationList(locationList: newList)
     }
-    static func simplifyLocationList(locationList: [LocationObj]) -> [LocationObj]{
+    
+
+/* Reduces the locationList by proximity of each point. 
+   Overlapping points will reduce the radius/increase the accuracy of the location.
+   Relatively close points will merge and average, given a slightly larger area.
+
+*/
+
+    static private func simplifyLocationList(locationList: [LocationObj]) -> [LocationObj]{
         var runningSize = 1.0
         var newList = locationList
         var retList = [LocationObj]()
@@ -184,12 +329,32 @@ class LocationServicesHandler : NSObject {
         return retList
         //GMSCircle(position: newList[0].asCoordinate(), radius: min_radius * runningSize).map = mapView
     }
+
+/* To be used with the output of generateFence() */
+
     static func isPointInsideFence(currentLocation: CLLocationCoordinate2D, fence: [XYPoint]) -> Bool{
         return pointInPolygon(pointCheck: (x: currentLocation.longitude, y: currentLocation.latitude), pointList: fence)
     }
     
-    static func generateConcaveHull (locationList: [XYPoint]) -> [XYPoint]{
-        //http://repositorium.sdum.uminho.pt/bitstream/1822/6429/1/ConcaveHull_ACM_MYS.pdf
+    static func isPointInsideFence(currentLocation: CLLocationCoordinate2D, multiFence: [GeoFence]) -> Bool{
+        for fence in multiFence{
+            let inclusionZone = pointInPolygon(pointCheck: (x: currentLocation.longitude, y: currentLocation.latitude), pointList: fence.inclusion)
+            let exclusionZone = pointInPolygon(pointCheck: (x: currentLocation.longitude, y: currentLocation.latitude), pointList: fence.exclusion)
+            let currentResult = inclusionZone && !exclusionZone
+            if currentResult{
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+/*  Implemented algorithm to generate the concave hull of the locations visited
+     
+     http://repositorium.sdum.uminho.pt/bitstream/1822/6429/1/ConcaveHull_ACM_MYS.pdf
+*/
+
+    static private func generateConcaveHull (locationList: [XYPoint], otherPoints: inout [XYPoint], searchComplexity: Int = 8) -> [XYPoint]{
         var workingSet = locationList
         var hull = [XYPoint]()
         workingSet.sort { (lhs: XYPoint, rhs: XYPoint) -> Bool in
@@ -199,16 +364,16 @@ class LocationServicesHandler : NSObject {
         let firstPoint = workingSet[0]
         workingSet.remove(at: 0)
         hull.append(firstPoint)
-        let k = 11
+        let k = searchComplexity
         var currentPoint = firstPoint
         var step = 1
         var previousAngle = 0.0
         while (currentPoint != firstPoint || step == 1){
-            if step == 4{
+            if step == 3{
                 workingSet.insert(firstPoint, at: 0)
             }
             sortByDistance(firstPoint: currentPoint, otherPoints: &workingSet)
-            var test2 = workingSet[0..<k]
+            var test2 = workingSet[0..<min(k, workingSet.count)]
             test2.sort(by: {
                 var lhs = atan2($0.y - currentPoint.y, $0.x - currentPoint.x) - previousAngle
                 var rhs = atan2($1.y - currentPoint.y, $1.x - currentPoint.x) - previousAngle
@@ -241,22 +406,39 @@ class LocationServicesHandler : NSObject {
             step += 1
         }
         print(workingSet.count)
-        print(workingSet)
+        for point in workingSet {
+            if !pointInPolygon(pointCheck: point, pointList: hull) && !pointNearPolygon(pointCheck: point, pointList: hull){
+                
+                otherPoints.append(point)
+            }
+        }
         return hull
     }
+
     static func sortByDistance(firstPoint: XYPoint, otherPoints: inout [XYPoint]){
         otherPoints.sort(by: {distance2(p1: firstPoint, p2: $0) < distance2(p1: firstPoint, p2: $1)})
     }
+    
+    static func sortByDistance(firstPoint: LocationObj, otherPoints: inout [LocationObj]){
+        otherPoints.sort(by: {distance2(p1: firstPoint.asXY(), p2: $0.asXY()) < distance2(p1: firstPoint.asXY(), p2: $1.asXY())})
+    }
+    
     static func distance(p1: XYPoint, p2: XYPoint) -> Double{
         let x = p1.x - p2.x
         let y = p1.y - p2.y
         return (sqrt(x*x + y*y))
     }
+
+
     static func distance2(p1: XYPoint, p2: XYPoint) -> Double{
+    //Does not take the square root. Speeds up calculation
         let x = p1.x - p2.x
         let y = p1.y - p2.y
         return x*x+y*y
     }
+
+    //Sends the location data to firebase
+
     static func sendData(location: CLLocation){
         let userID = Auth.auth().currentUser?.uid
         let locationRef = FirebaseDatabase.sharedInstance.locationRef
@@ -316,8 +498,22 @@ class LocationServicesHandler : NSObject {
     static func getNewEndingPoint() -> Double{
         return NSDate().timeIntervalSince1970.rounded() + 1
     }
+
+
+/* Uses vectors to determine if the point given is inside the polygon defined by the list */
+    static func pointNearPolygon(pointCheck: XYPoint, pointList: [XYPoint])-> Bool{
+        var copy = pointList
+        sortByDistance(firstPoint: pointCheck, otherPoints: &copy)
+        return distance2(p1: pointCheck, p2: copy[0]) < 2 * (0.01*0.01)
+    }
     static func pointInPolygon(pointCheck: XYPoint, pointList: [XYPoint])-> Bool{
+       
+        if pointList.count == 0 {
+            return false
+        }
+        
         var count = 0
+        
         for index in 0..<pointList.count-1 {
             
             if rayIntersectLine(rayOrigin: pointCheck, rayDirection: (x: 1, y:0), p1: pointList[index], p2: pointList[index+1]) != nil{
@@ -328,6 +524,10 @@ class LocationServicesHandler : NSObject {
         return count % 2 == 1
         
     }
+
+/* Draws a vector out from the origin. The result is the intersection as a parameter t 
+   for origin + t*ray
+*/ 
     static private func rayIntersectLine(rayOrigin: XYPoint, rayDirection: XYPoint, p1: XYPoint, p2: XYPoint) -> Double?{
         //Stackoverflow
         let v1 = (x: rayOrigin.x - p1.x, y: rayOrigin.y - p1.y)
@@ -347,6 +547,8 @@ class LocationServicesHandler : NSObject {
         }
         return nil
     }
+
+
     static func lineCrossesList(firstLine: [XYPoint], otherLines: [XYPoint])->Bool{
         if otherLines.count < 3 {
             return false
@@ -361,6 +563,7 @@ class LocationServicesHandler : NSObject {
         }
         return false;
     }
+
     static func lineCrossesLine(firstLine: [XYPoint], secondLine: [XYPoint])-> Bool{
         let v1x1 = firstLine[0].x
         let v1y1 = firstLine[0].y

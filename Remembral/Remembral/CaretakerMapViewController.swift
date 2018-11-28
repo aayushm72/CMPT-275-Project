@@ -26,7 +26,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
     
     var marker = GMSMarker()
     let mapView = GMSMapView(frame: .zero)
-    var displayedFence: [XYPoint]?
+    var displayedFence: [GeoFence]?
     var warningIcon: UIImageView?
     
     func initializeWarning() {
@@ -92,20 +92,11 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
 
         
         //Updates marker whenever there's a location update.
-        LocationServicesHandler.newestLocationUpdates(forID: userID) { (locationReturned) in
-            self.marker.position.latitude = locationReturned.latitude
-            self.marker.position.longitude = locationReturned.longitude
-            self.marker.snippet = "Last Updated @ " + String(locationReturned.time)
-            if self.mapView.selectedMarker != nil {
-                let cameraUpdate = GMSCameraUpdate.setTarget((self.mapView.selectedMarker?.position)!)
-                self.mapView.moveCamera(cameraUpdate)
-            }
-            if self.displayedFence != nil {
-//THIS LINE OF CODE TO DETECTS IF A COORDINATE IS INSIDE THE FENCE
-                 let result = LocationServicesHandler.isPointInsideFence(currentLocation: locationReturned.asCoordinate(), fence: self.displayedFence!)
-                self.setAutomaticSOSNotification(shouldSetRemove: result)
-                self.warningIcon?.isHidden = result
-
+        LocationServicesHandler.getNewestLocation(forID: userID) {(initialLocation) in
+            self.updateMap(forID: userID, newLocation: initialLocation)
+            
+            LocationServicesHandler.newestLocationUpdates(forID: userID) { (newestLocation) in
+                self.updateMap(forID: userID, newLocation: newestLocation)
             }
         }
 
@@ -154,7 +145,23 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
    // func locationManager(_ manager: CLLocationManager, DidResumeLocationUpdates ) {
    //     return 0
    // }
-    
+    func updateMap(forID: String, newLocation: LocationObj){
+        self.marker.position.latitude = newLocation.latitude
+        self.marker.position.longitude = newLocation.longitude
+        self.marker.snippet = "Last Updated @ " + String(newLocation.time)
+        if self.mapView.selectedMarker != nil {
+            let cameraUpdate = GMSCameraUpdate.setTarget((self.mapView.selectedMarker?.position)!)
+            self.mapView.moveCamera(cameraUpdate)
+        }
+        if self.displayedFence != nil {
+            //THIS LINE OF CODE TO DETECTS IF A COORDINATE IS INSIDE THE FENCE
+            let result = LocationServicesHandler.isPointInsideFence(currentLocation: newLocation.asCoordinate(), multiFence: self.displayedFence!)
+            self.setAutomaticSOSNotification(shouldSetRemove: result)
+            self.warningIcon?.isHidden = result
+            
+        }
+        
+    }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Unable to access location")
     }

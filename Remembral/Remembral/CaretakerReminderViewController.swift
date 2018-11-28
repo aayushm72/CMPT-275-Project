@@ -14,13 +14,10 @@
 import UIKit
 
 class CaretakerReminderViewController: ReminderViewController {
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        FirebaseDatabase.sharedInstance.updateRemindersThen {
-            (dict) in
+    override func updateReminderTable(){
+        FirebaseDatabase.sharedInstance.updateRemindersThen(completion: { (dict) in
             self.reminders = dict
             self.tableView.reloadData()
-        }
+        })
     }
 }

@@ -15,13 +15,11 @@ import UIKit
 
 class CaretakerHomeViewController: ReminderViewController {
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        FirebaseDatabase.sharedInstance.grabPast24Hours{
-                (dict) in
+    override func updateReminderTable(){
+        FirebaseDatabase.sharedInstance.grabPast24Hours(completion: { (dict) in
             self.reminders = dict
             self.tableView.reloadData()
-        }
+        })
     }
 }
 
