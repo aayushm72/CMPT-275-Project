@@ -84,6 +84,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     let reminderRef = Database.database().reference(fromURL: "https://remembral-c17af.firebaseio.com/").root.child("reminders")
     let usersRef = Database.database().reference(fromURL: "https://remembral-c17af.firebaseio.com/").root.child("users")
     let locationRef = Database.database().reference(fromURL: "https://remembral-c17af.firebaseio.com/").root.child("locations")
+    let contactsRef = Database.database().reference(fromURL: "https://remembral-c17af.firebaseio.com/").root.child("contacts")
     let rootRef = Database.database().reference(fromURL: "https://remembral-c17af.firebaseio.com/")
     
     var userObj: User!
