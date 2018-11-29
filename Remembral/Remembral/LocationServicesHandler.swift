@@ -120,7 +120,7 @@ class LocationServicesHandler : NSObject {
     override init(){
         super.init()
     }
-    static let min_radius = 200.0
+    static let min_radius = 250.0
     
 
 /* This function will generate a polygon (list of vertices) which enclose the given locations if
@@ -565,6 +565,22 @@ class LocationServicesHandler : NSObject {
     }
 
     static func lineCrossesLine(firstLine: [XYPoint], secondLine: [XYPoint])-> Bool{
+        
+/*
+         a# = Difference in y for line#
+         b# = Difference in x for line#
+         c# = Cross product of the two points of line# as if they were vectors
+         
+         d# is the line in the form A*x+ B*y + C = 0
+         However by plugging in values for x and y from the second line (v2),
+         we can determine which side of the first line the second line is on.
+         If the signs are the same, then the 2 points of the second line are on the same side
+         Therefore they do not cross the first line
+         
+         Repeat using the points from the second line to determine A B and C.
+         
+ */
+        
         let v1x1 = firstLine[0].x
         let v1y1 = firstLine[0].y
         let v1x2 = firstLine[1].x
@@ -580,6 +596,8 @@ class LocationServicesHandler : NSObject {
         a1 = v1y2 - v1y1;
         b1 = v1x1 - v1x2;
         c1 = (v1x2 * v1y1) - (v1x1 * v1y2);
+        
+        
         
         d1 = (a1 * v2x1) + (b1 * v2y1) + c1;
         d2 = (a1 * v2x2) + (b1 * v2y2) + c1;

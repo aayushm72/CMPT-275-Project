@@ -84,7 +84,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
         
         //Needs to be done using user id queries
         //
-        let userID = "iKbAZiqWylPvVNkOLPlYfzyuzan2" //Auth.auth().currentUser?.uid
+        let userID = FirebaseDatabase.sharedInstance.contactList[FirebaseDatabase.sharedInstance.selectedContacts].key// "iKbAZiqWylPvVNkOLPlYfzyuzan2" //Auth.auth().currentUser?.uid
         FirebaseDatabase.sharedInstance.usersRef.child(userID).observe(.value) { (snapshot: DataSnapshot) in
             let userInfo = snapshot.value as! [String:Any]
             self.marker.title = userInfo["name"] as? String ?? "undefined"

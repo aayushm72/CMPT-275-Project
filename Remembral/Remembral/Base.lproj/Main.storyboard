@@ -1088,7 +1088,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bGx-0z-vYb"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="30Q-y4-i3C"/>
+                    <navigationItem key="navigationItem" title="Home" id="30Q-y4-i3C">
+                        <barButtonItem key="rightBarButtonItem" title="Patients" id="dEG-2F-FSb">
+                            <connections>
+                                <segue destination="az5-ls-Fze" kind="show" id="i6W-LQ-YLj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="vGg-ZE-4OG" id="jO9-pp-IEk"/>
@@ -1097,6 +1103,108 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jey-fp-cEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="876" y="1469.4152923538231"/>
+        </scene>
+        <!--View All Patients View Controller-->
+        <scene sceneID="me6-4Q-QUM">
+            <objects>
+                <viewController id="az5-ls-Fze" customClass="ViewAllPatientsViewController" customModule="Remembral" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GHM-pd-dwq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="42c-7m-TJS">
+                                <rect key="frame" x="0.0" y="129" width="375" height="489"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="az5-ls-Fze" id="gdq-Ji-Sw5"/>
+                                    <outlet property="delegate" destination="az5-ls-Fze" id="uqo-3u-0fb"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QDZ-bp-Aym">
+                                <rect key="frame" x="0.0" y="64" width="375" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="yY0-ah-49N"/>
+                                </constraints>
+                                <state key="normal" title="Add Patient"/>
+                                <connections>
+                                    <segue destination="CDY-iT-soc" kind="show" id="UZ4-BH-2YK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="42c-7m-TJS" firstAttribute="top" secondItem="QDZ-bp-Aym" secondAttribute="bottom" constant="15" id="H6V-k8-iRx"/>
+                            <constraint firstItem="QDZ-bp-Aym" firstAttribute="leading" secondItem="2qA-b2-v4d" secondAttribute="leading" id="KDd-CT-WdY"/>
+                            <constraint firstItem="42c-7m-TJS" firstAttribute="trailing" secondItem="2qA-b2-v4d" secondAttribute="trailing" id="RK1-XH-0FV"/>
+                            <constraint firstItem="2qA-b2-v4d" firstAttribute="bottom" secondItem="42c-7m-TJS" secondAttribute="bottom" id="UdI-KZ-xhz"/>
+                            <constraint firstItem="QDZ-bp-Aym" firstAttribute="top" secondItem="2qA-b2-v4d" secondAttribute="top" id="st4-Ps-IBt"/>
+                            <constraint firstItem="QDZ-bp-Aym" firstAttribute="trailing" secondItem="2qA-b2-v4d" secondAttribute="trailing" id="uIh-9V-8ST"/>
+                            <constraint firstItem="42c-7m-TJS" firstAttribute="leading" secondItem="2qA-b2-v4d" secondAttribute="leading" id="zDq-YZ-Ivn"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2qA-b2-v4d"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="42c-7m-TJS" id="xRo-cB-Wxu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XHt-fs-4gx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1832.8" y="1470.3148425787108"/>
+        </scene>
+        <!--Add Patient View Controller-->
+        <scene sceneID="uNV-dv-bAi">
+            <objects>
+                <viewController id="CDY-iT-soc" customClass="AddPatientViewController" customModule="Remembral" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QoU-cn-Cin">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0V5-ba-d7u">
+                                <rect key="frame" x="20" y="135" width="335" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.8862745098" green="0.67843137249999996" blue="0.30588235289999999" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Patient Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IEA-3u-qzo">
+                                <rect key="frame" x="20" y="93" width="335" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NaQ-sZ-Lja">
+                                <rect key="frame" x="0.0" y="239" width="375" height="379"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="CDY-iT-soc" id="plG-D9-BPH"/>
+                                    <outlet property="delegate" destination="CDY-iT-soc" id="QiL-zI-blF"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAR-jM-PRR">
+                                <rect key="frame" x="20" y="183" width="335" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Search"/>
+                                <connections>
+                                    <action selector="searchForPatients:" destination="CDY-iT-soc" eventType="touchUpInside" id="ndZ-zU-j2V"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.21568627450980393" green="0.21568627450980393" blue="0.21568627450980393" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="XWE-Ae-Y29"/>
+                    </view>
+                    <connections>
+                        <outlet property="patientNameTextField" destination="0V5-ba-d7u" id="fZf-VH-8bq"/>
+                        <outlet property="tableView" destination="NaQ-sZ-Lja" id="k3T-g4-Wdz"/>
+                        <segue destination="DrW-sJ-MKy" kind="unwind" identifier="UnwindToViewAllPatient" unwindAction="UnwindToViewAllPatient:" id="GNJ-ks-xHF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q6m-Go-gjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="DrW-sJ-MKy" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2640.8000000000002" y="1469.4152923538231"/>
         </scene>
         <!--Reminders-->
         <scene sceneID="poQ-j2-DmY">

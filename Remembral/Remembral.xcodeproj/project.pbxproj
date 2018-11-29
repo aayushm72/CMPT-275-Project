@@ -58,11 +58,12 @@
 		FBD1DEAB219E2753004CF2C8 /* CaretakerMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */; };
 		FBD1DEAC219E2753004CF2C8 /* ReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA7219E274F004CF2C8 /* ReminderViewController.swift */; };
 		FBD1DEAD219E2753004CF2C8 /* PatientTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA8219E2753004CF2C8 /* PatientTabBarViewController.swift */; };
+		FBE6B22521AFA1D1005B8F52 /* AddPatientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE6B22321AFA1D0005B8F52 /* AddPatientViewController.swift */; };
+		FBE6B22621AFA1D1005B8F52 /* ViewAllPatientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE6B22421AFA1D1005B8F52 /* ViewAllPatientsViewController.swift */; };
 		FBFE7BD3218E5FD300177BA1 /* PatientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFE7BD2218E5FD300177BA1 /* PatientUITests.swift */; };
 		FBFE7BD5218E8CC000177BA1 /* CaretakerUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFE7BD4218E8CC000177BA1 /* CaretakerUITest.swift */; };
 		FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */; };
 		FFDD2A9A21AA492100365DA7 /* ContactPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDD2A9921AA492100365DA7 /* ContactPerson.swift */; };
-		FFDD2A9C21AA4BE500365DA7 /* ContactPersonDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDD2A9B21AA4BE500365DA7 /* ContactPersonDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,12 +184,13 @@
 		FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerMapViewController.swift; sourceTree = "<group>"; };
 		FBD1DEA7219E274F004CF2C8 /* ReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
 		FBD1DEA8219E2753004CF2C8 /* PatientTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientTabBarViewController.swift; sourceTree = "<group>"; };
+		FBE6B22321AFA1D0005B8F52 /* AddPatientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddPatientViewController.swift; path = Remembral/Caretaker/Home/AddPatientViewController.swift; sourceTree = SOURCE_ROOT; };
+		FBE6B22421AFA1D1005B8F52 /* ViewAllPatientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAllPatientsViewController.swift; path = Remembral/Caretaker/Home/ViewAllPatientsViewController.swift; sourceTree = SOURCE_ROOT; };
 		FBF7BB3C219E628A00DCBFAC /* Remembral-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Remembral-Bridging-Header.h"; sourceTree = "<group>"; };
 		FBFE7BD2218E5FD300177BA1 /* PatientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientUITests.swift; sourceTree = "<group>"; };
 		FBFE7BD4218E8CC000177BA1 /* CaretakerUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerUITest.swift; sourceTree = "<group>"; };
 		FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
 		FFDD2A9921AA492100365DA7 /* ContactPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPerson.swift; sourceTree = "<group>"; };
-		FFDD2A9B21AA4BE500365DA7 /* ContactPersonDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPersonDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				248A753821AE2C1F00A19AF4 /* LoginViewController.swift */,
+				FBE6B21621AF7634005B8F52 /* Caretaker */,
 				FBB764B621AE445100BFD515 /* Contacts */,
 				FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */,
 				FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */,
@@ -435,11 +438,28 @@
 		FBB764B621AE445100BFD515 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
-				FFDD2A9B21AA4BE500365DA7 /* ContactPersonDataSource.swift */,
 				FFDD2A9921AA492100365DA7 /* ContactPerson.swift */,
 				FBB764B721AE448B00BFD515 /* ContactTableViewCell.swift */,
 			);
 			path = Contacts;
+			sourceTree = "<group>";
+		};
+		FBE6B21621AF7634005B8F52 /* Caretaker */ = {
+			isa = PBXGroup;
+			children = (
+				FBE6B22221AFA19E005B8F52 /* Home */,
+			);
+			path = Caretaker;
+			sourceTree = "<group>";
+		};
+		FBE6B22221AFA19E005B8F52 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				FBE6B22321AFA1D0005B8F52 /* AddPatientViewController.swift */,
+				FBE6B22421AFA1D1005B8F52 /* ViewAllPatientsViewController.swift */,
+			);
+			name = Home;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		FBFB2ADD219E604D001AC19A /* Google-Maps-iOS-Utils */ = {
@@ -669,6 +689,7 @@
 				FB48B142219E677200E99ED5 /* GMUSimpleClusterAlgorithm.m in Sources */,
 				FB48B13C219E677200E99ED5 /* GMUStyleMap.m in Sources */,
 				FB48B13B219E677200E99ED5 /* GMUStyle.m in Sources */,
+				FBE6B22621AFA1D1005B8F52 /* ViewAllPatientsViewController.swift in Sources */,
 				FBD1DEAB219E2753004CF2C8 /* CaretakerMapViewController.swift in Sources */,
 				C48F09D3218BF54600CEB128 /* CollectionViewCell.swift in Sources */,
 				FBD1DEAC219E2753004CF2C8 /* ReminderViewController.swift in Sources */,
@@ -710,7 +731,7 @@
 				FB48B149219E677200E99ED5 /* GQTPointQuadTreeChild.m in Sources */,
 				C48F09D5218BF59200CEB128 /* EditPersonalInfoViewController.swift in Sources */,
 				FB48B136219E677200E99ED5 /* GMULineString.m in Sources */,
-				FFDD2A9C21AA4BE500365DA7 /* ContactPersonDataSource.swift in Sources */,
+				FBE6B22521AFA1D1005B8F52 /* AddPatientViewController.swift in Sources */,
 				FB48B131219E677200E99ED5 /* GMUGeometryRenderer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

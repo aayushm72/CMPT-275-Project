@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
 //        if let email = KeychainWrapper.standard.string(forKey: "email"), let password = KeychainWrapper.standard.string(forKey: "password") {
-//            signInandSegueToApp(email: email, password: password)
+//           signInandSegueToApp(email: email, password: password)
 //        }
         
         self.LoginButton.layer.cornerRadius = 5; // this value vary as per your desire
@@ -85,6 +85,7 @@ class LoginViewController: UIViewController {
                         if userType == "Patient" {
                             self.performSegue(withIdentifier: "toPatientApp", sender: nil)
                         } else {
+                            FirebaseDatabase.sharedInstance.LoadContacts()
                             self.performSegue(withIdentifier: "toCaretakerApp", sender: nil)
                         }
                     })

@@ -27,7 +27,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         
         contactList.append(ContactPerson())
         
-        contactList.append(ContactPerson(withFirstName: "name", lastName: "last", emailAddress: "mail", relation: "friend"))
+        contactList.append(ContactPerson(fullName: "name last", emailAddress: "mail", relation: "friend"))
         
         contactTableView.rowHeight = 80
         // Do any additional setup after loading the view, typically from a nib.
@@ -55,7 +55,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         }
         let contactData = contactList[indexPath.row]
         
-        cell.nameLabel.text = contactData.firstName + " " + contactData.lastName
+        cell.nameLabel.text = contactData.fullName
         cell.relationLabel.text = contactData.relation
 
         

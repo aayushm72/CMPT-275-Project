@@ -90,6 +90,10 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     var userObj: User!
     var reminderList = [Reminder]()
     
+    var contactList = [(key: String, name :String)]()
+    //Key, Name
+    var selectedContacts = 0
+    
     override init()
     {
         super.init()
@@ -300,6 +304,21 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
             )
             
             completion? (true)
+        })
+    }
+    
+    func LoadContacts(){
+        let userID = Auth.auth().currentUser?.uid
+        contactList.removeAll()
+        FirebaseDatabase.sharedInstance.contactsRef.child(userID!).observeSingleEvent(of: .value, with: { (snapshot:  DataSnapshot) in
+            print(snapshot)
+            for snap in snapshot.children{
+            if let key = (snap as! DataSnapshot).value as? String{
+                FirebaseDatabase.sharedInstance.usersRef.child(key).child("name").observeSingleEvent(of: .value, with: {(patientData: DataSnapshot) in
+                    self.contactList.append((key: key, name: (patientData.value as? String)!))
+                })
+            }
+            }
         })
     }
     
