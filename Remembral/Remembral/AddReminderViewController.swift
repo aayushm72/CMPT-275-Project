@@ -24,8 +24,10 @@ class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPic
         return 1
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return dataValues[row]
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        
+        let string = dataValues[row]
+        return NSAttributedString(string: string, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -38,8 +40,6 @@ class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPic
         let date = Date()
         taskDateTime.minimumDate = date
         taskDateTime.setValue(UIColor.white, forKey: "textColor")
-        pickerView.setValue(UIColor.white, forKey: "textColor")
-        
     }
     
     @IBAction func onSubmit(_ sender: Any) {

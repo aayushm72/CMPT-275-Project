@@ -84,7 +84,7 @@ class ReminderViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.doneButton?.isHidden = false
         }
         
-        if (UserSelectorViewController.currentUserType == UserSelectorViewController.UserType.Caretaker){
+        if (FirebaseDatabase.sharedInstance.userObj.type == "Caretaker"){
             cell.doneButton?.isHidden = true
         }
         

@@ -15,7 +15,6 @@
 		24B447EE21559D4F002E4425 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24B447EC21559D4F002E4425 /* Main.storyboard */; };
 		24B447F021559D4F002E4425 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24B447EF21559D4F002E4425 /* Assets.xcassets */; };
 		24B447F321559D4F002E4425 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24B447F121559D4F002E4425 /* LaunchScreen.storyboard */; };
-		24F8EBB32187ADDA0069EA00 /* UserSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */; };
 		4E3D9281892FECD53164A29F /* Pods_Remembral.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */; };
 		C48F09D3218BF54600CEB128 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48F09D2218BF54500CEB128 /* CollectionViewCell.swift */; };
 		C48F09D5218BF59200CEB128 /* EditPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48F09D4218BF59200CEB128 /* EditPersonalInfoViewController.swift */; };
@@ -95,7 +94,6 @@
 		24B447EF21559D4F002E4425 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		24B447F221559D4F002E4425 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		24B447F421559D4F002E4425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSelectorViewController.swift; sourceTree = "<group>"; };
 		54567D690C3D2D53F6CAACF8 /* Pods-Remembral.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Remembral.release.xcconfig"; path = "Pods/Target Support Files/Pods-Remembral/Pods-Remembral.release.xcconfig"; sourceTree = "<group>"; };
 		9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Remembral.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C48F09D2218BF54500CEB128 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
@@ -247,7 +245,6 @@
 			children = (
 				248A753821AE2C1F00A19AF4 /* LoginViewController.swift */,
 				FBB764B621AE445100BFD515 /* Contacts */,
-				24F8EBB22187ADDA0069EA00 /* UserSelectorViewController.swift */,
 				FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */,
 				FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */,
 				FBD1DEA5219E2744004CF2C8 /* CaretakerReminderViewController.swift */,
@@ -691,7 +688,6 @@
 				248A753921AE2C2000A19AF4 /* LoginViewController.swift in Sources */,
 				FB34F481219D0BBF0060ACB9 /* LocationServicesHandler.swift in Sources */,
 				FBD1DEA3219E2710004CF2C8 /* FirebaseDatabase.swift in Sources */,
-				24F8EBB32187ADDA0069EA00 /* UserSelectorViewController.swift in Sources */,
 				FB48B140219E677200E99ED5 /* GMUGridBasedClusterAlgorithm.m in Sources */,
 				FB48B130219E677200E99ED5 /* GMUGeoJSONParser.m in Sources */,
 				FB48B137219E677200E99ED5 /* GMUPair.m in Sources */,

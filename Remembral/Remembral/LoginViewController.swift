@@ -31,13 +31,36 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func OnLogin(_ sender: Any) {
+        if (LoginEmail.text?.isEmpty)! || (LoginPassword.text?.isEmpty)! {
+            let errorMessage = UIAlertController(title: "Incomplete Info", message: "Fill in a valid Email and Password to sign in.", preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: "OK", style: .default)
+            errorMessage.addAction(OKAction)
+            self.present(errorMessage, animated: true, completion: nil)
+            return
+        }
+        
         if let email = LoginEmail.text, let password = LoginPassword.text {
                 signInandSegueToApp(email: email, password: password)
         }
     }
 
     @IBAction func OnRegister(_ sender: Any) {
+        if (LoginEmail.text?.isEmpty)! || (LoginPassword.text?.isEmpty)! {
+            let errorMessage = UIAlertController(title: "Incomplete Info", message: "Fill in a valid Email and Password that you would like to register.", preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: "OK", style: .default)
+            errorMessage.addAction(OKAction)
+            self.present(errorMessage, animated: true, completion: nil)
+            return
+        }
         
+        self.performSegue(withIdentifier: "toRegister", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let RegisterViewController = segue.destination as? RegisterViewController {
+            RegisterViewController.email = LoginEmail.text
+            RegisterViewController.password = LoginPassword.text
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>,
@@ -66,7 +89,11 @@ class LoginViewController: UIViewController {
                         }
                     })
                 } else {
-                    print("Error signing in user.")
+                    let errorMessage = UIAlertController(title: "Failed", message: "The sign in attempt failed. Please try again.", preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: "OK", style: .default)
+                    errorMessage.addAction(OKAction)
+                    self.present(errorMessage, animated: true, completion: nil)
+                    return
                 }
         })
     }
