@@ -13,6 +13,7 @@
 
 import UIKit
 
+// Shows all the reminders assigned to patient. These reminders can be set by patient and by caretaker.
 class CaretakerReminderViewController: ReminderViewController {
     override func updateReminderTable(){
         FirebaseDatabase.sharedInstance.updateRemindersThen(completion: { (dict) in

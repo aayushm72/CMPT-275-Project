@@ -13,14 +13,17 @@
 
 import UIKit
 
+// Tab view for the patients screen: home, contacts and patients.
 class PatientTabBarViewController: UITabBarController {
 
+    // Is the screen loaded
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
+    // Is there memory warning
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -36,6 +39,8 @@ class PatientTabBarViewController: UITabBarController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    //Instantiate a tab-bar
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         let rootView = self.viewControllers![self.selectedIndex] as! UINavigationController
         rootView.popToRootViewController(animated: false)
