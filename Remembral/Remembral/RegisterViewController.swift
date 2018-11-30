@@ -10,10 +10,13 @@ import UIKit
 import Firebase
 import SwiftKeychainWrapper
 
-class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var email:String!
     var password:String!
+    var imagePicker: UIImagePickerController!
+    var imageSelected = false
+    var imageURL = ""
     
     let dataValues = ["Patient", "Caretaker"]
     
@@ -22,13 +25,44 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var UserPhoneNo: UITextField!
     @IBOutlet weak var UserAddress: UITextField!
     @IBOutlet weak var UserTypePicker: UIPickerView!
+    @IBOutlet weak var userImagePicker: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         UserTypePicker.delegate = self
         self.RegisterButton.layer.cornerRadius = 5; // this value vary as per your desire
         self.RegisterButton.clipsToBounds = true;
+        imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
         // Do any additional setup after loading the view.
+    }
+    
+    func uploadImg() {
+        guard let img = userImagePicker.image, imageSelected == true else {
+            print("image needs to be selected")
+            return
+        }
+        
+        if let imgData = img.jpegData(compressionQuality: 0.5) {
+            let imgUid = NSUUID().uuidString
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpeg"
+        }
+    }
+    
+    @IBAction func selectedImgPicker (_ sender: AnyObject) {
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
+            userImagePicker.image = image
+            imageSelected = true
+        } else {
+            print("image wasn't selected")
+        }
+        imagePicker.dismiss(animated: true)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

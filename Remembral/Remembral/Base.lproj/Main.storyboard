@@ -639,6 +639,20 @@
                                     <action selector="onBack:" destination="27X-Rg-Ish" eventType="touchUpInside" id="YmT-Ll-GQI"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L7N-hn-R1g">
+                                <rect key="frame" x="87.5" y="391" width="200" height="200"/>
+                                <state key="normal" title="+ Photo"/>
+                                <connections>
+                                    <action selector="selectedImgPicker:" destination="27X-Rg-Ish" eventType="touchUpInside" id="JHp-TK-Cg9"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0x5-1p-dJy">
+                                <rect key="frame" x="87.5" y="391" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="aMT-jV-qbQ"/>
+                                    <constraint firstAttribute="height" constant="200" id="l7m-tB-zw9"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.2167125432" green="0.2167125432" blue="0.2167125432" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -651,23 +665,29 @@
                             <constraint firstItem="Rjs-aD-pum" firstAttribute="bottom" secondItem="msu-EE-iFH" secondAttribute="bottom" constant="20" id="GZP-6P-ikU"/>
                             <constraint firstItem="Rjs-aD-pum" firstAttribute="trailing" secondItem="8Ao-zs-Ybb" secondAttribute="trailing" constant="20" id="H5I-IS-KYc"/>
                             <constraint firstItem="Qa8-8T-4tU" firstAttribute="top" secondItem="Rjs-aD-pum" secondAttribute="top" id="Hpe-p3-7HQ"/>
+                            <constraint firstItem="L7N-hn-R1g" firstAttribute="centerY" secondItem="0x5-1p-dJy" secondAttribute="centerY" id="Hun-Lb-qmM"/>
+                            <constraint firstItem="L7N-hn-R1g" firstAttribute="height" secondItem="0x5-1p-dJy" secondAttribute="height" id="Jak-SO-pdD"/>
                             <constraint firstItem="yQq-Ui-X0c" firstAttribute="leading" secondItem="Rjs-aD-pum" secondAttribute="leading" constant="20" id="RJa-f9-ZuK"/>
                             <constraint firstItem="yQq-Ui-X0c" firstAttribute="top" secondItem="pks-Se-kRE" secondAttribute="bottom" constant="5" id="TBw-FO-Rrr"/>
                             <constraint firstItem="Rjs-aD-pum" firstAttribute="trailing" secondItem="msu-EE-iFH" secondAttribute="trailing" constant="40" id="UHW-eV-M2I"/>
                             <constraint firstItem="fLa-Ra-Ou1" firstAttribute="top" secondItem="Eqv-Ki-bZv" secondAttribute="bottom" constant="5" id="YfF-8q-LuL"/>
+                            <constraint firstItem="L7N-hn-R1g" firstAttribute="centerX" secondItem="0x5-1p-dJy" secondAttribute="centerX" id="YhR-nh-xle"/>
                             <constraint firstItem="pks-Se-kRE" firstAttribute="top" secondItem="Qa8-8T-4tU" secondAttribute="bottom" constant="20" id="a1M-mw-snw"/>
                             <constraint firstItem="Rjs-aD-pum" firstAttribute="trailing" secondItem="pks-Se-kRE" secondAttribute="trailing" constant="20" id="ak2-sn-ush"/>
                             <constraint firstItem="Rjs-aD-pum" firstAttribute="trailing" secondItem="yQq-Ui-X0c" secondAttribute="trailing" constant="20" id="b0x-FU-dJS"/>
                             <constraint firstItem="Qa8-8T-4tU" firstAttribute="leading" secondItem="Rjs-aD-pum" secondAttribute="leading" constant="20" id="bQM-Kb-GIU"/>
                             <constraint firstItem="8Ao-zs-Ybb" firstAttribute="top" secondItem="cf7-n5-ICP" secondAttribute="bottom" constant="5" id="daQ-t7-fVE"/>
+                            <constraint firstItem="0x5-1p-dJy" firstAttribute="top" secondItem="u5f-Ao-Nuk" secondAttribute="bottom" constant="20" id="eeQ-f6-hzB"/>
                             <constraint firstItem="Eqv-Ki-bZv" firstAttribute="leading" secondItem="Rjs-aD-pum" secondAttribute="leading" constant="20" id="fpl-JL-Rk5"/>
                             <constraint firstItem="Rjs-aD-pum" firstAttribute="trailing" secondItem="cf7-n5-ICP" secondAttribute="trailing" constant="20" id="g47-IE-Xh5"/>
                             <constraint firstItem="Eqv-Ki-bZv" firstAttribute="top" secondItem="yQq-Ui-X0c" secondAttribute="bottom" constant="10" id="ghZ-j2-J7O"/>
                             <constraint firstItem="Rjs-aD-pum" firstAttribute="trailing" secondItem="fLa-Ra-Ou1" secondAttribute="trailing" constant="20" id="hlw-GI-i9E"/>
+                            <constraint firstItem="L7N-hn-R1g" firstAttribute="width" secondItem="0x5-1p-dJy" secondAttribute="width" id="hny-Ft-y4L"/>
                             <constraint firstItem="cf7-n5-ICP" firstAttribute="top" secondItem="fLa-Ra-Ou1" secondAttribute="bottom" constant="10" id="oIG-OZ-zi3"/>
                             <constraint firstItem="cf7-n5-ICP" firstAttribute="leading" secondItem="Rjs-aD-pum" secondAttribute="leading" constant="20" id="pqS-me-yRm"/>
                             <constraint firstItem="Rjs-aD-pum" firstAttribute="trailing" secondItem="u5f-Ao-Nuk" secondAttribute="trailing" constant="20" id="rDc-IM-RGi"/>
                             <constraint firstItem="msu-EE-iFH" firstAttribute="leading" secondItem="Rjs-aD-pum" secondAttribute="leading" constant="40" id="tid-nc-zAm"/>
+                            <constraint firstItem="0x5-1p-dJy" firstAttribute="centerX" secondItem="QsN-MU-wQn" secondAttribute="centerX" id="vU3-9G-gge"/>
                             <constraint firstItem="8Ao-zs-Ybb" firstAttribute="leading" secondItem="Rjs-aD-pum" secondAttribute="leading" constant="20" id="vwk-5c-3mi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Rjs-aD-pum"/>
@@ -678,6 +698,7 @@
                         <outlet property="UserName" destination="yQq-Ui-X0c" id="eCc-eA-hPw"/>
                         <outlet property="UserPhoneNo" destination="fLa-Ra-Ou1" id="oe2-j0-r3U"/>
                         <outlet property="UserTypePicker" destination="u5f-Ao-Nuk" id="OyZ-gT-3Mt"/>
+                        <outlet property="userImagePicker" destination="0x5-1p-dJy" id="qGJ-ax-7uT"/>
                         <segue destination="49e-Tb-3d3" kind="show" identifier="toPatientAppfromRegister" id="P59-5j-PzY"/>
                         <segue destination="cjB-6a-dXc" kind="show" identifier="toCaretakerAppfromRegister" id="Tnx-id-ugx"/>
                     </connections>
