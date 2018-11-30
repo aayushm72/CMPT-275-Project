@@ -51,6 +51,7 @@
 		FB48B14B219E6AA400E99ED5 /* MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB48B14A219E6AA400E99ED5 /* MapTests.swift */; };
 		FB651A5D218A73D4004A9B61 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */; };
 		FBB764B821AE448B00BFD515 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB764B721AE448B00BFD515 /* ContactTableViewCell.swift */; };
+		FBC4D53F21B0D1DB00B224EC /* AddContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC4D53E21B0D1DB00B224EC /* AddContactsViewController.swift */; };
 		FBD1DEA1219E26E3004CF2C8 /* PatientsHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA0219E26E3004CF2C8 /* PatientsHomeViewController.swift */; };
 		FBD1DEA3219E2710004CF2C8 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA2219E2710004CF2C8 /* FirebaseDatabase.swift */; };
 		FBD1DEA9219E2753004CF2C8 /* CaretakerHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */; };
@@ -177,6 +178,7 @@
 		FB48B14A219E6AA400E99ED5 /* MapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTests.swift; sourceTree = "<group>"; };
 		FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
 		FBB764B721AE448B00BFD515 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		FBC4D53E21B0D1DB00B224EC /* AddContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactsViewController.swift; sourceTree = "<group>"; };
 		FBD1DEA0219E26E3004CF2C8 /* PatientsHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsHomeViewController.swift; sourceTree = "<group>"; };
 		FBD1DEA2219E2710004CF2C8 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerHomeViewController.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 			children = (
 				FFDD2A9921AA492100365DA7 /* ContactPerson.swift */,
 				FBB764B721AE448B00BFD515 /* ContactTableViewCell.swift */,
+				FBC4D53E21B0D1DB00B224EC /* AddContactsViewController.swift */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -719,6 +722,7 @@
 				FBD1DEA9219E2753004CF2C8 /* CaretakerHomeViewController.swift in Sources */,
 				FFD6D3B32188D7DE0026EBB9 /* AddReminderViewController.swift in Sources */,
 				FB48B147219E677200E99ED5 /* GMUDefaultClusterRenderer.m in Sources */,
+				FBC4D53F21B0D1DB00B224EC /* AddContactsViewController.swift in Sources */,
 				FB48B13A219E677200E99ED5 /* GMUPolygon.m in Sources */,
 				FB48B145219E677200E99ED5 /* GMUStaticCluster.m in Sources */,
 				FB48B134219E677200E99ED5 /* GMUGeometryCollection.m in Sources */,

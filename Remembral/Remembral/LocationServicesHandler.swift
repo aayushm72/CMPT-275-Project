@@ -454,17 +454,18 @@ class LocationServicesHandler : NSObject {
         childRef.setValue(values)
 
     }
-    static func newestLocationUpdates(forID: String, nextLocation: ((LocationObj) -> Void)?){
+    static func newestLocationUpdates(forID: String, nextLocation: ((LocationObj) -> Void)?) -> DatabaseHandle{
         let userID = forID //Auth.auth().currentUser?.uid
         
         let childRef = FirebaseDatabase.sharedInstance.locationRef.child(userID)
-        childRef.queryLimited(toLast: 1).observe(.childAdded, with: { (snapshot: DataSnapshot) in
+        let queryRef = childRef.queryLimited(toLast: 1).observe(.childAdded, with: { (snapshot: DataSnapshot) in
                 let locationInfo = snapshot.value as! [String:Any]
                 let retVal = LocationObj(latitude: locationInfo["latitude"] as! Double,
                                          longitude: locationInfo["longitude"] as! Double,
                                          time: locationInfo["time"] as! Double )
                 nextLocation?(retVal)
         })
+        return queryRef
     }
     static func getNewestLocation(forID: String, completion: ((LocationObj) -> Void)?){
         let userID = forID //Auth.auth().currentUser?.uid

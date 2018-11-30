@@ -54,8 +54,16 @@ struct ContactPerson {
         emailAddress = email
         self.relation = relation
     }*/
-    static func addContact(contactUID: String){
+    static func addContact(contactToAdd: ContactPerson){
         let nextElement = FirebaseDatabase.sharedInstance.contactsRef.child((Auth.auth().currentUser?.uid)!).childByAutoId()
-        nextElement.setValue(contactUID)
+        let newContact = ["key": contactToAdd.identifier, "relation": contactToAdd.relation]
+        nextElement.setValue(newContact)
+        
+        let otherPerson = FirebaseDatabase.sharedInstance.contactsRef.child(contactToAdd.identifier).childByAutoId()
+        let setRelationAs = FirebaseDatabase.sharedInstance.getUserData().type == User.PATIENT ? "Patient" : "idk"
+        let otherNewContact = ["key": (Auth.auth().currentUser?.uid)!, "relation": setRelationAs]
+
+        otherPerson.setValue(otherNewContact)
+        
     }
 }

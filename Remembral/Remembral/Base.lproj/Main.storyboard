@@ -132,30 +132,6 @@
             </objects>
             <point key="canvasLocation" x="869.60000000000002" y="778.56071964017997"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="ito-iJ-eWg">
-            <objects>
-                <viewController id="0KI-sz-bmU" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="o4Q-LR-d0I" userLabel="Add Contact">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HfD-Nr-dMW">
-                                <rect key="frame" x="26" y="171" width="322" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" red="0.21568627450980393" green="0.21568627450980393" blue="0.21568627450980393" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="dE4-4z-8av"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Lkh-ya-WeM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2744.8000000000002" y="-304.4977511244378"/>
-        </scene>
         <!--Add A Reminder-->
         <scene sceneID="wXl-L8-DLX">
             <objects>
@@ -486,7 +462,7 @@
                     <navigationItem key="navigationItem" title="Contacts" id="UqY-HT-gO2">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="3GB-kC-YjQ">
                             <connections>
-                                <segue destination="0KI-sz-bmU" kind="show" id="vfO-34-KHH"/>
+                                <segue destination="Krx-cn-f0e" kind="show" id="rcr-jf-7yK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1115,32 +1091,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="42c-7m-TJS">
-                                <rect key="frame" x="0.0" y="129" width="375" height="489"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="az5-ls-Fze" id="gdq-Ji-Sw5"/>
                                     <outlet property="delegate" destination="az5-ls-Fze" id="uqo-3u-0fb"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QDZ-bp-Aym">
-                                <rect key="frame" x="0.0" y="64" width="375" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="yY0-ah-49N"/>
-                                </constraints>
-                                <state key="normal" title="Add Patient"/>
-                                <connections>
-                                    <segue destination="CDY-iT-soc" kind="show" id="UZ4-BH-2YK"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="42c-7m-TJS" firstAttribute="top" secondItem="QDZ-bp-Aym" secondAttribute="bottom" constant="15" id="H6V-k8-iRx"/>
-                            <constraint firstItem="QDZ-bp-Aym" firstAttribute="leading" secondItem="2qA-b2-v4d" secondAttribute="leading" id="KDd-CT-WdY"/>
                             <constraint firstItem="42c-7m-TJS" firstAttribute="trailing" secondItem="2qA-b2-v4d" secondAttribute="trailing" id="RK1-XH-0FV"/>
                             <constraint firstItem="2qA-b2-v4d" firstAttribute="bottom" secondItem="42c-7m-TJS" secondAttribute="bottom" id="UdI-KZ-xhz"/>
-                            <constraint firstItem="QDZ-bp-Aym" firstAttribute="top" secondItem="2qA-b2-v4d" secondAttribute="top" id="st4-Ps-IBt"/>
-                            <constraint firstItem="QDZ-bp-Aym" firstAttribute="trailing" secondItem="2qA-b2-v4d" secondAttribute="trailing" id="uIh-9V-8ST"/>
+                            <constraint firstItem="42c-7m-TJS" firstAttribute="top" secondItem="2qA-b2-v4d" secondAttribute="top" id="hID-F1-sGc"/>
                             <constraint firstItem="42c-7m-TJS" firstAttribute="leading" secondItem="2qA-b2-v4d" secondAttribute="leading" id="zDq-YZ-Ivn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2qA-b2-v4d"/>
@@ -1206,7 +1169,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q6m-Go-gjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="DrW-sJ-MKy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2640.8000000000002" y="1469.4152923538231"/>
+            <point key="canvasLocation" x="2727" y="1470"/>
         </scene>
         <!--Reminders-->
         <scene sceneID="poQ-j2-DmY">
@@ -1310,6 +1273,61 @@
             </objects>
             <point key="canvasLocation" x="2745" y="380"/>
         </scene>
+        <!--Add Contacts View Controller-->
+        <scene sceneID="MSB-7Y-tfc">
+            <objects>
+                <viewController id="Krx-cn-f0e" customClass="AddContactsViewController" customModule="Remembral" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Y9c-TG-NmM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="p8P-LQ-mko">
+                                <rect key="frame" x="20" y="135" width="335" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.8862745098" green="0.67843137249999996" blue="0.30588235289999999" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qDb-H4-Bmy">
+                                <rect key="frame" x="20" y="93" width="335" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mqW-KE-0y7">
+                                <rect key="frame" x="0.0" y="239" width="375" height="379"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Krx-cn-f0e" id="9lI-cc-Kw0"/>
+                                    <outlet property="delegate" destination="Krx-cn-f0e" id="P1P-Vk-Fxs"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="suB-kN-5DT">
+                                <rect key="frame" x="20" y="183" width="335" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Search"/>
+                                <connections>
+                                    <action selector="searchForContacts:" destination="Krx-cn-f0e" eventType="touchUpInside" id="E43-Kq-JhX"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.2156862745" green="0.2156862745" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="XOW-Fu-iVO"/>
+                    </view>
+                    <connections>
+                        <outlet property="contactNameTextField" destination="p8P-LQ-mko" id="KOS-zb-OdV"/>
+                        <outlet property="tableView" destination="mqW-KE-0y7" id="OHX-3M-JfZ"/>
+                        <segue destination="Dxm-5p-YX0" kind="unwind" identifier="UnwindToContacts" unwindAction="UnwindToContacts:" id="Khn-p6-Qzb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Kt-Y1-nkN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Dxm-5p-YX0" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2745" y="-277"/>
+        </scene>
     </scenes>
     <resources>
         <image name="contact" width="25" height="25"/>
@@ -1318,8 +1336,8 @@
         <image name="reminder" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Rkc-9V-u30"/>
-        <segue reference="kSH-md-nKa"/>
+        <segue reference="P59-5j-PzY"/>
+        <segue reference="Tnx-id-ugx"/>
         <segue reference="I9b-pZ-SFD"/>
         <segue reference="E2d-fl-8cD"/>
     </inferredMetricsTieBreakers>

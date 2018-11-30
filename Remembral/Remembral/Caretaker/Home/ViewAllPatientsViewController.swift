@@ -29,7 +29,7 @@ class ViewAllPatientsViewController: UIViewController, UITableViewDataSource, UI
         cell.cellLabel.widthAnchor.constraint(equalTo: tableView.widthAnchor, multiplier: 1)
         cell.cellLabel.heightAnchor.constraint(equalToConstant: 60)
         
-        cell.textLabel?.text = patientKeyNamePair.name
+        cell.textLabel?.text = patientKeyNamePair.fullName
         if FirebaseDatabase.sharedInstance.selectedContacts == indexPath.row{
             cell.backgroundColor = .green
         } else {
@@ -43,11 +43,7 @@ class ViewAllPatientsViewController: UIViewController, UITableViewDataSource, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.row
         print(FirebaseDatabase.sharedInstance.selectedContacts)
-        if (FirebaseDatabase.sharedInstance.selectedContacts == (index)){
-            FirebaseDatabase.sharedInstance.selectedContacts = 0
-        } else {
-            FirebaseDatabase.sharedInstance.selectedContacts = index
-        }
+        FirebaseDatabase.sharedInstance.selectedContacts = index
         tableView.reloadData()
     }
     

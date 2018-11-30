@@ -83,6 +83,7 @@ class LoginViewController: UIViewController {
                         (isFinish) in
                         let userType = FirebaseDatabase.sharedInstance.userObj.type
                         if userType == "Patient" {
+                            FirebaseDatabase.sharedInstance.LoadContacts()
                             self.performSegue(withIdentifier: "toPatientApp", sender: nil)
                         } else {
                             FirebaseDatabase.sharedInstance.LoadContacts()

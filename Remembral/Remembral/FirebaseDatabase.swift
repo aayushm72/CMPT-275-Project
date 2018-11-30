@@ -78,6 +78,8 @@ struct User {
     var caretakerName: String!
     var caretakerPhNo: String!
     var type: String!
+    static let CARETAKER = "Caretaker"
+    static let PATIENT   = "Patient"
 }
 
 // Implementation of Firebase Database.
@@ -93,7 +95,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     var userObj: User!
     var reminderList = [Reminder]()
     
-    var contactList = [(key: String, name :String)]()
+    var contactList = [ContactPerson]()
     //Key, Name
     var selectedContacts = 0
     
@@ -331,10 +333,20 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         FirebaseDatabase.sharedInstance.contactsRef.child(userID!).observeSingleEvent(of: .value, with: { (snapshot:  DataSnapshot) in
             print(snapshot)
             for snap in snapshot.children{
-            if let key = (snap as! DataSnapshot).value as? String{
-                FirebaseDatabase.sharedInstance.usersRef.child(key).child("name").observeSingleEvent(of: .value, with: {(patientData: DataSnapshot) in
-                    self.contactList.append((key: key, name: (patientData.value as? String)!))
-                })
+                if let firstLevel = (snap as! DataSnapshot).value as? [String:Any]{
+                    let key = firstLevel["key"] as! String
+                    let relation = firstLevel["relation"] as? String ?? "caretaker"
+                    FirebaseDatabase.sharedInstance.usersRef.child(key).observeSingleEvent(of: .value, with: {(patientData: DataSnapshot) in
+                        if let patientDict = patientData.value as? [String: Any] {
+                    
+                            var newContact = ContactPerson(fullName: patientDict["name"] as? String,
+                                                           emailAddress: patientDict["email"] as? String,
+                                                       relation: relation)
+                            newContact.identifier = key
+                        self.contactList.append(newContact)
+                            print(newContact)
+                        }
+                    })
             }
             }
         })
@@ -345,5 +357,11 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         return self.userObj
     }
     
+    func isSelectedPatientValid() -> Bool{
+        return (contactList.count != 0 && selectedContacts < contactList.count)
+    }
     
+    func getSelectedPatientID() -> String {
+        return contactList[selectedContacts].identifier
+    }
 }
