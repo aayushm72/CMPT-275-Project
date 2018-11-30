@@ -40,10 +40,17 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-
+    @IBOutlet weak var SOSButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.SOSButton.layer.cornerRadius = 25
+        self.SOSButton.clipsToBounds = true
+        self.SOSButton.layer.borderWidth = 2.0
+        self.SOSButton.layer.borderColor = UIColor(displayP3Red: 226/255, green: 173/255, blue: 78/255, alpha: 1).cgColor
+        
         FirebaseDatabase.sharedInstance.UpdateFromFirebase {
             (isFinish) in
             self.patientName = FirebaseDatabase.sharedInstance.userObj.name

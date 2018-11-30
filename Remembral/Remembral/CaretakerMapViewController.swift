@@ -44,6 +44,14 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
         warningIcon?.isHidden = true
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if FirebaseDatabase.sharedInstance.contactList.isEmpty {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.clear
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
