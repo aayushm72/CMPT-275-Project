@@ -13,6 +13,7 @@
 
 import UIKit
 
+// Edit Personal Information for Patient
 class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var patientName: UITextField!
     @IBOutlet weak var patientAddress: UITextField!
@@ -27,6 +28,7 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate {
     var intitialCaretakerPhoneNumber:String = "CPhoneNumber"
     var user = User()
     
+    // Did the screen load
     override func viewDidLoad() {
         super.viewDidLoad()
         patientName.text = intitialPatientName
@@ -43,10 +45,12 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate {
         caretakerPhoneNumber.delegate = self
     }
 
+    // Was there memory warning
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+    // Update all the fields with the original information from the database.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let FirstViewController = segue.destination as? PatientsHomeViewController {
             user.name = patientName.text!
@@ -64,15 +68,19 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // First touch
     override func touchesBegan(_ touches: Set<UITouch>,
                                with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    // Remove text screen.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
 
+    // Submit data entered by user to the database.
     @IBAction func Done(_ sender: UIButton) {
         user.name = patientName.text!
         user.address = patientAddress.text!

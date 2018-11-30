@@ -14,11 +14,14 @@ import UIKit
 
 class ReminderTableViewCell: UITableViewCell {
 
+    // Reminder label
     @IBOutlet weak var ReminderLabel: UILabel!
+    // Done Button
     @IBOutlet weak var doneButton: UIButton!
     var reminderDBKey: String!
     var delegate: ReminderViewController!
     
+    // For done action, completes a reminder.
     @IBAction func onPressDone(_ sender: UIButton) {
         let ownRef = FirebaseDatabase.sharedInstance.reminderRef.child(reminderDBKey as String)
         ownRef.updateChildValues(["status": true])
@@ -28,6 +31,7 @@ class ReminderTableViewCell: UITableViewCell {
         doneButton.isHidden = true
     }
     
+    // Awake the cell
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -37,6 +41,7 @@ class ReminderTableViewCell: UITableViewCell {
         
     }
 
+    // Selected Cell
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

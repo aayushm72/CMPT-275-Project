@@ -24,6 +24,7 @@ class HeatmapViewController: UIViewController, GMSMapViewDelegate {
   private var gradientColors = [ UIColor.green, UIColor.yellow, UIColor.red, UIColor.purple]
   private var gradientStartPoints = [0.1,0.4,0.7,1.0] as [NSNumber]
 
+    // Load map view with a set frame
   override func loadView() {
     let camera = GMSCameraPosition.camera(withLatitude: -37.848, longitude: 145.001, zoom: 10)
     mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
@@ -31,6 +32,7 @@ class HeatmapViewController: UIViewController, GMSMapViewDelegate {
     self.view = mapView
   }
 
+    // Did the View controller load
   override func viewDidLoad() {
     // Set heatmap options.
     heatmapLayer = GMUHeatmapTileLayer()
@@ -72,7 +74,7 @@ class HeatmapViewController: UIViewController, GMSMapViewDelegate {
     })
   }
 
-
+// Find the location the user taps.
   func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
     print("You tapped at \(coordinate.latitude), \(coordinate.longitude)")
   }

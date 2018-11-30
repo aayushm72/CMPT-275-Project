@@ -22,12 +22,14 @@ import MapKit
 import FirebaseAuth
 import CoreLocation
 
+// Two choices of action for the notifications. Done which means completed task and snooze meaning remind task after 5 min.
 struct choices {
     static let answer1 = UNNotificationAction(identifier: "answer1", title: "Snooze" , options: UNNotificationActionOptions.foreground)
     
     static let answer2 = UNNotificationAction(identifier: "answer2", title: "Done" , options: UNNotificationActionOptions.foreground)
 }
 
+// Patients Home View
 class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MFMessageComposeViewControllerDelegate, CLLocationManagerDelegate {
     var patientName:String = ""
     var patientAddress:String = ""
@@ -42,7 +44,7 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
     
     @IBOutlet weak var SOSButton: UIButton!
     
-    
+    // Patients home view: load a SOS button, patient's personal information (can be editable) from database.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,6 +53,7 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
         self.SOSButton.layer.borderWidth = 2.0
         self.SOSButton.layer.borderColor = UIColor(displayP3Red: 226/255, green: 173/255, blue: 78/255, alpha: 1).cgColor
         
+        // get from database, user table
         FirebaseDatabase.sharedInstance.UpdateFromFirebase {
             (isFinish) in
             self.patientName = FirebaseDatabase.sharedInstance.userObj.name
@@ -86,9 +89,12 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
         }
     }
 
+    // Reload after potential update of data from user.
     func reloadItems(){
         items = ["My Name:", patientName, "My Address:", patientAddress, "My Phone Number:", patientPhoneNumber, "My Caretaker:", caretakerName, "My Caretaker's Phone Number:", caretakerPhoneNumber]
     }
+    
+    // Button For send SOS
     @IBAction func sendSOS(_ sender: UIButton) {
         
         print(MFMessageComposeViewController.canSendText())
@@ -107,6 +113,12 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
         }
     }
     
+    // Send a message function:
+    //  1) Alert user that SOS has been clicked and message sent to user; actually send message to user by calling message API
+    //  2 Send current location and ask for help from caretaker by sending message.
+    //  3) Ask user if they want instructions to go home or nothing.
+    //  4) If asked for instruction, should open Apple maps API and give them directions to their home.
+    //
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         controller.dismiss(animated: true, completion: nil)
         let sentMessage = UIAlertController(title: "Message Sent", message: "Your SOS message has been successfully sent to your Caretaker", preferredStyle: .alert)
@@ -153,15 +165,18 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
         }
     }
     
+    // Is memory ok?
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    // Number of rows for table
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
     }
     
+    // Instantiate Collection View
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
         
@@ -170,6 +185,7 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
         return cell
     }
     
+    // Prepare table information by getting from database.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let EditPersonalInfoViewController = segue.destination as? EditPersonalInfoViewController {
             EditPersonalInfoViewController.intitialPatientName = patientName
@@ -180,11 +196,12 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
         }
     }
     
+    // Dismiss Alert.
     @objc func dismissAlert() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
+    // Update Home page after user data update.
     @IBAction func UnwindToHomeScreen(_ segue: UIStoryboardSegue) {
         if let editPage = segue.source as? EditPersonalInfoViewController {
             print(editPage.patientName.text!)
@@ -198,12 +215,14 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
         collectionView.reloadData()
     }
     
+    // Find location of user to send in text message to caretaker.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = (manager.location?.coordinate)!
         LocationServicesHandler.sendData(location: manager.location!)
     }
 }
 
+// Build location card to send in text message to Caretaker.
 func locationVCardURLFromCoordinate(coordinate: CLLocationCoordinate2D) -> URL?
 {
     guard let cachesPathString = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first else {
