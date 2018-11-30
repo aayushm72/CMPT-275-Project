@@ -18,6 +18,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import UserNotifications
 
+// Table structure for Reminders
 struct Reminder {
     var sender:String!
     var reciever:String!
@@ -69,6 +70,7 @@ extension Date {
     
 }
 
+// Table structure for users
 struct User {
     var name:String!
     var address: String!
@@ -78,6 +80,7 @@ struct User {
     var type: String!
 }
 
+// Implementation of Firebase Database.
 class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCenterDelegate{
     
     
@@ -94,6 +97,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     //Key, Name
     var selectedContacts = 0
     
+    // Initialize
     override init()
     {
         super.init()
@@ -102,18 +106,24 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         }*/
         
     }
+    
+    // Instance of Firebase
     class var sharedInstance: FirebaseDatabase {
         struct Static {
             static var instance: FirebaseDatabase = FirebaseDatabase()
         }
         return Static.instance
     }
+    
+    //Check for new reminders, add new reminders to database
     func updateReminders(){
         updateRemindersThen{
             (dict) in
             FirebaseDatabase.sharedInstance.reminderList = dict
         }
     }
+    
+    //Grab 24 hours worth of Reminders.
     func grabPast24Hours(withStatus: Bool = true, completion:(([Reminder]) -> Void)?){
         reminderList.removeAll()
         let timeSpan = 60 * 60 * 24;
@@ -140,6 +150,8 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
             completion? (newListReminders)
         })
     }
+    
+    // Update all reminders
     func updateRemindersThen(completion:(([Reminder]) -> Void)?){
         reminderList.removeAll()
         reminderRef.queryOrdered(byChild: "date").observe(.value, with: { (snapshot: DataSnapshot) in
@@ -163,6 +175,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         })
     }
     
+    // Setup notifications for Reminders in app, should have done and snooze(5min) functionality.
     func initializeReminderNotificaions(){
         reminderRef.observe(.childAdded, with: { (snapshot: DataSnapshot) in
                 if let rData = snapshot.value as? [String:Any]{
@@ -229,6 +242,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         })
     }
     
+    // Deals with Notification action done by user. Updates Reminders based on the action done. Eg) Done task updates database on status of Reminder
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void)
     {
         if (response.actionIdentifier == UNNotificationDismissActionIdentifier){
@@ -267,6 +281,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         }
     }
     
+    // Add a reminder to the database
     func setReminder(arg: Reminder!) {
         let childRef = reminderRef.childByAutoId()
         let values : [String:Any] = ["sender": arg!.sender as Any,
@@ -278,6 +293,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         childRef.setValue(values)
     }
     
+    // Change home page user information to the database
     func setUserData(arg: User!){
         self.userObj = arg
         let userID = Auth.auth().currentUser?.uid
@@ -290,6 +306,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         childRef.updateChildValues(values)
     }
 
+    // Update Home Page Information from Firebase
     func UpdateFromFirebase(completion: ((Bool) -> Void)?){
         let userID = Auth.auth().currentUser?.uid
         let childRef = usersRef.child(userID!)
@@ -307,6 +324,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         })
     }
     
+    // Load all contacts for the user
     func LoadContacts(){
         let userID = Auth.auth().currentUser?.uid
         contactList.removeAll()
@@ -322,6 +340,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         })
     }
     
+    // Return self as a user object.
     func getUserData() -> User {
         return self.userObj
     }

@@ -26,14 +26,18 @@ class ReminderViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
     }
 
+    //Declare number of columns for Reminder table
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1;
     }
     
+    //Declare number of rows for Reminder table by looking at the number of rows in the database table for Reminders
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return reminders.count
     }
     
+    // Declare table view, make cells by accessing data from database for all attributes for remiders. If status of Reminder
+    // is completed, it is grey. If the status is not completed, it is white. The toggle for the status is the done button.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Table view cells are reused and should be dequeued using a cell identifier.
         let cellIdentifier = "ReminderTableViewCell"
@@ -91,10 +95,13 @@ class ReminderViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
+    // Show updates for table.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateReminderTable()
     }
+    
+    //Check if there are updates for table.
     func updateReminderTable(){
         FirebaseDatabase.sharedInstance.updateRemindersThen(completion: { (dict) in
             self.reminders = dict
@@ -102,10 +109,13 @@ class ReminderViewController: UIViewController, UITableViewDataSource, UITableVi
         })
     }
     
+    // Is the screen loaded.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()
     }
+    
+    // Is there any memory warning.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -15,6 +15,7 @@ import UIKit
 
 class CaretakerHomeViewController: ReminderViewController {
     
+    // Shows all the Reminders that the patient has not been completed in the last 24 hours.
     override func updateReminderTable(){
         FirebaseDatabase.sharedInstance.grabPast24Hours(completion: { (dict) in
             self.reminders = dict

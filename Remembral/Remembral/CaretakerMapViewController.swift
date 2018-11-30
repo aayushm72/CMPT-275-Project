@@ -29,6 +29,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
     var displayedFence: [GeoFence]?
     var warningIcon: UIImageView?
     
+    // Sets a warning indication icon for Caretaker when patient outside of safezone.
     func initializeWarning() {
         let imageName = "warning_sign"
         let image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
@@ -52,6 +53,8 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
         }
     }
     
+   //Is the screen loaded, if it is, determine if the application is allowed to see locations.
+    // Then generate fence for safe areas for user by accessing database for location data.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -120,6 +123,8 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
         initializeWarning()
         
     }
+    
+    // Moves map view on screen to realtime location of patient on the map.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userCoord = (locationManager.location?.coordinate)!
         if self.mapView.selectedMarker == nil{
@@ -129,6 +134,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
 
     }
     
+    // Send automatic SOS notification for Caretaker if patient is out of Safe Area for more than 15 minutes
     func setAutomaticSOSNotification(shouldSetRemove: Bool){
         if !shouldSetRemove{
             let category = UNNotificationCategory(identifier: "LocationSOS", actions: [], intentIdentifiers: [], options: [])
@@ -153,6 +159,8 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
    // func locationManager(_ manager: CLLocationManager, DidResumeLocationUpdates ) {
    //     return 0
    // }
+    
+    // Updates map to show the current location of the patient.
     func updateMap(forID: String, newLocation: LocationObj){
         self.marker.position.latitude = newLocation.latitude
         self.marker.position.longitude = newLocation.longitude
@@ -170,6 +178,8 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
         }
         
     }
+    
+    // Sends out an error if the application is unable to find user.
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Unable to access location")
     }
