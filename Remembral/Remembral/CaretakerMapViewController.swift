@@ -46,7 +46,14 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
 
     }
     
-    //Is the screen loaded, if it is, determine if the application is allowed to see locations.
+    override func viewWillAppear(_ animated: Bool) {
+        if FirebaseDatabase.sharedInstance.contactList.isEmpty {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.clear
+        }
+    }
+    
+   //Is the screen loaded, if it is, determine if the application is allowed to see locations.
     // Then generate fence for safe areas for user by accessing database for location data.
     override func viewDidLoad() {
         super.viewDidLoad()

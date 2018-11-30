@@ -51,7 +51,7 @@
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="200" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LEy-dr-2Oh">
                                 <rect key="frame" x="0.0" y="99" width="375" height="519"/>
-                                <color key="backgroundColor" red="0.2167125432" green="0.2167125432" blue="0.2167125432" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" red="0.8862745098" green="0.67843137249999996" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReminderTableViewCell" rowHeight="200" id="ap4-Jo-ou2" customClass="ReminderTableViewCell" customModule="Remembral" customModuleProvider="target">
@@ -986,11 +986,12 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DKp-pp-i4z">
                                 <rect key="frame" x="64" y="79" width="247" height="114"/>
+                                <color key="backgroundColor" red="0.80938309590000002" green="0.174930058" blue="0.14727018610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="DKp-pp-i4z" secondAttribute="height" multiplier="106:49" id="7ou-Nd-e66"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="85"/>
-                                <color key="tintColor" red="0.80938309590000002" green="0.174930058" blue="0.14727018610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="SOS"/>
                                 <connections>
                                     <action selector="sendSOS:" destination="iON-IL-qEb" eventType="touchUpInside" id="AYb-WL-iza"/>
@@ -1010,6 +1011,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="XgJ-eZ-YS5"/>
                     <connections>
+                        <outlet property="SOSButton" destination="DKp-pp-i4z" id="90n-9b-QHc"/>
                         <outlet property="collectionView" destination="k7N-Be-erU" id="Hkj-0O-MKP"/>
                     </connections>
                 </viewController>

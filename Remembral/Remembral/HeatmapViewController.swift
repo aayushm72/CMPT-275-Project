@@ -46,7 +46,7 @@ class HeatmapViewController: UIViewController, GMSMapViewDelegate {
   func addHeatmap()  {
     var list = [GMUWeightedLatLng]()
     let ref = FirebaseDatabase.sharedInstance.locationRef
-    let childRef = ref.child("iKbAZiqWylPvVNkOLPlYfzyuzan2")
+    let childRef = ref.child(FirebaseDatabase.sharedInstance.contactList[FirebaseDatabase.sharedInstance.selectedContacts].key)
     var isFirst = true
     var firstlat = CLLocationDegrees()
     var firstlng = CLLocationDegrees()
