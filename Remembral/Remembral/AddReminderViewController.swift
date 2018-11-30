@@ -12,6 +12,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     @IBOutlet weak var taskDescription: UITextField!
@@ -44,12 +45,14 @@ class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPic
     
     @IBAction func onSubmit(_ sender: Any) {
         var reminder = Reminder()
+        let reciever = (FirebaseDatabase.sharedInstance.getUserData().type == User.CARETAKER ?
+            FirebaseDatabase.sharedInstance.getSelectedPatientID() : Auth.auth().currentUser?.uid)
         reminder.sender = FirebaseDatabase.sharedInstance.userObj.name
         reminder.reciever = "Patient"
         reminder.description = taskDescription.text
         reminder.date = taskDateTime.date.timeIntervalSince1970
         reminder.recurrence = dataValues[pickerView.selectedRow(inComponent: 0)]
-        FirebaseDatabase.sharedInstance.setReminder(arg: reminder)
+        FirebaseDatabase.sharedInstance.setReminder(arg: reminder, forID: reciever!)
         self.navigationController?.popViewController(animated: true)
     }
     override func didReceiveMemoryWarning() {

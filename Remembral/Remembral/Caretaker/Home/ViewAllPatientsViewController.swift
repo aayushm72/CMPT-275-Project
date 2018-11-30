@@ -49,7 +49,7 @@ class ViewAllPatientsViewController: UIViewController, UITableViewDataSource, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        FirebaseDatabase.sharedInstance.LoadContacts()
+        FirebaseDatabase.sharedInstance.LoadContacts(completion: nil)
         tableView.register(PatientTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         // Do any additional setup after loading the view.

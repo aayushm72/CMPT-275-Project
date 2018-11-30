@@ -48,6 +48,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
 
     }
     
+
    //Is the screen loaded, if it is, determine if the application is allowed to see locations.
     // Then generate fence for safe areas for user by accessing database for location data.
     override func viewDidLoad() {

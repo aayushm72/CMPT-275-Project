@@ -131,7 +131,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         let timeSpan = 60 * 60 * 24;
         let todayDate = Int(Date().timeIntervalSince1970)
         
-        reminderRef.queryOrdered(byChild: "date").queryStarting(atValue: todayDate - timeSpan).queryEnding( atValue: todayDate ).observe(.value, with: { (snapshot: DataSnapshot) in
+        reminderRef.child(FirebaseDatabase.sharedInstance.getSelectedPatientID()).queryOrdered(byChild: "date").queryStarting(atValue: todayDate - timeSpan).queryEnding( atValue: todayDate ).observe(.value, with: { (snapshot: DataSnapshot) in
             var newListReminders = [Reminder]()
             for snap in snapshot.children {
                 if let rData = (snap as! DataSnapshot).value as? [String:Any]{
@@ -156,7 +156,9 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     // Update all reminders
     func updateRemindersThen(completion:(([Reminder]) -> Void)?){
         reminderList.removeAll()
-        reminderRef.queryOrdered(byChild: "date").observe(.value, with: { (snapshot: DataSnapshot) in
+        let userID = (userObj.type == User.CARETAKER ?  FirebaseDatabase.sharedInstance.getSelectedPatientID() : Auth.auth().currentUser?.uid)
+        
+        reminderRef.child(userID!).queryOrdered(byChild: "date").observe(.value, with: { (snapshot: DataSnapshot) in
             var asdf = [Reminder]()
             for snap in snapshot.children {
                 if let rData = (snap as! DataSnapshot).value as? [String:Any]{
@@ -284,8 +286,8 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     }
     
     // Add a reminder to the database
-    func setReminder(arg: Reminder!) {
-        let childRef = reminderRef.childByAutoId()
+    func setReminder(arg: Reminder!, forID: String) {
+        let childRef = reminderRef.child(forID).childByAutoId()
         let values : [String:Any] = ["sender": arg!.sender as Any,
                                      "reciever": arg!.reciever as Any,
                                      "description": arg!.description as Any,
@@ -327,7 +329,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     }
     
     // Load all contacts for the user
-    func LoadContacts(){
+    func LoadContacts(completion: ((Bool) -> Void)?){
         let userID = Auth.auth().currentUser?.uid
         contactList.removeAll()
         FirebaseDatabase.sharedInstance.contactsRef.child(userID!).observeSingleEvent(of: .value, with: { (snapshot:  DataSnapshot) in
@@ -349,6 +351,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                     })
             }
             }
+            completion? (true)
         })
     }
     
@@ -362,6 +365,9 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     }
     
     func getSelectedPatientID() -> String {
-        return contactList[selectedContacts].identifier
+        if isSelectedPatientValid(){
+            return contactList[selectedContacts].identifier
+        }
+        return ""
     }
 }
