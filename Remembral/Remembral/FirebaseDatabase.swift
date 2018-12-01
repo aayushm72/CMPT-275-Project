@@ -78,6 +78,7 @@ struct User {
     var caretakerName: String!
     var caretakerPhNo: String!
     var type: String!
+    var imageURL: String!
     static let CARETAKER = "Caretaker"
     static let PATIENT   = "Patient"
 }
@@ -321,7 +322,8 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                                 phNo: userDict["phNo"],
                                 caretakerName: userDict["caretakerName"],
                                 caretakerPhNo: userDict["caretakerPhNo"],
-                                type: userDict["type"]
+                                type: userDict["type"],
+                                imageURL: userDict["imageURL"]
             )
             
             completion? (true)
@@ -382,8 +384,10 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     
     func getSelectedPatientID() -> String {
         if isSelectedPatientValid(){
+            print(contactList[selectedContacts].identifier)
             return contactList[selectedContacts].identifier
         }
+        print("None selected")
         return ""
     }
 }

@@ -38,17 +38,38 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         // Do any additional setup after loading the view.
     }
     
-    func uploadImg() {
+    func uploadImg(completionHandler: ((String, Bool) -> Void)?) {
         guard let img = userImagePicker.image, imageSelected == true else {
             print("image needs to be selected")
+            completionHandler?("", true)
             return
         }
         
-        if let imgData = img.jpegData(compressionQuality: 0.5) {
-            let imgUid = NSUUID().uuidString
-            let metadata = StorageMetadata()
-            metadata.contentType = "image/jpeg"
+        guard let imgData = img.jpegData(compressionQuality: 0.5) else {
+            completionHandler?("", false)
+            return
         }
+        let imgUid = NSUUID().uuidString
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        let storageref = Storage.storage().reference().child(imgUid)
+        storageref.putData(imgData, metadata: metadata) {
+              (result, error) in
+                if error != nil {
+                    print("Error uploading!")
+                    completionHandler?("", false)
+                    return
+                }
+                storageref.downloadURL {
+                    (url, error) in
+                    guard let downloadURL = url?.absoluteString else {
+                        print("Failed to get download URL.")
+                        completionHandler?("", false)
+                        return
+                    }
+                    completionHandler?(downloadURL, true)
+                }
+            }
     }
     
     @IBAction func selectedImgPicker (_ sender: AnyObject) {
@@ -114,25 +135,37 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             user.caretakerName = ""
             user.caretakerPhNo = ""
             user.type = self.dataValues[self.UserTypePicker.selectedRow(inComponent: 0)]
-            
-            let uid = authResult?.user.uid
-            FirebaseDatabase.sharedInstance.userObj = user
-            let childRef = FirebaseDatabase.sharedInstance.usersRef.child(uid!)
-            let values : [String:Any] = ["name": user.name,
-                                         "address": user.address,
-                                         "phNo": user.phNo,
-                                         "caretakerName": user.caretakerName,
-                                         "caretakerPhNo": user.caretakerPhNo,
-                                         "type": user.type]
-            childRef.updateChildValues(values)
-            
-            //segue to application
-            let userType = FirebaseDatabase.sharedInstance.userObj.type
-            if userType == "Patient" {
-                self.performSegue(withIdentifier: "toPatientAppfromRegister", sender: nil)
-            } else {
-                self.performSegue(withIdentifier: "toCaretakerAppfromRegister", sender: nil)
-            }
+            self.uploadImg(completionHandler: {
+                (url, success) in
+                if success == false {
+                    let errorMessage = UIAlertController(title: "Upload failed.", message: "Image Upload failed, please try again.", preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: "OK", style: .default)
+                    errorMessage.addAction(OKAction)
+                    self.present(errorMessage, animated: true, completion: nil)
+                    return
+                }
+                user.imageURL = url
+              
+                let uid = authResult?.user.uid
+                FirebaseDatabase.sharedInstance.userObj = user
+                let childRef = FirebaseDatabase.sharedInstance.usersRef.child(uid!)
+                let values : [String:Any] = ["name": user.name,
+                                             "address": user.address,
+                                             "phNo": user.phNo,
+                                             "caretakerName": user.caretakerName,
+                                             "caretakerPhNo": user.caretakerPhNo,
+                                             "type": user.type,
+                                             "imageURL": user.imageURL]
+                childRef.updateChildValues(values)
+                
+                //segue to application
+                let userType = FirebaseDatabase.sharedInstance.userObj.type
+                if userType == "Patient" {
+                    self.performSegue(withIdentifier: "toPatientAppfromRegister", sender: nil)
+                } else {
+                    self.performSegue(withIdentifier: "toCaretakerAppfromRegister", sender: nil)
+                }
+            })
         })
     }
 }

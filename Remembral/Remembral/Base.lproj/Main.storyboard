@@ -1006,7 +1006,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7VE-0N-BRb"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="XgJ-eZ-YS5"/>
+                    <navigationItem key="navigationItem" title="Home" id="XgJ-eZ-YS5">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="AAU-dz-5BZ">
+                            <connections>
+                                <action selector="OnLogout:" destination="iON-IL-qEb" id="oZO-K4-gQH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="SOSButton" destination="DKp-pp-i4z" id="90n-9b-QHc"/>
                         <outlet property="collectionView" destination="k7N-Be-erU" id="Hkj-0O-MKP"/>
@@ -1088,6 +1094,11 @@
                         <viewLayoutGuide key="safeArea" id="bGx-0z-vYb"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="30Q-y4-i3C">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="cS2-IG-Tt7">
+                            <connections>
+                                <action selector="onLogout:" destination="XK9-CY-J7x" id="YFz-ek-a6W"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Patients" id="dEG-2F-FSb">
                             <connections>
                                 <segue destination="az5-ls-Fze" kind="show" id="i6W-LQ-YLj"/>
@@ -1357,8 +1368,8 @@
         <image name="reminder" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="P59-5j-PzY"/>
-        <segue reference="Tnx-id-ugx"/>
+        <segue reference="Rkc-9V-u30"/>
+        <segue reference="kSH-md-nKa"/>
         <segue reference="I9b-pZ-SFD"/>
         <segue reference="E2d-fl-8cD"/>
     </inferredMetricsTieBreakers>

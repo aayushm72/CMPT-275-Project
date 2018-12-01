@@ -21,6 +21,7 @@ import MessageUI
 import MapKit
 import FirebaseAuth
 import CoreLocation
+import SwiftKeychainWrapper
 
 // Two choices of action for the notifications. Done which means completed task and snooze meaning remind task after 5 min.
 struct choices {
@@ -219,6 +220,15 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = (manager.location?.coordinate)!
         LocationServicesHandler.sendData(location: manager.location!)
+    }
+    
+    
+    @IBAction func OnLogout(_ sender: Any) {
+        print("Logged out!")
+        try! Auth.auth().signOut()
+        KeychainWrapper.standard.removeObject(forKey: "email")
+        KeychainWrapper.standard.removeObject(forKey: "password")
+        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
     }
 }
 

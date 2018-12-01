@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ReminderTableViewCell: UITableViewCell {
 
@@ -23,7 +24,8 @@ class ReminderTableViewCell: UITableViewCell {
     
     // For done action, completes a reminder.
     @IBAction func onPressDone(_ sender: UIButton) {
-        let ownRef = FirebaseDatabase.sharedInstance.reminderRef.child(reminderDBKey as String)
+        let uid = (FirebaseDatabase.sharedInstance.userObj.type == User.CARETAKER ?  FirebaseDatabase.sharedInstance.getSelectedPatientID() : Auth.auth().currentUser?.uid)
+        let ownRef = FirebaseDatabase.sharedInstance.reminderRef.child(uid!).child(reminderDBKey as String)
         ownRef.updateChildValues(["status": true])
         FirebaseDatabase.sharedInstance.updateRemindersThen{
             (isFinish) in self.delegate.tableView.reloadData()

@@ -21,14 +21,13 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        if let email = KeychainWrapper.standard.string(forKey: "email"), let password = KeychainWrapper.standard.string(forKey: "password") {
-//           signInandSegueToApp(email: email, password: password)
-//        }
+        if let email = KeychainWrapper.standard.string(forKey: "email"), let password = KeychainWrapper.standard.string(forKey: "password") {
+           signInandSegueToApp(email: email, password: password)
+        }
         
         self.LoginButton.layer.cornerRadius = 5; // this value vary as per your desire
         self.LoginButton.clipsToBounds = true;
     }
-    
 
     @IBAction func OnLogin(_ sender: Any) {
         if (LoginEmail.text?.isEmpty)! || (LoginPassword.text?.isEmpty)! {
