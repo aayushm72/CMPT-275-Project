@@ -203,7 +203,9 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
             }
             displayedMapForID = userID
         }
-        displayedMapForID = nil
+        else {
+            displayedMapForID = nil
+        }
     }
     
 }

@@ -332,9 +332,19 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     func LoadContacts(completion: ((Bool) -> Void)?){
         let userID = Auth.auth().currentUser?.uid
         contactList.removeAll()
+        
+        let group = DispatchGroup()
+        let dispatchQueue = DispatchQueue.global(qos: .userInitiated)
+        
         FirebaseDatabase.sharedInstance.contactsRef.child(userID!).observeSingleEvent(of: .value, with: { (snapshot:  DataSnapshot) in
             print(snapshot)
+            dispatchQueue.async(group: group,
+                                qos: .userInitiated,
+                                flags: DispatchWorkItemFlags.assignCurrentContext,
+                                execute: {
+                                    
             for snap in snapshot.children{
+                group.enter()
                 if let firstLevel = (snap as! DataSnapshot).value as? [String:Any]{
                     let key = firstLevel["key"] as! String
                     let relation = firstLevel["relation"] as? String ?? "caretaker"
@@ -345,13 +355,19 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                                                            emailAddress: patientDict["email"] as? String,
                                                        relation: relation)
                             newContact.identifier = key
-                        self.contactList.append(newContact)
+                            self.contactList.append(newContact)
                             print(newContact)
                         }
+                        group.leave()
                     })
             }
             }
-            completion? (true)
+                                    
+            })
+            group.notify(queue: .main) {
+                //Group has finished
+                completion? (true)
+            }
         })
     }
     
