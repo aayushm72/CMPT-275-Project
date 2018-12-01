@@ -110,9 +110,17 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewWillAppear(animated)
         contactTableView.reloadData()
     }
-    func updateContactTable(){
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let otherViewController = segue.destination as? ViewContactInfoViewController, let contactData = sender as? ContactPerson {
+            otherViewController.contactDisplayed = contactData
+        }
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "SegueToContactInfo", sender: FirebaseDatabase.sharedInstance.contactList[indexPath.row])
+        
+    }
+
+
     
     @IBAction func UnwindToContacts(_ segue: UIStoryboardSegue) {
         FirebaseDatabase.sharedInstance.LoadContacts(completion: {

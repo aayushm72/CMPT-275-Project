@@ -368,6 +368,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                                                            emailAddress: patientDict["email"] as? String,
                                                        relation: relation)
                             newContact.phoneNum = patientDict["phNo"] as? String
+                            newContact.address = patientDict["address"] as? String
                             newContact.identifier = key
                             let downloadURL = patientDict["imageURL"] as? String
                             let url = URL.init(string: downloadURL!)

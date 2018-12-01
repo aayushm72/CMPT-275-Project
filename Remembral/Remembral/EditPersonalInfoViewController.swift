@@ -66,7 +66,6 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate, UIT
         caretakerName.text = intitialCaretakerName
         caretakerPhoneNumber.text = intitialCaretakerPhoneNumber
         
-        
         patientName.delegate = self
         patientAddress.delegate = self
         patientPhoneNumber.delegate = self
@@ -93,8 +92,8 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate, UIT
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let FirstViewController = segue.destination as? PatientsHomeViewController {
             
-            var caretakerName_str = ""
-            var caretakerPhone_str = ""
+            var caretakerName_str = caretakerName.text ?? ""
+            var caretakerPhone_str = caretakerPhoneNumber.text ?? ""
             
             if caretakerTableSelected >= 0 &&
                 caretakerTableSelected < FirebaseDatabase.sharedInstance.contactList.count{
@@ -121,7 +120,9 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate, UIT
             //caretakerPhoneNumber.text!
         }
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        caretakerTable.reloadData()
+    }
     // First touch
     override func touchesBegan(_ touches: Set<UITouch>,
                                with event: UIEvent?) {
