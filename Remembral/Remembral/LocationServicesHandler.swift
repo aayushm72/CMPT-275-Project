@@ -4,7 +4,7 @@
 //
 //  Team: Group 2
 //  Created by Alwin Leong on 10/18/18.
-//  Edited: Alwin
+//  Edited: Alwin Leong
 //
 //  Contains functions to aid with handling location database messages
 //  Known bugs:
@@ -37,6 +37,7 @@ struct LocationObj {
     var time:Double!
     var weight:Double?
     
+    // Initialize for Location Services
     init(latitude: Double, longitude: Double, time: Double){
         self.latitude = latitude
         self.longitude = longitude
@@ -44,6 +45,7 @@ struct LocationObj {
         self.weight = 1.0;
     }
     
+    // Initialize for Location Services
     init (coord: CLLocationCoordinate2D, time: Double, weight: Double){
         self.latitude = coord.latitude
         self.longitude = coord.longitude
@@ -51,10 +53,12 @@ struct LocationObj {
         self.weight = weight
     }
     
+    // Determine Coordinates
     func asCoordinate() -> CLLocationCoordinate2D{
         return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
     }
     
+    // Computing statistics for determining the distance to build fence.
     func distance(other: LocationObj) -> Double {
         let R = 6378.137; // Radius of earth in KM
         let lat1  = latitude!;
@@ -72,30 +76,34 @@ struct LocationObj {
         return d * 1000; // meters
     }
     
+    // Find the acerage given values.
     mutating func averageWith(other: LocationObj) {
         self.latitude = (self.latitude + other.latitude) / 2
         self.longitude = (self.longitude + other.longitude) / 2
     }
     
+    // Convert to meters. Math involved.
     func getInMeters() -> (x: Double, y:Double) {
         let mPerDegLat =  111132.954 - 559.822 * cos( 2 * latitude ) + 1.175 * cos( 4 * latitude)
         let mPerDegLong = 111132.954 * cos ( latitude )
         return (x: longitude * mPerDegLong, y: latitude * mPerDegLat)
     }
     
+    // Convert to meters. Add Math.
     func addMeters(x: Double, y: Double) -> LocationObj{
         let mPerDegLat =  111132.954 - 559.822 * cos( 2 * latitude ) + 1.175 * cos( 4 * latitude)
         let mPerDegLong = 111132.954 * cos ( latitude )
         return LocationObj(latitude: self.latitude + y / mPerDegLat, longitude: self.longitude + x / mPerDegLong, time: self.time)
     }
     
+    // Determine Coordinates
     func asXY() -> XYPoint{
         //Cartesion coordinates takes the form if (Longitude, Latitude) or Vertical, Horizontal
         return (x: self.longitude, y:self.latitude)
     }
 }
 
-
+// Array for Location Services
 extension Array {
     mutating func remove(at indexes: [Int]) {
         var lastIndex: Int? = nil
@@ -220,9 +228,13 @@ class LocationServicesHandler : NSObject {
         }
         return retVal
     }
+    
+    // Detect holes in Information collected on clusters.
     static func detectHolesInCluster(){
         
     }
+    
+    // Determine cluserts to build safe areas.
     static private func cluster(locationList: [LocationObj]) -> [[LocationObj]]{
         //Based on OPTICS clustering algorithm
         var sortedList = locationList
@@ -261,6 +273,7 @@ class LocationServicesHandler : NSObject {
         return clusters
     }
     
+    // Create safe areas using Polygons
     static private func createPolygonFromPoints(pointList: [XYPoint]) -> GMSMutablePath {
         let returnPoly = GMSMutablePath()
         for index in 0..<pointList.count-1{
@@ -270,6 +283,8 @@ class LocationServicesHandler : NSObject {
         }
         return returnPoly
     }
+    
+    // Convert to points for easier mathematical solution.
     static func convertToPointList(locationList: [LocationObj]) -> [(x:Double,y:Double)]{
 
         var newPoints = [(x:Double, y:Double)]()
@@ -278,6 +293,8 @@ class LocationServicesHandler : NSObject {
         }
         return newPoints
     }
+    
+    // Reduce repeated points.
     static func reduceLocationListOverlap(locationList: [LocationObj]) -> [LocationObj]{
         var newList = locationList
         newList.sort { (lhs: LocationObj, rhs: LocationObj) -> Bool in
@@ -293,6 +310,7 @@ class LocationServicesHandler : NSObject {
 
 */
 
+    // Simplify location list to do the math better.
     static private func simplifyLocationList(locationList: [LocationObj]) -> [LocationObj]{
         var runningSize = 1.0
         var newList = locationList
@@ -354,6 +372,7 @@ class LocationServicesHandler : NSObject {
      http://repositorium.sdum.uminho.pt/bitstream/1822/6429/1/ConcaveHull_ACM_MYS.pdf
 */
 
+    // Create concave hull.
     static private func generateConcaveHull (locationList: [XYPoint], otherPoints: inout [XYPoint], searchComplexity: Int = 8) -> [XYPoint]{
         var workingSet = locationList
         var hull = [XYPoint]()
@@ -415,14 +434,17 @@ class LocationServicesHandler : NSObject {
         return hull
     }
 
+    // Sort the data by distance
     static func sortByDistance(firstPoint: XYPoint, otherPoints: inout [XYPoint]){
         otherPoints.sort(by: {distance2(p1: firstPoint, p2: $0) < distance2(p1: firstPoint, p2: $1)})
     }
     
+    // Sort data by distance
     static func sortByDistance(firstPoint: LocationObj, otherPoints: inout [LocationObj]){
         otherPoints.sort(by: {distance2(p1: firstPoint.asXY(), p2: $0.asXY()) < distance2(p1: firstPoint.asXY(), p2: $1.asXY())})
     }
     
+    // Math function to determine distance
     static func distance(p1: XYPoint, p2: XYPoint) -> Double{
         let x = p1.x - p2.x
         let y = p1.y - p2.y
@@ -430,6 +452,7 @@ class LocationServicesHandler : NSObject {
     }
 
 
+    // Math function to determine distance
     static func distance2(p1: XYPoint, p2: XYPoint) -> Double{
     //Does not take the square root. Speeds up calculation
         let x = p1.x - p2.x
@@ -454,6 +477,7 @@ class LocationServicesHandler : NSObject {
         childRef.setValue(values)
 
     }
+    // Send updates on location to database
     static func newestLocationUpdates(forID: String, nextLocation: ((LocationObj) -> Void)?) -> DatabaseHandle{
         let userID = forID //Auth.auth().currentUser?.uid
         
@@ -467,6 +491,7 @@ class LocationServicesHandler : NSObject {
         })
         return queryRef
     }
+    // Get updates on location from database
     static func getNewestLocation(forID: String, completion: ((LocationObj) -> Void)?){
         let userID = forID //Auth.auth().currentUser?.uid
         
@@ -482,6 +507,8 @@ class LocationServicesHandler : NSObject {
             }
         })
     }
+    
+    // Extract data on location from database. Data includes latitude, longtitude and time.
     static func readLocations(forID: String, startingPoint: Double = 0.0, endingPoint: Double = getNewEndingPoint(), completion: (([LocationObj]) -> Void)?){
         let userLocationData = FirebaseDatabase.sharedInstance.locationRef.child(forID)
         userLocationData.queryOrdered(byChild: "time").queryStarting(atValue: startingPoint).queryEnding(atValue: endingPoint).observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot) in
@@ -496,6 +523,8 @@ class LocationServicesHandler : NSObject {
             completion? (locationList)
         })
     }
+    
+    // Determine time
     static func getNewEndingPoint() -> Double{
         return NSDate().timeIntervalSince1970.rounded() + 1
     }
@@ -507,6 +536,8 @@ class LocationServicesHandler : NSObject {
         sortByDistance(firstPoint: pointCheck, otherPoints: &copy)
         return distance2(p1: pointCheck, p2: copy[0]) < 2 * (0.01*0.01)
     }
+    
+    // Mathematical function to determine if location in safe area.
     static func pointInPolygon(pointCheck: XYPoint, pointList: [XYPoint])-> Bool{
        
         if pointList.count == 0 {
@@ -549,7 +580,7 @@ class LocationServicesHandler : NSObject {
         return nil
     }
 
-
+    // Determine if multiple safe areas's edges overlap
     static func lineCrossesList(firstLine: [XYPoint], otherLines: [XYPoint])->Bool{
         if otherLines.count < 3 {
             return false
@@ -565,6 +596,7 @@ class LocationServicesHandler : NSObject {
         return false;
     }
 
+    // Determine if multiple safe areas's edges overlap
     static func lineCrossesLine(firstLine: [XYPoint], secondLine: [XYPoint])-> Bool{
         
 /*

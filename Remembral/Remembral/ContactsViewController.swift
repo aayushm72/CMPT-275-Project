@@ -4,8 +4,7 @@
 //
 //Team: Group 2
 //  Created: Aayush Malhotra on 11/1/18.
-//  Edited:
-//  Alwin
+//  Edited: Alwin Leong
 //
 // *Contacts Page
 //  Will be used in Version 3
@@ -23,6 +22,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var contactTableView: UITableView!
     var contactStore = CNContactStore()
     
+    // Did screen load.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,6 +53,9 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             })
         }*/
     }
+    
+    // Enumerate list of contacts from Firebase, for each contact, get all the information that is related to the
+    // attributes if the Contacts table structure.
     func getContacts(){
         var contacts = [CNContact]()
         let keys = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName)]
@@ -73,20 +76,24 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             print("unable to fetch contacts")
         }
     }
-        
+    
+    // Any memory warning?
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    // Number of columns for table view for Contacts.
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1;
     }
     
+    // Number of rows for table view for contacts.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return FirebaseDatabase.sharedInstance.contactList.count // contactList.count
     }
     
+    // Set up table view for Contacts with name, relation and profile picture.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Table view cells are reused and should be dequeued using a cell identifier.
         let cellIdentifier = "ContactTableViewCell"
@@ -106,22 +113,27 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
+    // Has the screen appeared.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         contactTableView.reloadData()
     }
+    
+    // Prepare for the displayed contacts.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let otherViewController = segue.destination as? ViewContactInfoViewController, let contactData = sender as? ContactPerson {
             otherViewController.contactDisplayed = contactData
         }
     }
+    
+    // Deal with when user clicks on a perticular contact.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "SegueToContactInfo", sender: FirebaseDatabase.sharedInstance.contactList[indexPath.row])
         
     }
 
 
-    
+    // Return to contacts page from selection of specific contact. Reload all originial contacts.
     @IBAction func UnwindToContacts(_ segue: UIStoryboardSegue) {
         FirebaseDatabase.sharedInstance.LoadContacts(completion: {
             _ in

@@ -21,20 +21,24 @@ class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPic
     
     let dataValues = ["No Recurrence", "Daily", "Weekly", "Monthly"]
     
+    // Setup of picker view, number of columns that need to be there are 1.
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
+    // Setup of Picker view, UI settings.
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
         let string = dataValues[row]
         return NSAttributedString(string: string, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
     
+    // Picker View for options on the recurrence options.
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return dataValues.count
     }
     
+    // Did screen load, setup UI.
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -43,6 +47,8 @@ class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPic
         taskDateTime.setValue(UIColor.white, forKey: "textColor")
     }
     
+    // On submit, send all the data about the new reminder to the database. All the data includes all the
+    // attributes of a reminder.
     @IBAction func onSubmit(_ sender: Any) {
         var reminder = Reminder()
         let reciever = (FirebaseDatabase.sharedInstance.getUserData().type == User.CARETAKER ?
@@ -55,10 +61,14 @@ class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPic
         FirebaseDatabase.sharedInstance.setReminder(arg: reminder, forID: reciever!)
         self.navigationController?.popViewController(animated: true)
     }
+    
+    // Any memory warning?
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // When touches first began. For dealing with lingering keyboards.
     override func touchesBegan(_ touches: Set<UITouch>,
                                with event: UIEvent?) {
         self.view.endEditing(true)

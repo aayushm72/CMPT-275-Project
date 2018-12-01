@@ -2,14 +2,21 @@
 //  RegisterViewController.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by Aayush Malhotra on 11/27/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Alwin Leong, Aayush Malhotra
+//
+//  Register for Application view controller.
+//  Will be used in Version 3
+//  Known bugs:
+//
 //
 
 import UIKit
 import Firebase
 import SwiftKeychainWrapper
 
+// Structure for Register View.
 class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var email:String!
@@ -27,6 +34,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var UserTypePicker: UIPickerView!
     @IBOutlet weak var userImagePicker: UIImageView!
     
+    // Did screen load, set up UI, Set up Image Picking option for Profile.
     override func viewDidLoad() {
         super.viewDidLoad()
         UserTypePicker.delegate = self
@@ -38,6 +46,8 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         // Do any additional setup after loading the view.
     }
     
+    // Setup Image upload, ask user to select an image for profile picture.
+    // Deal with errors and display error cause.
     func uploadImg(completionHandler: ((String, Bool) -> Void)?) {
         guard let img = userImagePicker.image, imageSelected == true else {
             print("image needs to be selected")
@@ -72,10 +82,12 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             }
     }
     
+    // Image picker view for profile image.
     @IBAction func selectedImgPicker (_ sender: AnyObject) {
         present(imagePicker, animated: true, completion: nil)
     }
     
+    // Deal with errors on image picker view.
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
             userImagePicker.image = image
@@ -86,24 +98,32 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         imagePicker.dismiss(animated: true)
     }
     
+    // Number of columns for picker view for choosing patient or caretaker designation.
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
+    // Values for picker view for choosing patient or caretaker designation.
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
         let string = dataValues[row]
         return NSAttributedString(string: string, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
     
+    // Number of rows for picker view for choosing patient or caretaker designation.
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return dataValues.count
     }
     
+    // Back button to cancel registering process.
     @IBAction func onBack(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
 
+    // On Register:
+    // 1) Check if user has filled any information in.
+    // 2) Create User with all the information entered by creating a new user on the database.
+    // 3) Deal with errors on registering such as no internet access or incomplete information.
     @IBAction func onRegister(_ sender: Any) {
         //error if any text field is left blank
         if (self.UserName.text?.isEmpty)! || (self.UserPhoneNo.text?.isEmpty)! || (self.UserAddress.text?.isEmpty)! {

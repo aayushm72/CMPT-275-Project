@@ -22,6 +22,7 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate, UIT
         return FirebaseDatabase.sharedInstance.contactList.count
     }
     
+    // Set up table view for Contacts. When a Contact is selected, highlight it in green.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ContactNameOnlyTableViewCell else {
             fatalError("The dequeued cell is not an instance of ContactNameOnlyTableViewCell.")
@@ -34,6 +35,8 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate, UIT
         }
         return cell
     }
+    
+    // Determine number of rows for table view. Load the updated amount.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         caretakerTableSelected = indexPath.row;
         tableView.reloadData()
@@ -78,6 +81,8 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate, UIT
         doneButton.clipsToBounds = true
         
     }
+    
+    //Ensure screen appears.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -120,6 +125,7 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate, UIT
             //caretakerPhoneNumber.text!
         }
     }
+    // Ensure table appears.
     override func viewWillAppear(_ animated: Bool) {
         caretakerTable.reloadData()
     }

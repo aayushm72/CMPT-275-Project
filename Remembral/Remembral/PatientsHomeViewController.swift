@@ -222,7 +222,7 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
         LocationServicesHandler.sendData(location: manager.location!)
     }
     
-    
+    // On logout, reset email and password. Return to login screen. Release the user's instance of database.
     @IBAction func OnLogout(_ sender: Any) {
         print("Logged out!")
         try! Auth.auth().signOut()
