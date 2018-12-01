@@ -2,15 +2,14 @@
 //  AddContactsViewController.swift
 //  Remembral
 //
+//  Team: Group 2
 //  Created by Alwin Leong on 11/29/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Alwin Leong
 //
+//  Add Contacts View
+//  Will be used in Version 3
+//  Known bugs:
 //
-//  AddPatientViewController.swift
-//  Remembral
-//
-//  Created by Alwin Leong on 11/28/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
 //
 
 import UIKit
@@ -24,10 +23,12 @@ class AddContactsViewController: UIViewController, UITableViewDataSource, UITabl
     
     let cellIdentifier = "PatientTableViewCell"
     
+    // Find number of contacts to give the rows to setup the table view.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return foundPatients.count
     }
     
+    // Only show the Contacts who exist.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ContactNameOnlyTableViewCell  else {
@@ -40,7 +41,7 @@ class AddContactsViewController: UIViewController, UITableViewDataSource, UITabl
         return cell
     }
     
-    
+    // Did screen load.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,6 +50,8 @@ class AddContactsViewController: UIViewController, UITableViewDataSource, UITabl
         // Do any additional setup after loading the view.
     }
     
+    // Search for any potential contacts on firebase. If contacts found, retrieve all the contact's
+    // information and reload table to add the contacts.
     @IBAction func searchForContacts(_ sender: Any) {
         let nameToSearch = contactNameTextField.text
         
@@ -79,6 +82,7 @@ class AddContactsViewController: UIViewController, UITableViewDataSource, UITabl
         
     }
     
+    // Once new contact found, user can specify the relationship with new contact.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row < foundPatients.count{
             let alert = UIAlertController(title: "Set Relation", message: "Enter the relation of this user to you.", preferredStyle: .alert)

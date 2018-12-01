@@ -25,6 +25,7 @@ class CaretakerHomeViewController: ReminderViewController {
         })
     }
     
+    // Logout button for userto logout from current profile.
     @IBAction func onLogout(_ sender: Any) {
         print("Logged out!")
         FirebaseDatabase.sharedInstance.rootRef.removeAllObservers()

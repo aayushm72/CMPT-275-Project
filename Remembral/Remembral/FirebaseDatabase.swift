@@ -127,7 +127,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         }
     }
     
-    //Grab 24 hours worth of Reminders.
+    //Grab 24 hours worth of Reminders. Get all the attribues of the Reminder Struct.
     func grabPast24Hours(withStatus: Bool = true, completion:(([Reminder]) -> Void)?){
         reminderList.removeAll()
         let timeSpan = 60 * 60 * 24;
@@ -341,7 +341,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         })
     }
     
-    // Load all contacts for the user
+    // Load all contacts for the user. Get all the attributes that are present in the Contact Structure.
     func LoadContacts(completion: ((Bool) -> Void)?){
         let userID = Auth.auth().currentUser?.uid
         contactList.removeAll()
@@ -397,10 +397,12 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         return self.userObj
     }
     
+    // Check if the selected Patient is valid
     func isSelectedPatientValid() -> Bool{
         return (contactList.count != 0 && selectedContacts < contactList.count)
     }
     
+    // Returns selected patient's information.
     func getSelectedPatientID() -> String {
         if isSelectedPatientValid(){
             print(contactList[selectedContacts].identifier)

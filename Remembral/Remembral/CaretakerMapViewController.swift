@@ -163,6 +163,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
         print("Unable to access location")
     }
     
+    // Show all the bar buttons.
     override func viewWillAppear(_ animated: Bool) {
         if FirebaseDatabase.sharedInstance.contactList.isEmpty {
             self.navigationItem.rightBarButtonItem?.isEnabled = false
