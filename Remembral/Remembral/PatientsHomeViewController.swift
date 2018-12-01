@@ -48,7 +48,7 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
     // Patients home view: load a SOS button, patient's personal information (can be editable) from database.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+            FirebaseDatabase.sharedInstance.initializeReminderNotificaions()
         self.SOSButton.layer.cornerRadius = 25
         self.SOSButton.clipsToBounds = true
         self.SOSButton.layer.borderWidth = 2.0

@@ -133,6 +133,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         let timeSpan = 60 * 60 * 24;
         let todayDate = Int(Date().timeIntervalSince1970)
         if(!FirebaseDatabase.sharedInstance.isSelectedPatientValid()){
+            completion?(reminderList)
             return
         }
         
@@ -190,7 +191,8 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     
     // Setup notifications for Reminders in app, should have done and snooze(5min) functionality.
     func initializeReminderNotificaions(){
-        reminderRef.observe(.childAdded, with: { (snapshot: DataSnapshot) in
+        let uid = Auth.auth().currentUser?.uid
+        reminderRef.child(uid!).observe(.childAdded, with: { (snapshot: DataSnapshot) in
                 if let rData = snapshot.value as? [String:Any]{
                     
                     let newR = Reminder(sender: rData["sender"] as? String,
@@ -260,7 +262,8 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     {
         if (response.actionIdentifier == UNNotificationDismissActionIdentifier){
             let firebaseKey = response.notification.request.identifier
-            let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
+            let uid = Auth.auth().currentUser?.uid
+            let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(uid!).child(firebaseKey)
             let date = response.notification.date.timeIntervalSince1970
             reminderRef.updateChildValues(["status":false, "date": date])
         }
@@ -288,7 +291,8 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         }
         else if response.actionIdentifier == choices.answer2.identifier {
             let firebaseKey = response.notification.request.content.categoryIdentifier
-            let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
+            let uid = Auth.auth().currentUser?.uid
+            let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(uid!).child(firebaseKey)
             let date = response.notification.date.timeIntervalSince1970
             reminderRef.updateChildValues(["status":true, "date": date])
         }
