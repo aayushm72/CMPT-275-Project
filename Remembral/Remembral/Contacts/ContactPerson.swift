@@ -24,6 +24,7 @@ struct ContactPerson {
     var relation : String?
     var phoneNum: String!
     var identifier: String!
+    var picture: UIImage!
     
     init(){
         fullName = "John Doe"

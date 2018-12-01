@@ -17,6 +17,7 @@ import FirebaseCore
 import FirebaseDatabase
 import FirebaseAuth
 import UserNotifications
+import FirebaseStorage
 
 // Table structure for Reminders
 struct Reminder {
@@ -131,6 +132,9 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         reminderList.removeAll()
         let timeSpan = 60 * 60 * 24;
         let todayDate = Int(Date().timeIntervalSince1970)
+        if(!FirebaseDatabase.sharedInstance.isSelectedPatientValid()){
+            return
+        }
         
         reminderRef.child(FirebaseDatabase.sharedInstance.getSelectedPatientID()).queryOrdered(byChild: "date").queryStarting(atValue: todayDate - timeSpan).queryEnding( atValue: todayDate ).observe(.value, with: { (snapshot: DataSnapshot) in
             var newListReminders = [Reminder]()
@@ -157,6 +161,9 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     // Update all reminders
     func updateRemindersThen(completion:(([Reminder]) -> Void)?){
         reminderList.removeAll()
+        if(!FirebaseDatabase.sharedInstance.isSelectedPatientValid()){
+            return
+        }
         let userID = (userObj.type == User.CARETAKER ?  FirebaseDatabase.sharedInstance.getSelectedPatientID() : Auth.auth().currentUser?.uid)
         
         reminderRef.child(userID!).queryOrdered(byChild: "date").observe(.value, with: { (snapshot: DataSnapshot) in
@@ -357,6 +364,13 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                                                            emailAddress: patientDict["email"] as? String,
                                                        relation: relation)
                             newContact.identifier = key
+                            let downloadURL = patientDict["imageURL"] as? String
+                            let url = URL.init(string: downloadURL!)
+                            if downloadURL?.isEmpty != true {
+                                    let data = try! Data(contentsOf: url!)
+                                    let image = UIImage(data: data as Data)
+                                newContact.picture = image
+                            }
                             self.contactList.append(newContact)
                             print(newContact)
                         }

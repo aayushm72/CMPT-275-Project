@@ -98,6 +98,9 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         
         cell.nameLabel.text = contactData.fullName
         cell.relationLabel.text = contactData.relation
+        if contactData.picture != nil {
+            cell.imgView.image = contactData.picture
+        }
 
         
         return cell
@@ -112,7 +115,10 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func UnwindToContacts(_ segue: UIStoryboardSegue) {
-        
+        FirebaseDatabase.sharedInstance.LoadContacts(completion: {
+            _ in
+            self.contactTableView.reloadData()
+        })
     }
 }
 
