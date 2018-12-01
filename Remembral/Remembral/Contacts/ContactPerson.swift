@@ -4,8 +4,7 @@
 //
 //  Team: Group 2
 //  Created by Dean Fernandes on 2018-11-24.
-//  Edited: Dean Fernandes
-//  Alwin
+//  Edited: Dean Fernandes, Alwin Leong
 //
 //  Contact Person Class
 //  Will be used in Version 3
@@ -16,6 +15,7 @@
 import UIKit
 import FirebaseAuth
 
+// Structure for a Contact
 struct ContactPerson {
     
     // list of attribues for a contact
@@ -24,7 +24,10 @@ struct ContactPerson {
     var relation : String?
     var phoneNum: String!
     var identifier: String!
+    var picture: UIImage!
+    var address : String?
     
+    // Test function.
     init(){
         fullName = "John Doe"
         emailAddress = "john.doe@jdmail.com"
@@ -54,8 +57,20 @@ struct ContactPerson {
         emailAddress = email
         self.relation = relation
     }*/
-    static func addContact(contactUID: String){
+    
+    
+    
+    // Add contacts by reffering to database. Add all attributes that are in the Contact structure.
+    static func addContact(contactToAdd: ContactPerson){
         let nextElement = FirebaseDatabase.sharedInstance.contactsRef.child((Auth.auth().currentUser?.uid)!).childByAutoId()
-        nextElement.setValue(contactUID)
+        let newContact = ["key": contactToAdd.identifier, "relation": contactToAdd.relation]
+        nextElement.setValue(newContact)
+        
+        let otherPerson = FirebaseDatabase.sharedInstance.contactsRef.child(contactToAdd.identifier).childByAutoId()
+        let setRelationAs = FirebaseDatabase.sharedInstance.getUserData().type == User.PATIENT ? "Patient" : "idk"
+        let otherNewContact = ["key": (Auth.auth().currentUser?.uid)!, "relation": setRelationAs]
+
+        otherPerson.setValue(otherNewContact)
+        
     }
 }

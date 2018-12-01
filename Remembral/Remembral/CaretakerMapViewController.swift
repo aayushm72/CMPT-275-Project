@@ -28,6 +28,8 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
     let mapView = GMSMapView(frame: .zero)
     var displayedFence: [GeoFence]?
     var warningIcon: UIImageView?
+    var mapObserver: DatabaseHandle!
+    var displayedMapForID: String!
     
     // Sets a warning indication icon for Caretaker when patient outside of safezone.
     func initializeWarning() {
@@ -46,13 +48,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
 
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if FirebaseDatabase.sharedInstance.contactList.isEmpty {
-            self.navigationItem.rightBarButtonItem?.isEnabled = false
-            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.clear
-        }
-    }
-    
+
    //Is the screen loaded, if it is, determine if the application is allowed to see locations.
     // Then generate fence for safe areas for user by accessing database for location data.
     override func viewDidLoad() {
@@ -95,30 +91,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
         
         //Needs to be done using user id queries
         //
-        let userID = FirebaseDatabase.sharedInstance.contactList[FirebaseDatabase.sharedInstance.selectedContacts].key// "iKbAZiqWylPvVNkOLPlYfzyuzan2" //Auth.auth().currentUser?.uid
-        FirebaseDatabase.sharedInstance.usersRef.child(userID).observe(.value) { (snapshot: DataSnapshot) in
-            let userInfo = snapshot.value as! [String:Any]
-            self.marker.title = userInfo["name"] as? String ?? "undefined"
-        }
-
         
-        //Updates marker whenever there's a location update.
-        LocationServicesHandler.getNewestLocation(forID: userID) {(initialLocation) in
-            self.updateMap(forID: userID, newLocation: initialLocation)
-            
-            LocationServicesHandler.newestLocationUpdates(forID: userID) { (newestLocation) in
-                self.updateMap(forID: userID, newLocation: newestLocation)
-            }
-        }
-
-        //Set a time range for the generation of the fence?
-        //let day_in_seconds = 60.0 * 60.0 * 24.0 / 2
-        let first = 0.0 //LocationServicesHandler.getNewEndingPoint() - 2.5 * day_in_seconds
-        LocationServicesHandler.readLocations(forID: userID, startingPoint: first){
-            (locationList) in
-            self.displayedFence = LocationServicesHandler.generateFence(forUser: userID, forLocations: locationList, mapView: self.mapView)
-            
-        }
         
         initializeWarning()
         
@@ -165,6 +138,11 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
         self.marker.position.latitude = newLocation.latitude
         self.marker.position.longitude = newLocation.longitude
         self.marker.snippet = "Last Updated @ " + String(newLocation.time)
+        
+        if let foundContact = FirebaseDatabase.sharedInstance.contactList.firstIndex(where: {$0.identifier == forID}){
+           self.marker.title = FirebaseDatabase.sharedInstance.contactList[foundContact].fullName
+        }
+        
         if self.mapView.selectedMarker != nil {
             let cameraUpdate = GMSCameraUpdate.setTarget((self.mapView.selectedMarker?.position)!)
             self.mapView.moveCamera(cameraUpdate)
@@ -180,8 +158,55 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
     }
     
     // Sends out an error if the application is unable to find user.
+
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Unable to access location")
+    }
+    
+    // Show all the bar buttons.
+    override func viewWillAppear(_ animated: Bool) {
+        if FirebaseDatabase.sharedInstance.contactList.isEmpty {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.clear
+        }
+        
+        if FirebaseDatabase.sharedInstance.isSelectedPatientValid(){
+            
+            let userID = FirebaseDatabase.sharedInstance.getSelectedPatientID()
+            
+            if displayedMapForID == userID {
+                return
+            }
+        
+            if (mapObserver != nil){
+                FirebaseDatabase.sharedInstance.usersRef.child(userID).removeObserver(withHandle: mapObserver)
+            }
+            
+            mapView.clear()
+            self.marker.map = mapView
+            
+            //Updates marker whenever there's a location update.
+            LocationServicesHandler.getNewestLocation(forID: userID) {(initialLocation) in
+                self.updateMap(forID: userID, newLocation: initialLocation)
+                
+                self.mapObserver = LocationServicesHandler.newestLocationUpdates(forID: userID) { (newestLocation) in
+                    self.updateMap(forID: userID, newLocation: newestLocation)
+                }
+            }
+            
+            //Set a time range for the generation of the fence?
+            //let day_in_seconds = 60.0 * 60.0 * 24.0 / 2
+            let first = 0.0 //LocationServicesHandler.getNewEndingPoint() - 2.5 * day_in_seconds
+            LocationServicesHandler.readLocations(forID: userID, startingPoint: first){
+                (locationList) in
+                self.displayedFence = LocationServicesHandler.generateFence(forUser: userID, forLocations: locationList, mapView: self.mapView)
+                
+            }
+            displayedMapForID = userID
+        }
+        else {
+            displayedMapForID = nil
+        }
     }
     
 }

@@ -12,6 +12,8 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
+import Firebase
 
 class CaretakerHomeViewController: ReminderViewController {
     
@@ -22,5 +24,16 @@ class CaretakerHomeViewController: ReminderViewController {
             self.tableView.reloadData()
         })
     }
+    
+    // Logout button for userto logout from current profile.
+    @IBAction func onLogout(_ sender: Any) {
+        print("Logged out!")
+        FirebaseDatabase.sharedInstance.rootRef.removeAllObservers()
+        try? Auth.auth().signOut()
+        KeychainWrapper.standard.removeObject(forKey: "email")
+        KeychainWrapper.standard.removeObject(forKey: "password")
+        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+    }
+    
 }
 

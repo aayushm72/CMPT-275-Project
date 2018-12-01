@@ -2,8 +2,13 @@
 //  ViewAllPatientsViewController.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by Alwin Leong on 11/28/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Alwin Leong
+//
+// For View All Patients
+//  Known bugs:
+//
 //
 
 import UIKit
@@ -19,9 +24,10 @@ class ViewAllPatientsViewController: UIViewController, UITableViewDataSource, UI
         return FirebaseDatabase.sharedInstance.contactList.count
     }
     
+    // Show all the Patients who have chosen the current user as Caretaker in the table. Selected patients will be highlighted in green.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? PatientTableViewCell  else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ContactNameOnlyTableViewCell  else {
             fatalError("The dequeued cell is not an instance of PatientTableViewCell.")
         }
         let patientKeyNamePair = FirebaseDatabase.sharedInstance.contactList[indexPath.row]
@@ -29,7 +35,7 @@ class ViewAllPatientsViewController: UIViewController, UITableViewDataSource, UI
         cell.cellLabel.widthAnchor.constraint(equalTo: tableView.widthAnchor, multiplier: 1)
         cell.cellLabel.heightAnchor.constraint(equalToConstant: 60)
         
-        cell.textLabel?.text = patientKeyNamePair.name
+        cell.textLabel?.text = patientKeyNamePair.fullName
         if FirebaseDatabase.sharedInstance.selectedContacts == indexPath.row{
             cell.backgroundColor = .green
         } else {
@@ -40,21 +46,20 @@ class ViewAllPatientsViewController: UIViewController, UITableViewDataSource, UI
         
     }
     
+    // Update the table view with the accurate number of patients.
+    // Accurate patients are patients who have chosen the current user as caretaker.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.row
         print(FirebaseDatabase.sharedInstance.selectedContacts)
-        if (FirebaseDatabase.sharedInstance.selectedContacts == (index)){
-            FirebaseDatabase.sharedInstance.selectedContacts = 0
-        } else {
-            FirebaseDatabase.sharedInstance.selectedContacts = index
-        }
+        FirebaseDatabase.sharedInstance.selectedContacts = index
         tableView.reloadData()
     }
     
+    // Did screen load
     override func viewDidLoad() {
         super.viewDidLoad()
-        FirebaseDatabase.sharedInstance.LoadContacts()
-        tableView.register(PatientTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        FirebaseDatabase.sharedInstance.LoadContacts(completion: nil)
+        tableView.register(ContactNameOnlyTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         // Do any additional setup after loading the view.
     }
@@ -62,6 +67,7 @@ class ViewAllPatientsViewController: UIViewController, UITableViewDataSource, UI
 
     }
     
+    // Ensure table view appears.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()

@@ -17,6 +17,7 @@ import FirebaseCore
 import FirebaseDatabase
 import FirebaseAuth
 import UserNotifications
+import FirebaseStorage
 
 // Table structure for Reminders
 struct Reminder {
@@ -78,6 +79,9 @@ struct User {
     var caretakerName: String!
     var caretakerPhNo: String!
     var type: String!
+    var imageURL: String!
+    static let CARETAKER = "Caretaker"
+    static let PATIENT   = "Patient"
 }
 
 // Implementation of Firebase Database.
@@ -93,7 +97,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     var userObj: User!
     var reminderList = [Reminder]()
     
-    var contactList = [(key: String, name :String)]()
+    var contactList = [ContactPerson]()
     //Key, Name
     var selectedContacts = 0
     
@@ -123,13 +127,18 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         }
     }
     
-    //Grab 24 hours worth of Reminders.
+    //Grab 24 hours worth of Reminders. Get all the attribues of the Reminder Struct.
     func grabPast24Hours(withStatus: Bool = true, completion:(([Reminder]) -> Void)?){
         reminderList.removeAll()
         let timeSpan = 60 * 60 * 24;
         let todayDate = Int(Date().timeIntervalSince1970)
+        if(!FirebaseDatabase.sharedInstance.isSelectedPatientValid()){
+            completion?(reminderList)
+            return
+        }
         
-        reminderRef.queryOrdered(byChild: "date").queryStarting(atValue: todayDate - timeSpan).queryEnding( atValue: todayDate ).observe(.value, with: { (snapshot: DataSnapshot) in
+
+        reminderRef.child(FirebaseDatabase.sharedInstance.getSelectedPatientID()).queryOrdered(byChild: "date").queryStarting(atValue: todayDate - timeSpan).queryEnding( atValue: todayDate ).observe(.value, with: { (snapshot: DataSnapshot) in
             var newListReminders = [Reminder]()
             for snap in snapshot.children {
                 if let rData = (snap as! DataSnapshot).value as? [String:Any]{
@@ -154,7 +163,12 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     // Update all reminders
     func updateRemindersThen(completion:(([Reminder]) -> Void)?){
         reminderList.removeAll()
-        reminderRef.queryOrdered(byChild: "date").observe(.value, with: { (snapshot: DataSnapshot) in
+        if(!FirebaseDatabase.sharedInstance.isSelectedPatientValid()){
+            return
+        }
+        let userID = (userObj.type == User.CARETAKER ?  FirebaseDatabase.sharedInstance.getSelectedPatientID() : Auth.auth().currentUser?.uid)
+        
+        reminderRef.child(userID!).queryOrdered(byChild: "date").observe(.value, with: { (snapshot: DataSnapshot) in
             var asdf = [Reminder]()
             for snap in snapshot.children {
                 if let rData = (snap as! DataSnapshot).value as? [String:Any]{
@@ -177,7 +191,8 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     
     // Setup notifications for Reminders in app, should have done and snooze(5min) functionality.
     func initializeReminderNotificaions(){
-        reminderRef.observe(.childAdded, with: { (snapshot: DataSnapshot) in
+        let uid = Auth.auth().currentUser?.uid
+        reminderRef.child(uid!).observe(.childAdded, with: { (snapshot: DataSnapshot) in
                 if let rData = snapshot.value as? [String:Any]{
                     
                     let newR = Reminder(sender: rData["sender"] as? String,
@@ -247,7 +262,8 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     {
         if (response.actionIdentifier == UNNotificationDismissActionIdentifier){
             let firebaseKey = response.notification.request.identifier
-            let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
+            let uid = Auth.auth().currentUser?.uid
+            let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(uid!).child(firebaseKey)
             let date = response.notification.date.timeIntervalSince1970
             reminderRef.updateChildValues(["status":false, "date": date])
         }
@@ -275,15 +291,16 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         }
         else if response.actionIdentifier == choices.answer2.identifier {
             let firebaseKey = response.notification.request.content.categoryIdentifier
-            let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(firebaseKey)
+            let uid = Auth.auth().currentUser?.uid
+            let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(uid!).child(firebaseKey)
             let date = response.notification.date.timeIntervalSince1970
             reminderRef.updateChildValues(["status":true, "date": date])
         }
     }
     
     // Add a reminder to the database
-    func setReminder(arg: Reminder!) {
-        let childRef = reminderRef.childByAutoId()
+    func setReminder(arg: Reminder!, forID: String) {
+        let childRef = reminderRef.child(forID).childByAutoId()
         let values : [String:Any] = ["sender": arg!.sender as Any,
                                      "reciever": arg!.reciever as Any,
                                      "description": arg!.description as Any,
@@ -311,31 +328,71 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         let userID = Auth.auth().currentUser?.uid
         let childRef = usersRef.child(userID!)
         childRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            let userDict = snapshot.value as! [String:String]
-            self.userObj = User(name: userDict["name"],
-                                address: userDict["address"],
-                                phNo: userDict["phNo"],
-                                caretakerName: userDict["caretakerName"],
-                                caretakerPhNo: userDict["caretakerPhNo"],
-                                type: userDict["type"]
-            )
-            
-            completion? (true)
+            if let userDict = snapshot.value as? [String:String]{
+                self.userObj = User(name: userDict["name"],
+                                    address: userDict["address"],
+                                    phNo: userDict["phNo"],
+                                    caretakerName: userDict["caretakerName"],
+                                    caretakerPhNo: userDict["caretakerPhNo"],
+                                    type: userDict["type"],
+                                    imageURL: userDict["imageURL"]
+                )
+                completion? (true)
+            }
+            else {
+                completion? (false)
+            }
         })
     }
     
-    // Load all contacts for the user
-    func LoadContacts(){
+    // Load all contacts for the user. Get all the attributes that are present in the Contact Structure.
+    func LoadContacts(completion: ((Bool) -> Void)?){
         let userID = Auth.auth().currentUser?.uid
         contactList.removeAll()
+        
+        let group = DispatchGroup()
+        let dispatchQueue = DispatchQueue.global(qos: .userInitiated)
+        
         FirebaseDatabase.sharedInstance.contactsRef.child(userID!).observeSingleEvent(of: .value, with: { (snapshot:  DataSnapshot) in
             print(snapshot)
+            dispatchQueue.async(group: group,
+                                qos: .userInitiated,
+                                flags: DispatchWorkItemFlags.assignCurrentContext,
+                                execute: {
+                                    
             for snap in snapshot.children{
-            if let key = (snap as! DataSnapshot).value as? String{
-                FirebaseDatabase.sharedInstance.usersRef.child(key).child("name").observeSingleEvent(of: .value, with: {(patientData: DataSnapshot) in
-                    self.contactList.append((key: key, name: (patientData.value as? String)!))
-                })
+                group.enter()
+                if let firstLevel = (snap as! DataSnapshot).value as? [String:Any]{
+                    let key = firstLevel["key"] as! String
+                    let relation = firstLevel["relation"] as? String ?? "caretaker"
+                    FirebaseDatabase.sharedInstance.usersRef.child(key).observeSingleEvent(of: .value, with: {(patientData: DataSnapshot) in
+                        if let patientDict = patientData.value as? [String: Any] {
+                    
+                            var newContact = ContactPerson(fullName: patientDict["name"] as? String,
+                                                           emailAddress: patientDict["email"] as? String,
+                                                       relation: relation)
+                            newContact.phoneNum = patientDict["phNo"] as? String
+                            newContact.address = patientDict["address"] as? String
+                            newContact.identifier = key
+                            let downloadURL = patientDict["imageURL"] as? String
+                            let url = URL.init(string: downloadURL!)
+                            if downloadURL?.isEmpty != true {
+                                    let data = try! Data(contentsOf: url!)
+                                    let image = UIImage(data: data as Data)
+                                newContact.picture = image
+                            }
+                            self.contactList.append(newContact)
+                            print(newContact)
+                        }
+                        group.leave()
+                    })
             }
+            }
+                                    
+            })
+            group.notify(queue: .main) {
+                //Group has finished
+                completion? (true)
             }
         })
     }
@@ -345,5 +402,18 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         return self.userObj
     }
     
+    // Check if the selected Patient is valid
+    func isSelectedPatientValid() -> Bool{
+        return (contactList.count != 0 && selectedContacts < contactList.count)
+    }
     
+    // Returns selected patient's information.
+    func getSelectedPatientID() -> String {
+        if isSelectedPatientValid(){
+            print(contactList[selectedContacts].identifier)
+            return contactList[selectedContacts].identifier
+        }
+        print("None selected")
+        return ""
+    }
 }

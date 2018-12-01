@@ -21,6 +21,7 @@ import MessageUI
 import MapKit
 import FirebaseAuth
 import CoreLocation
+import SwiftKeychainWrapper
 
 // Two choices of action for the notifications. Done which means completed task and snooze meaning remind task after 5 min.
 struct choices {
@@ -47,7 +48,7 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
     // Patients home view: load a SOS button, patient's personal information (can be editable) from database.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+            FirebaseDatabase.sharedInstance.initializeReminderNotificaions()
         self.SOSButton.layer.cornerRadius = 25
         self.SOSButton.clipsToBounds = true
         self.SOSButton.layer.borderWidth = 2.0
@@ -181,7 +182,7 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
         
         cell.myLabel.text = items[indexPath.item]
-        
+
         return cell
     }
     
@@ -203,14 +204,14 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
     
     // Update Home page after user data update.
     @IBAction func UnwindToHomeScreen(_ segue: UIStoryboardSegue) {
-        if let editPage = segue.source as? EditPersonalInfoViewController {
+        /*if let editPage = segue.source as? EditPersonalInfoViewController {
             print(editPage.patientName.text!)
             self.patientName = editPage.patientName.text!
             self.patientAddress = editPage.patientAddress.text!
             self.patientPhoneNumber = editPage.patientPhoneNumber.text!
             self.caretakerName = editPage.caretakerName.text!
             self.caretakerPhoneNumber = editPage.caretakerPhoneNumber.text!
-        }
+        }*/
         reloadItems()
         collectionView.reloadData()
     }
@@ -219,6 +220,15 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = (manager.location?.coordinate)!
         LocationServicesHandler.sendData(location: manager.location!)
+    }
+    
+    // On logout, reset email and password. Return to login screen. Release the user's instance of database.
+    @IBAction func OnLogout(_ sender: Any) {
+        print("Logged out!")
+        try! Auth.auth().signOut()
+        KeychainWrapper.standard.removeObject(forKey: "email")
+        KeychainWrapper.standard.removeObject(forKey: "password")
+        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
     }
 }
 

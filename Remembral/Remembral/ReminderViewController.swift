@@ -22,6 +22,7 @@ class ReminderViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet weak var tableView: UITableView!
     
+    // Did the screen load.
     override func viewDidLoad() {
         super.viewDidLoad()
     }
