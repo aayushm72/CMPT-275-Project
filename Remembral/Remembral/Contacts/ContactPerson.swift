@@ -25,6 +25,7 @@ struct ContactPerson {
     var phoneNum: String!
     var identifier: String!
     var picture: UIImage!
+    var address : String?
     
     // Test function.
     init(){

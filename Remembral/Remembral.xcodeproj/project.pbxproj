@@ -18,6 +18,7 @@
 		4E3D9281892FECD53164A29F /* Pods_Remembral.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */; };
 		C48F09D3218BF54600CEB128 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48F09D2218BF54500CEB128 /* CollectionViewCell.swift */; };
 		C48F09D5218BF59200CEB128 /* EditPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48F09D4218BF59200CEB128 /* EditPersonalInfoViewController.swift */; };
+		FB03786921B2363900A58961 /* ViewContactInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB03786821B2363900A58961 /* ViewContactInfoViewController.swift */; };
 		FB1B9AA9218E523F00D8A0B7 /* RemembralTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B9AA8218E523F00D8A0B7 /* RemembralTests.swift */; };
 		FB1B9AB1218E53E600D8A0B7 /* ReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B9AB0218E53E600D8A0B7 /* ReminderTests.swift */; };
 		FB34F481219D0BBF0060ACB9 /* LocationServicesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB34F480219D0BBF0060ACB9 /* LocationServicesHandler.swift */; };
@@ -100,6 +101,7 @@
 		9B6B425BB220573E0A6FCFA9 /* Pods_Remembral.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Remembral.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C48F09D2218BF54500CEB128 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		C48F09D4218BF59200CEB128 /* EditPersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPersonalInfoViewController.swift; sourceTree = "<group>"; };
+		FB03786821B2363900A58961 /* ViewContactInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContactInfoViewController.swift; sourceTree = "<group>"; };
 		FB1B9AA6218E523E00D8A0B7 /* RemembralTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemembralTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB1B9AA8218E523F00D8A0B7 /* RemembralTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemembralTests.swift; sourceTree = "<group>"; };
 		FB1B9AAA218E523F00D8A0B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 				FFDD2A9921AA492100365DA7 /* ContactPerson.swift */,
 				FBB764B721AE448B00BFD515 /* ContactTableViewCell.swift */,
 				FBC4D53E21B0D1DB00B224EC /* AddContactsViewController.swift */,
+				FB03786821B2363900A58961 /* ViewContactInfoViewController.swift */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -733,6 +736,7 @@
 				FB651A5D218A73D4004A9B61 /* ReminderTableViewCell.swift in Sources */,
 				FB48B13F219E677200E99ED5 /* GMUWeightedLatLng.m in Sources */,
 				FB48B149219E677200E99ED5 /* GQTPointQuadTreeChild.m in Sources */,
+				FB03786921B2363900A58961 /* ViewContactInfoViewController.swift in Sources */,
 				C48F09D5218BF59200CEB128 /* EditPersonalInfoViewController.swift in Sources */,
 				FB48B136219E677200E99ED5 /* GMULineString.m in Sources */,
 				FBE6B22521AFA1D1005B8F52 /* AddPatientViewController.swift in Sources */,
