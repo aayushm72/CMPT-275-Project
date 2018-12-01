@@ -2,8 +2,13 @@
 //  LoginViewController.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by Aayush Malhotra on 11/27/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Aayush Malhotra
+//
+// For Login View
+//  Known bugs:
+//
 //
 
 import UIKit
@@ -18,6 +23,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     @IBOutlet weak var LoginButton: UIButton!
     
+    // Function determines if screen is loaded. It then asks the user to requests for username and password.
+    // It also sets up the log in button.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,12 +41,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 
     }
 
+    // Show login button
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         LoginButton.isEnabled = true
     }
 
 
+    // Provides error or success messages depending on if the user has filled in correct or incorrect data for login page.
     @IBAction func OnLogin(_ sender: Any) {
         if (LoginEmail.text?.isEmpty)! || (LoginPassword.text?.isEmpty)! {
             let errorMessage = UIAlertController(title: "Incomplete Info", message: "Fill in a valid Email and Password to sign in.", preferredStyle: .alert)
@@ -54,6 +63,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         }
     }
 
+    // Provides error message informing the user that they need to provide an email address and passowrd to register for the app.
     @IBAction func OnRegister(_ sender: Any) {
         if (LoginEmail.text?.isEmpty)! || (LoginPassword.text?.isEmpty)! {
             let errorMessage = UIAlertController(title: "Incomplete Info", message: "Fill in a valid Email and Password that you would like to register.", preferredStyle: .alert)
@@ -66,6 +76,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         self.performSegue(withIdentifier: "toRegister", sender: nil)
     }
     
+    // Prepare the email address and password for the register screen.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let RegisterViewController = segue.destination as? RegisterViewController {
             RegisterViewController.email = LoginEmail.text
@@ -73,10 +84,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         }
     }
     
+    // Function to deal with first touch
     override func touchesBegan(_ touches: Set<UITouch>,
                                with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    // Function to check if text fiel should apear for both the textfields in the screen.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == LoginEmail){
             LoginPassword.becomeFirstResponder()
@@ -86,6 +100,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         return true
     }
     
+    // If signin successfull, then move to paient/caretakers homepage. Show them the regular home page based on if they are caretaker or patient.
+    // If sign in unsuccessful, then asked them to try to login again with the right information or after connecting to internet.
     func signInandSegueToApp(email : String!, password: String!) {
         LoginButton.isEnabled = false
         Auth.auth().signIn(withEmail: email, password: password, completion:

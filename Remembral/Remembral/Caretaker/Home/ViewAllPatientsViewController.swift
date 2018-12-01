@@ -2,8 +2,13 @@
 //  ViewAllPatientsViewController.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by Alwin Leong on 11/28/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Alwin Leong
+//
+// For View All Patients
+//  Known bugs:
+//
 //
 
 import UIKit
@@ -19,6 +24,7 @@ class ViewAllPatientsViewController: UIViewController, UITableViewDataSource, UI
         return FirebaseDatabase.sharedInstance.contactList.count
     }
     
+    // Show all the Patients who have chosen the current user as Caretaker in the table. Selected patients will be highlighted in green.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ContactNameOnlyTableViewCell  else {
@@ -40,6 +46,8 @@ class ViewAllPatientsViewController: UIViewController, UITableViewDataSource, UI
         
     }
     
+    // Update the table view with the accurate number of patients.
+    // Accurate patients are patients who have chosen the current user as caretaker.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.row
         print(FirebaseDatabase.sharedInstance.selectedContacts)
@@ -47,6 +55,7 @@ class ViewAllPatientsViewController: UIViewController, UITableViewDataSource, UI
         tableView.reloadData()
     }
     
+    // Did screen load
     override func viewDidLoad() {
         super.viewDidLoad()
         FirebaseDatabase.sharedInstance.LoadContacts(completion: nil)
@@ -58,6 +67,7 @@ class ViewAllPatientsViewController: UIViewController, UITableViewDataSource, UI
 
     }
     
+    // Ensure table view appears.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()

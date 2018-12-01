@@ -2,9 +2,15 @@
 //  AddPatientViewController.swift
 //  Remembral
 //
+//Team: Group 2
 //  Created by Alwin Leong on 11/28/18.
-//  Copyright © 2018 Aayush Malhotra. All rights reserved.
+//  Edited: Alwin Leong
 //
+// For Add Patient View
+//  Known bugs:
+//
+//
+
 
 import UIKit
 import FirebaseDatabase
@@ -17,10 +23,12 @@ class AddPatientViewController: UIViewController, UITableViewDataSource, UITable
     
     let cellIdentifier = "PatientTableViewCell"
     
+    // Return number of rows for table to setup table view.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return foundPatients.count
     }
     
+    //Set up table to view all using the searchForPatients function
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ContactNameOnlyTableViewCell  else {
@@ -33,7 +41,7 @@ class AddPatientViewController: UIViewController, UITableViewDataSource, UITable
         return cell
     }
     
-
+    // Did screen load
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +50,7 @@ class AddPatientViewController: UIViewController, UITableViewDataSource, UITable
         // Do any additional setup after loading the view.
     }
     
+    // Find all patients that are available for the caretaker to choose. Specify a patient by searching for a name.
     @IBAction func searchForPatients(_ sender: Any) {
         let nameToSearch = patientNameTextField.text
         
@@ -72,6 +81,7 @@ class AddPatientViewController: UIViewController, UITableViewDataSource, UITable
             
         }
     
+    // Setup number of rows based on number of patients that the search result has found.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row < foundPatients.count{
     //        let foundP = foundPatients[indexPath.row]
