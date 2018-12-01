@@ -182,7 +182,7 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
         
         cell.myLabel.text = items[indexPath.item]
-        
+
         return cell
     }
     
@@ -204,14 +204,14 @@ class PatientsHomeViewController: UIViewController, UICollectionViewDelegate, UI
     
     // Update Home page after user data update.
     @IBAction func UnwindToHomeScreen(_ segue: UIStoryboardSegue) {
-        if let editPage = segue.source as? EditPersonalInfoViewController {
+        /*if let editPage = segue.source as? EditPersonalInfoViewController {
             print(editPage.patientName.text!)
             self.patientName = editPage.patientName.text!
             self.patientAddress = editPage.patientAddress.text!
             self.patientPhoneNumber = editPage.patientPhoneNumber.text!
             self.caretakerName = editPage.caretakerName.text!
             self.caretakerPhoneNumber = editPage.caretakerPhoneNumber.text!
-        }
+        }*/
         reloadItems()
         collectionView.reloadData()
     }

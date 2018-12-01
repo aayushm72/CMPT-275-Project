@@ -14,12 +14,41 @@
 import UIKit
 
 // Edit Personal Information for Patient
-class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate {
+class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+    
+    let cellIdentifier = "NameOnlyCell";
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return FirebaseDatabase.sharedInstance.contactList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ContactNameOnlyTableViewCell else {
+            fatalError("The dequeued cell is not an instance of ContactNameOnlyTableViewCell.")
+        }
+        cell.textLabel?.text = FirebaseDatabase.sharedInstance.contactList[indexPath.row].fullName
+        if caretakerTableSelected == indexPath.row{
+            cell.backgroundColor = .green
+        } else {
+            cell.backgroundColor = .white
+        }
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        caretakerTableSelected = indexPath.row;
+        tableView.reloadData()
+    }
+    
     @IBOutlet weak var patientName: UITextField!
     @IBOutlet weak var patientAddress: UITextField!
     @IBOutlet weak var patientPhoneNumber: UITextField!
     @IBOutlet weak var caretakerName: UITextField!
     @IBOutlet weak var caretakerPhoneNumber: UITextField!
+    
+    @IBOutlet weak var doneButton: UIButton!
+    
+    @IBOutlet weak var caretakerTable: UITableView!
+    var caretakerTableSelected = -1;
     //Temp vars to load textfield after the view has loaded. Set by FirstViewController only.
     var intitialPatientName:String = "Name"
     var intitialPatientAddress:String = "Address"
@@ -43,6 +72,16 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate {
         patientPhoneNumber.delegate = self
         caretakerName.delegate = self
         caretakerPhoneNumber.delegate = self
+        
+        caretakerTable.register(ContactNameOnlyTableViewCell.self , forCellReuseIdentifier: cellIdentifier )
+    
+        doneButton.layer.cornerRadius = 10
+        doneButton.clipsToBounds = true
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
     }
 
     // Was there memory warning
@@ -53,18 +92,33 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate {
     // Update all the fields with the original information from the database.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let FirstViewController = segue.destination as? PatientsHomeViewController {
+            
+            var caretakerName_str = ""
+            var caretakerPhone_str = ""
+            
+            if caretakerTableSelected >= 0 &&
+                caretakerTableSelected < FirebaseDatabase.sharedInstance.contactList.count{
+                let selectedContact = FirebaseDatabase.sharedInstance.contactList[caretakerTableSelected];
+                caretakerName_str = selectedContact.fullName as String
+                caretakerPhone_str = selectedContact.phoneNum as String
+            }
+            
             user.name = patientName.text!
             user.address = patientAddress.text!
             user.phNo = patientPhoneNumber.text!
-            user.caretakerName = caretakerName.text!
-            user.caretakerPhNo = caretakerPhoneNumber.text!
+            user.caretakerName = caretakerName_str
+            user.caretakerPhNo = caretakerPhone_str
             FirebaseDatabase.sharedInstance.setUserData(arg: user)
             
             FirstViewController.patientName = patientName.text!
             FirstViewController.patientAddress = patientAddress.text!
             FirstViewController.patientPhoneNumber = patientPhoneNumber.text!
-            FirstViewController.caretakerName = caretakerName.text!
-            FirstViewController.caretakerPhoneNumber = caretakerPhoneNumber.text!
+            
+
+            FirstViewController.caretakerName = caretakerName_str
+            //caretakerName.text!
+            FirstViewController.caretakerPhoneNumber = caretakerPhone_str
+            //caretakerPhoneNumber.text!
         }
     }
     
@@ -82,12 +136,6 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate {
 
     // Submit data entered by user to the database.
     @IBAction func Done(_ sender: UIButton) {
-        user.name = patientName.text!
-        user.address = patientAddress.text!
-        user.phNo = patientPhoneNumber.text!
-        user.caretakerName = caretakerName.text!
-        user.caretakerPhNo = caretakerPhoneNumber.text!
-        FirebaseDatabase.sharedInstance.setUserData(arg: user)
         performSegue(withIdentifier: "UnwindToHomeScreen", sender: self)
     }
 }

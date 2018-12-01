@@ -136,6 +136,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
             return
         }
         
+
         reminderRef.child(FirebaseDatabase.sharedInstance.getSelectedPatientID()).queryOrdered(byChild: "date").queryStarting(atValue: todayDate - timeSpan).queryEnding( atValue: todayDate ).observe(.value, with: { (snapshot: DataSnapshot) in
             var newListReminders = [Reminder]()
             for snap in snapshot.children {
@@ -323,17 +324,20 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         let userID = Auth.auth().currentUser?.uid
         let childRef = usersRef.child(userID!)
         childRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            let userDict = snapshot.value as! [String:String]
-            self.userObj = User(name: userDict["name"],
-                                address: userDict["address"],
-                                phNo: userDict["phNo"],
-                                caretakerName: userDict["caretakerName"],
-                                caretakerPhNo: userDict["caretakerPhNo"],
-                                type: userDict["type"],
-                                imageURL: userDict["imageURL"]
-            )
-            
-            completion? (true)
+            if let userDict = snapshot.value as? [String:String]{
+                self.userObj = User(name: userDict["name"],
+                                    address: userDict["address"],
+                                    phNo: userDict["phNo"],
+                                    caretakerName: userDict["caretakerName"],
+                                    caretakerPhNo: userDict["caretakerPhNo"],
+                                    type: userDict["type"],
+                                    imageURL: userDict["imageURL"]
+                )
+                completion? (true)
+            }
+            else {
+                completion? (false)
+            }
         })
     }
     
@@ -363,6 +367,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                             var newContact = ContactPerson(fullName: patientDict["name"] as? String,
                                                            emailAddress: patientDict["email"] as? String,
                                                        relation: relation)
+                            newContact.phoneNum = patientDict["phNo"] as? String
                             newContact.identifier = key
                             let downloadURL = patientDict["imageURL"] as? String
                             let url = URL.init(string: downloadURL!)

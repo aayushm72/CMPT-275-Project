@@ -10,7 +10,7 @@ import UIKit
 import SwiftKeychainWrapper
 import Firebase
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var LoginEmail: UITextField!
     
@@ -27,7 +27,18 @@ class LoginViewController: UIViewController {
         
         self.LoginButton.layer.cornerRadius = 5; // this value vary as per your desire
         self.LoginButton.clipsToBounds = true;
+        
+        LoginEmail.delegate = self
+        LoginPassword.delegate = self
+        
+
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        LoginButton.isEnabled = true
+    }
+
 
     @IBAction func OnLogin(_ sender: Any) {
         if (LoginEmail.text?.isEmpty)! || (LoginPassword.text?.isEmpty)! {
@@ -67,11 +78,16 @@ class LoginViewController: UIViewController {
         self.view.endEditing(true)
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if (textField == LoginEmail){
+            LoginPassword.becomeFirstResponder()
+        } else if (textField == LoginPassword){
+            LoginButton.sendActions(for: .touchUpInside)
+        }
         return true
     }
     
     func signInandSegueToApp(email : String!, password: String!) {
+        LoginButton.isEnabled = false
         Auth.auth().signIn(withEmail: email, password: password, completion:
             { (result, error) in
                 
@@ -96,8 +112,10 @@ class LoginViewController: UIViewController {
                     let OKAction = UIAlertAction(title: "OK", style: .default)
                     errorMessage.addAction(OKAction)
                     self.present(errorMessage, animated: true, completion: nil)
+                    self.LoginButton.isEnabled = true
                     return
                 }
         })
     }
+    
 }

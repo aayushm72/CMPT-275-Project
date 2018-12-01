@@ -23,7 +23,7 @@ class AddPatientViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? PatientTableViewCell  else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ContactNameOnlyTableViewCell  else {
             fatalError("The dequeued cell is not an instance of PatientTableViewCell.")
         }
         let patientObj = foundPatients[indexPath.row]
@@ -37,7 +37,7 @@ class AddPatientViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(PatientTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(ContactNameOnlyTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         // Do any additional setup after loading the view.
     }
@@ -74,7 +74,7 @@ class AddPatientViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row < foundPatients.count{
-            let foundP = foundPatients[indexPath.row]
+    //        let foundP = foundPatients[indexPath.row]
    //         FirebaseDatabase.sharedInstance.contactList.append((key: foundP.identifier, name: foundP.fullName))
    //         ContactPerson.addContact(contactUID: foundP.identifier)
             self.performSegue(withIdentifier:"UnwindToViewAllPatient", sender: self)
@@ -92,20 +92,3 @@ class AddPatientViewController: UIViewController, UITableViewDataSource, UITable
 
 }
 
-class PatientTableViewCell : UITableViewCell {
-    var cellLabel: UILabel!
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        cellLabel = UILabel()
-    }
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        //super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
-
-}

@@ -21,7 +21,7 @@ class ViewAllPatientsViewController: UIViewController, UITableViewDataSource, UI
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? PatientTableViewCell  else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ContactNameOnlyTableViewCell  else {
             fatalError("The dequeued cell is not an instance of PatientTableViewCell.")
         }
         let patientKeyNamePair = FirebaseDatabase.sharedInstance.contactList[indexPath.row]
@@ -50,7 +50,7 @@ class ViewAllPatientsViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         FirebaseDatabase.sharedInstance.LoadContacts(completion: nil)
-        tableView.register(PatientTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(ContactNameOnlyTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         // Do any additional setup after loading the view.
     }

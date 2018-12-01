@@ -30,7 +30,7 @@ class AddContactsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? PatientTableViewCell  else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ContactNameOnlyTableViewCell  else {
             fatalError("The dequeued cell is not an instance of PatientTableViewCell.")
         }
         let patientObj = foundPatients[indexPath.row]
@@ -44,7 +44,7 @@ class AddContactsViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(PatientTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(ContactNameOnlyTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         // Do any additional setup after loading the view.
     }
