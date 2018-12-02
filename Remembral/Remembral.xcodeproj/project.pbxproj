@@ -109,7 +109,7 @@
 		FB1B9AB8218E589A00D8A0B7 /* RemembralUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemembralUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB1B9ABC218E589A00D8A0B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB34F480219D0BBF0060ACB9 /* LocationServicesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesHandler.swift; sourceTree = "<group>"; };
-		FB48B0E4219E673A00E99ED5 /* HeatmapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeatmapViewController.swift; sourceTree = "<group>"; };
+		FB48B0E4219E673A00E99ED5 /* HeatmapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeatmapViewController.swift; path = ../Map/HeatmapViewController.swift; sourceTree = "<group>"; };
 		FB48B0E7219E677100E99ED5 /* GMUGeoJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGeoJSONParser.h; sourceTree = "<group>"; };
 		FB48B0E8219E677100E99ED5 /* GMUGeoJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGeoJSONParser.m; sourceTree = "<group>"; };
 		FB48B0E9219E677100E99ED5 /* GMUGeometryRenderer+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMUGeometryRenderer+Testing.h"; sourceTree = "<group>"; };
@@ -185,7 +185,7 @@
 		FBD1DEA2219E2710004CF2C8 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerHomeViewController.swift; sourceTree = "<group>"; };
 		FBD1DEA5219E2744004CF2C8 /* CaretakerReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerReminderViewController.swift; sourceTree = "<group>"; };
-		FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerMapViewController.swift; sourceTree = "<group>"; };
+		FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CaretakerMapViewController.swift; path = ../Map/CaretakerMapViewController.swift; sourceTree = "<group>"; };
 		FBD1DEA7219E274F004CF2C8 /* ReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
 		FBD1DEA8219E2753004CF2C8 /* PatientTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientTabBarViewController.swift; sourceTree = "<group>"; };
 		FBE6B22321AFA1D0005B8F52 /* AddPatientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddPatientViewController.swift; path = Remembral/Caretaker/Home/AddPatientViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -249,30 +249,20 @@
 		24B447E521559D4F002E4425 /* Remembral */ = {
 			isa = PBXGroup;
 			children = (
-				248A753821AE2C1F00A19AF4 /* LoginViewController.swift */,
+				FB0048A321B3373F0092CC01 /* Reminders */,
+				FB0048A221B337030092CC01 /* Patient */,
 				FBE6B21621AF7634005B8F52 /* Caretaker */,
 				FBB764B621AE445100BFD515 /* Contacts */,
-				FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */,
-				FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */,
-				FBD1DEA5219E2744004CF2C8 /* CaretakerReminderViewController.swift */,
-				FBD1DEA8219E2753004CF2C8 /* PatientTabBarViewController.swift */,
-				FBD1DEA7219E274F004CF2C8 /* ReminderViewController.swift */,
+				248A753821AE2C1F00A19AF4 /* LoginViewController.swift */,
 				FBD1DEA2219E2710004CF2C8 /* FirebaseDatabase.swift */,
 				24B447E621559D4F002E4425 /* AppDelegate.swift */,
-				FB48B0E4219E673A00E99ED5 /* HeatmapViewController.swift */,
-				FBD1DEA0219E26E3004CF2C8 /* PatientsHomeViewController.swift */,
-				24B447EA21559D4F002E4425 /* ContactsViewController.swift */,
-				FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */,
-				24B447EC21559D4F002E4425 /* Main.storyboard */,
+				FB34F480219D0BBF0060ACB9 /* LocationServicesHandler.swift */,
 				248A753A21AE2C8800A19AF4 /* RegisterViewController.swift */,
-				FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */,
+				24B447EC21559D4F002E4425 /* Main.storyboard */,
 				24B447EF21559D4F002E4425 /* Assets.xcassets */,
 				24B447F121559D4F002E4425 /* LaunchScreen.storyboard */,
 				24B447F421559D4F002E4425 /* Info.plist */,
-				C48F09D4218BF59200CEB128 /* EditPersonalInfoViewController.swift */,
-				C48F09D2218BF54500CEB128 /* CollectionViewCell.swift */,
 				24A0250B2183C96D007F91A3 /* GoogleService-Info.plist */,
-				FB34F480219D0BBF0060ACB9 /* LocationServicesHandler.swift */,
 				FBF7BB3C219E628A00DCBFAC /* Remembral-Bridging-Header.h */,
 			);
 			path = Remembral;
@@ -293,6 +283,52 @@
 				54567D690C3D2D53F6CAACF8 /* Pods-Remembral.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		FB0048A221B337030092CC01 /* Patient */ = {
+			isa = PBXGroup;
+			children = (
+				FBD1DEA8219E2753004CF2C8 /* PatientTabBarViewController.swift */,
+				FB0048A421B3374A0092CC01 /* Home */,
+			);
+			path = Patient;
+			sourceTree = "<group>";
+		};
+		FB0048A321B3373F0092CC01 /* Reminders */ = {
+			isa = PBXGroup;
+			children = (
+				FBD1DEA7219E274F004CF2C8 /* ReminderViewController.swift */,
+				FB651A5C218A73D4004A9B61 /* ReminderTableViewCell.swift */,
+				FFD6D3B22188D7DE0026EBB9 /* AddReminderViewController.swift */,
+			);
+			path = Reminders;
+			sourceTree = "<group>";
+		};
+		FB0048A421B3374A0092CC01 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				FBD1DEA0219E26E3004CF2C8 /* PatientsHomeViewController.swift */,
+				C48F09D2218BF54500CEB128 /* CollectionViewCell.swift */,
+				C48F09D4218BF59200CEB128 /* EditPersonalInfoViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		FB0048A521B364590092CC01 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		FB0048A621B364EE0092CC01 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */,
+				FB48B0E4219E673A00E99ED5 /* HeatmapViewController.swift */,
+			);
+			name = Map;
+			path = "New Group2";
 			sourceTree = "<group>";
 		};
 		FB1B9AA7218E523E00D8A0B7 /* RemembralTests */ = {
@@ -442,6 +478,7 @@
 		FBB764B621AE445100BFD515 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				24B447EA21559D4F002E4425 /* ContactsViewController.swift */,
 				FFDD2A9921AA492100365DA7 /* ContactPerson.swift */,
 				FBB764B721AE448B00BFD515 /* ContactTableViewCell.swift */,
 				FBC4D53E21B0D1DB00B224EC /* AddContactsViewController.swift */,
@@ -453,6 +490,9 @@
 		FBE6B21621AF7634005B8F52 /* Caretaker */ = {
 			isa = PBXGroup;
 			children = (
+				FB0048A621B364EE0092CC01 /* Map */,
+				FB0048A521B364590092CC01 /* Map */,
+				FBD1DEA5219E2744004CF2C8 /* CaretakerReminderViewController.swift */,
 				FBE6B22221AFA19E005B8F52 /* Home */,
 			);
 			path = Caretaker;
@@ -461,11 +501,11 @@
 		FBE6B22221AFA19E005B8F52 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */,
 				FBE6B22321AFA1D0005B8F52 /* AddPatientViewController.swift */,
 				FBE6B22421AFA1D1005B8F52 /* ViewAllPatientsViewController.swift */,
 			);
-			name = Home;
-			path = "New Group";
+			path = Home;
 			sourceTree = "<group>";
 		};
 		FBFB2ADD219E604D001AC19A /* Google-Maps-iOS-Utils */ = {

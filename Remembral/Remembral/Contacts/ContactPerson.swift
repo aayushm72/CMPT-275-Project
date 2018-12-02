@@ -67,7 +67,7 @@ struct ContactPerson {
         nextElement.setValue(newContact)
         
         let otherPerson = FirebaseDatabase.sharedInstance.contactsRef.child(contactToAdd.identifier).childByAutoId()
-        let setRelationAs = FirebaseDatabase.sharedInstance.getUserData().type == User.PATIENT ? "Patient" : "idk"
+        let setRelationAs = FirebaseDatabase.sharedInstance.getUserData().type == User.PATIENT ? "Patient" : "Unknown"
         let otherNewContact = ["key": (Auth.auth().currentUser?.uid)!, "relation": setRelationAs]
 
         otherPerson.setValue(otherNewContact)

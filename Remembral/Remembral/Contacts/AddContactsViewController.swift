@@ -20,7 +20,9 @@ class AddContactsViewController: UIViewController, UITableViewDataSource, UITabl
     var foundPatients = [ContactPerson]()
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var contactNameTextField: UITextField!
+    @IBOutlet weak var searchButton: UIButton!
     
+    let unicodeEnd = "\u{f8ff}"
     let cellIdentifier = "PatientTableViewCell"
     
     // Find number of contacts to give the rows to setup the table view.
@@ -46,16 +48,20 @@ class AddContactsViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         
         tableView.register(ContactNameOnlyTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-        
+        searchButton.layer.cornerRadius = 5
+        searchButton.clipsToBounds = true
         // Do any additional setup after loading the view.
     }
     
     // Search for any potential contacts on firebase. If contacts found, retrieve all the contact's
     // information and reload table to add the contacts.
     @IBAction func searchForContacts(_ sender: Any) {
-        let nameToSearch = contactNameTextField.text
-        
-        FirebaseDatabase.sharedInstance.usersRef.queryOrdered(byChild: "name").queryStarting(atValue: nameToSearch).observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
+        let nameToSearch = contactNameTextField.text ?? ""
+        if nameToSearch.count == 0 {
+            return
+        }
+        let searchEnd = nameToSearch + unicodeEnd
+        FirebaseDatabase.sharedInstance.usersRef.queryOrdered(byChild: "name").queryStarting(atValue: nameToSearch).queryEnding(atValue: searchEnd).observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
             self.foundPatients.removeAll()
             for snap in snapshot.children{
                 
@@ -85,7 +91,8 @@ class AddContactsViewController: UIViewController, UITableViewDataSource, UITabl
     // Once new contact found, user can specify the relationship with new contact.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row < foundPatients.count{
-            let alert = UIAlertController(title: "Set Relation", message: "Enter the relation of this user to you.", preferredStyle: .alert)
+            let name = foundPatients[indexPath.row].fullName as String
+            let alert = UIAlertController(title: "Set Relation", message: "Enter the relation of (\(name)) to you.", preferredStyle: .alert)
             
             //2. Add the text field. You can configure it however you need.
             alert.addTextField { (textField) in
@@ -102,6 +109,7 @@ class AddContactsViewController: UIViewController, UITableViewDataSource, UITabl
                 self.performSegue(withIdentifier:"UnwindToContacts", sender: self)
             }))
             
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
             // 4. Present the alert.
             self.present(alert, animated: true, completion: nil)
             

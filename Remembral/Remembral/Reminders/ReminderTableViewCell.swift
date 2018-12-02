@@ -19,6 +19,8 @@ class ReminderTableViewCell: UITableViewCell {
     @IBOutlet weak var ReminderLabel: UILabel!
     // Done Button
     @IBOutlet weak var doneButton: UIButton!
+
+    @IBOutlet weak var checkMarkImg: UIImageView!
     var reminderDBKey: String!
     var delegate: ReminderViewController!
     
@@ -35,19 +37,28 @@ class ReminderTableViewCell: UITableViewCell {
     
     // Awake the cell
     override func awakeFromNib() {
-        super.awakeFromNib()
+
         // Initialization code
         //Add code to check if current time is close to sceduled time, allowing the user to press "Done early"
         //Snooze is only enabled when Reminder has been triggered.
       
-        
     }
-
+    
+    
     // Selected Cell
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
-
+    func isCompleted(){
+        backgroundColor =  UIColor.lightGray
+        doneButton?.isHidden = true
+        checkMarkImg?.isHidden = false
+    }
+    func isNotComplete(){
+        backgroundColor = UIColor.white
+        doneButton?.isHidden = false
+        checkMarkImg?.isHidden = true
+    }
 }

@@ -30,6 +30,7 @@ typealias GeoFence = (inclusion: [XYPoint], exclusion: [XYPoint])
 let emptyPoints = [XYPoint]()
 
 /* This struct is used to store location data and allow for easy conversions using meters */
+// MARK: - LocationObj
 
 struct LocationObj {
     var latitude:Double!
@@ -37,15 +38,13 @@ struct LocationObj {
     var time:Double!
     var weight:Double?
     
-    // Initialize for Location Services
+    // MARK: - Initialize for Location Services
     init(latitude: Double, longitude: Double, time: Double){
         self.latitude = latitude
         self.longitude = longitude
         self.time = time
         self.weight = 1.0;
     }
-    
-    // Initialize for Location Services
     init (coord: CLLocationCoordinate2D, time: Double, weight: Double){
         self.latitude = coord.latitude
         self.longitude = coord.longitude
@@ -53,12 +52,14 @@ struct LocationObj {
         self.weight = weight
     }
     
+    // MARK: - Member functions for LocationObj
+    
     // Determine Coordinates
     func asCoordinate() -> CLLocationCoordinate2D{
         return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
     }
     
-    // Computing statistics for determining the distance to build fence.
+    // Determine the distance between self and other. Returns in meters
     func distance(other: LocationObj) -> Double {
         let R = 6378.137; // Radius of earth in KM
         let lat1  = latitude!;
@@ -89,7 +90,7 @@ struct LocationObj {
         return (x: longitude * mPerDegLong, y: latitude * mPerDegLat)
     }
     
-    // Convert to meters. Add Math.
+    // Returns LocationObj with offset specified by meters
     func addMeters(x: Double, y: Double) -> LocationObj{
         let mPerDegLat =  111132.954 - 559.822 * cos( 2 * latitude ) + 1.175 * cos( 4 * latitude)
         let mPerDegLong = 111132.954 * cos ( latitude )
@@ -103,7 +104,7 @@ struct LocationObj {
     }
 }
 
-// Array for Location Services
+// MARK: Add Extension to Array class, to allow for removing elements at specified indices
 extension Array {
     mutating func remove(at indexes: [Int]) {
         var lastIndex: Int? = nil
@@ -118,7 +119,7 @@ extension Array {
 }
 
 
-// MARK: Main Class
+// MARK: - Main Class
 
 class LocationServicesHandler : NSObject {
     struct LOCATION_SETTINGS {
@@ -128,7 +129,8 @@ class LocationServicesHandler : NSObject {
     override init(){
         super.init()
     }
-    static let min_radius = 250.0
+    static let base_radius = 250.0
+    static let min_radius = 100.0
     
 
 /* This function will generate a polygon (list of vertices) which enclose the given locations if
@@ -136,19 +138,6 @@ class LocationServicesHandler : NSObject {
 */
     
     static func generateFence(forUser: String, forLocations: [LocationObj], mapView: GMSMapView)-> [GeoFence]{
-
-        
-        /*for location in newList{
-            let newCircle = GMSCircle(position: location.asCoordinate(), radius: min_radius)
-                newCircle.strokeColor = .red
-                newCircle.map = mapView
-        }*/
-        
-        //Separate clusters
-
-        
-//        let firstReduce = LocationServicesHandler.simplifyLocationList(locationList: forLocations)
-//        let groupedLocations = LocationServicesHandler.reduceLocationListOverlap(locationList: firstReduce)
         
         let clusterResult = cluster(locationList: forLocations)
         
@@ -194,29 +183,34 @@ class LocationServicesHandler : NSObject {
         for cluster in groupedLocationsC {
             var clusterRectPoints = [XYPoint]()
             for location in cluster{
-                let radius = min_radius * (location.weight ?? 1.0)
+                let radius = max(base_radius * (location.weight ?? 1.0), min_radius)
+                
                 clusterRectPoints.append(location.addMeters(x: radius, y: radius).asXY())
+                clusterRectPoints.append(location.addMeters(x: radius, y: 0).asXY())
+                
                 clusterRectPoints.append(location.addMeters(x: radius, y: -radius).asXY())
+                clusterRectPoints.append(location.addMeters(x: 0, y: -radius).asXY())
+                
                 clusterRectPoints.append(location.addMeters(x: -radius, y: -radius).asXY())
+                clusterRectPoints.append(location.addMeters(x: -radius, y: 0).asXY())
+                
                 clusterRectPoints.append(location.addMeters(x: -radius, y: radius).asXY())
+                clusterRectPoints.append(location.addMeters(x: 0, y: radius).asXY())
 
             }
             rectPoints += [clusterRectPoints]
             
         }
         
-        var pointsOutsideHull = [XYPoint]()
         var retVal = [GeoFence]()
         
         for cluster in rectPoints{
-            let hull = generateConcaveHull(locationList: cluster, otherPoints: &pointsOutsideHull)
+            let hull = generateConcaveHull(locationList: cluster)
             retVal.append((inclusion: hull, exclusion: emptyPoints))
         }
 
         //Also generate inner fence.
-        
-        
-        //print(result)
+
         for result in retVal{
             let FinalPolygon = createPolygonFromPoints(pointList: result.inclusion)
             
@@ -231,7 +225,7 @@ class LocationServicesHandler : NSObject {
     
     // Detect holes in Information collected on clusters.
     static func detectHolesInCluster(){
-        
+        //Unimplemented
     }
     
     // Determine cluserts to build safe areas.
@@ -285,9 +279,9 @@ class LocationServicesHandler : NSObject {
     }
     
     // Convert to points for easier mathematical solution.
-    static func convertToPointList(locationList: [LocationObj]) -> [(x:Double,y:Double)]{
+    static func convertToPointList(locationList: [LocationObj]) -> [XYPoint]{
 
-        var newPoints = [(x:Double, y:Double)]()
+        var newPoints = [XYPoint]()
         for location in locationList{
             newPoints.append(location.getInMeters())
         }
@@ -309,8 +303,6 @@ class LocationServicesHandler : NSObject {
    Relatively close points will merge and average, given a slightly larger area.
 
 */
-
-    // Simplify location list to do the math better.
     static private func simplifyLocationList(locationList: [LocationObj]) -> [LocationObj]{
         var runningSize = 1.0
         var newList = locationList
@@ -320,18 +312,18 @@ class LocationServicesHandler : NSObject {
             let other = newList[1]
             let distanceDiff = location.distance(other: newList[1])
             
-            if distanceDiff < min_radius {
+            if distanceDiff < base_radius {
                 if location.longitude == other.longitude && location.latitude == location.latitude{
                     runningSize *= 0.9
                 }
                 else {
                     newList[0].averageWith(other: other)
-                    runningSize += 0.5 * distanceDiff / min_radius
+                    runningSize += 0.5 * distanceDiff / base_radius
                 }
                 newList.remove(at: 1)
             }
-            else if distanceDiff < min_radius * 3{
-                runningSize += 0.5 * distanceDiff / (min_radius * runningSize)
+            else if distanceDiff < base_radius * 3{
+                runningSize += 0.5 * distanceDiff / (base_radius * runningSize)
                 newList.remove(at: 1)
             }
             else {
@@ -366,14 +358,17 @@ class LocationServicesHandler : NSObject {
         
         return false
     }
+  
     
 /*  Implemented algorithm to generate the concave hull of the locations visited
      
      http://repositorium.sdum.uminho.pt/bitstream/1822/6429/1/ConcaveHull_ACM_MYS.pdf
+     
+     Function returns a list of points of a polygon for the concave hull
+     of given points
 */
 
-    // Create concave hull.
-    static private func generateConcaveHull (locationList: [XYPoint], otherPoints: inout [XYPoint], searchComplexity: Int = 8) -> [XYPoint]{
+    static private func generateConcaveHull (locationList: [XYPoint], searchComplexity: Int = 13) -> [XYPoint]{
         var workingSet = locationList
         var hull = [XYPoint]()
         workingSet.sort { (lhs: XYPoint, rhs: XYPoint) -> Bool in
@@ -404,7 +399,7 @@ class LocationServicesHandler : NSObject {
                 }
                 return lhs > rhs
             })
-            var nextPoint = XYPoint(0,0)
+            var nextPoint: XYPoint!
             for point in test2{
                 //print(atan2(point.y - currentPoint.y, point.x - currentPoint.x) - previousAngle)
                 if (!lineCrossesList(firstLine: [currentPoint, point], otherLines: hull)){
@@ -412,47 +407,47 @@ class LocationServicesHandler : NSObject {
                     break
                 }
             }
-            if nextPoint == (x:0.0, y:0.0){
+            if nextPoint == nil{
                 print("Did not find a point")
                 hull.append(test2[0])
-                return hull
+                break
+            } else {
+                hull.append(nextPoint)
+                workingSet.removeAll { $0 == nextPoint}
+                currentPoint = nextPoint
+                previousAngle = atan2(hull[step-1].y - hull[step].y, hull[step-1].x - hull[step].x)
             }
-            hull.append(nextPoint)
-            workingSet.removeAll { $0 == nextPoint}
-            currentPoint = nextPoint
-            previousAngle = atan2(hull[step-1].y - hull[step].y, hull[step-1].x - hull[step].x)
-            print(nextPoint, previousAngle)
+            //print(nextPoint, previousAngle)
             step += 1
         }
-        print(workingSet.count)
+ //       print(workingSet.count)
+        var otherPoints = [XYPoint]()
         for point in workingSet {
             if !pointInPolygon(pointCheck: point, pointList: hull) && !pointNearPolygon(pointCheck: point, pointList: hull){
-                
                 otherPoints.append(point)
             }
         }
+        if otherPoints.count > 0 {
+            return generateConcaveHull(locationList: locationList, searchComplexity: searchComplexity + 1)
+        }
+        print("Completed fence using ", searchComplexity, " nearest points")
         return hull
     }
 
-    // Sort the data by distance
+    // Sort the data by distance, using either XYPoints or LocationObjs
     static func sortByDistance(firstPoint: XYPoint, otherPoints: inout [XYPoint]){
         otherPoints.sort(by: {distance2(p1: firstPoint, p2: $0) < distance2(p1: firstPoint, p2: $1)})
     }
-    
-    // Sort data by distance
     static func sortByDistance(firstPoint: LocationObj, otherPoints: inout [LocationObj]){
         otherPoints.sort(by: {distance2(p1: firstPoint.asXY(), p2: $0.asXY()) < distance2(p1: firstPoint.asXY(), p2: $1.asXY())})
     }
     
-    // Math function to determine distance
+    // Function to determine distance,
     static func distance(p1: XYPoint, p2: XYPoint) -> Double{
         let x = p1.x - p2.x
         let y = p1.y - p2.y
         return (sqrt(x*x + y*y))
     }
-
-
-    // Math function to determine distance
     static func distance2(p1: XYPoint, p2: XYPoint) -> Double{
     //Does not take the square root. Speeds up calculation
         let x = p1.x - p2.x
@@ -491,13 +486,13 @@ class LocationServicesHandler : NSObject {
         })
         return queryRef
     }
+    
     // Get updates on location from database
     static func getNewestLocation(forID: String, completion: ((LocationObj) -> Void)?){
         let userID = forID //Auth.auth().currentUser?.uid
         
         let childRef = FirebaseDatabase.sharedInstance.locationRef.child(userID)
         childRef.queryLimited(toLast: 1).observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot) in
-            print(snapshot.childrenCount)
             for snap in snapshot.children {
                 let locationInfo = (snap as! DataSnapshot).value as! [String:Any]
                 let retVal = LocationObj(latitude: locationInfo["latitude"] as! Double,
@@ -537,7 +532,7 @@ class LocationServicesHandler : NSObject {
         return distance2(p1: pointCheck, p2: copy[0]) < 2 * (0.01*0.01)
     }
     
-    // Mathematical function to determine if location in safe area.
+    // Mathematical function to determine if given point is inside polygon described by the pointList
     static func pointInPolygon(pointCheck: XYPoint, pointList: [XYPoint])-> Bool{
        
         if pointList.count == 0 {
@@ -580,8 +575,11 @@ class LocationServicesHandler : NSObject {
         return nil
     }
 
-    // Determine if multiple safe areas's edges overlap
+    // Determine if a line drawn between the first input of 2 points crosses the polygon described by the otherPoints
     static func lineCrossesList(firstLine: [XYPoint], otherLines: [XYPoint])->Bool{
+        if firstLine.count != 2{
+            return false
+        }
         if otherLines.count < 3 {
             return false
         }
@@ -596,24 +594,27 @@ class LocationServicesHandler : NSObject {
         return false;
     }
 
-    // Determine if multiple safe areas's edges overlap
+    // Determine if 2 lines overlap
     static func lineCrossesLine(firstLine: [XYPoint], secondLine: [XYPoint])-> Bool{
-        
 /*
          a# = Difference in y for line#
          b# = Difference in x for line#
          c# = Cross product of the two points of line# as if they were vectors
+         Values from A*x + B*y + C = 0
          
-         d# is the line in the form A*x+ B*y + C = 0
-         However by plugging in values for x and y from the second line (v2),
-         we can determine which side of the first line the second line is on.
-         If the signs are the same, then the 2 points of the second line are on the same side
-         Therefore they do not cross the first line
+         dn is the line in the form A*(xn) + B*(yn) + C = D
+         
+         dn gives if the point of (xn, yn) is on the line given by a#, b#, c#, if it is not dn will not be zero.
+         
+         If the signs are the same, then the 2 points of the second line are on the same side,
+         therefore they do not cross the first line
          
          Repeat using the points from the second line to determine A B and C.
          
  */
-        
+        if firstLine.count != 2 || secondLine.count != 2 {
+            return false
+        }
         let v1x1 = firstLine[0].x
         let v1y1 = firstLine[0].y
         let v1x2 = firstLine[1].x
@@ -629,8 +630,6 @@ class LocationServicesHandler : NSObject {
         a1 = v1y2 - v1y1;
         b1 = v1x1 - v1x2;
         c1 = (v1x2 * v1y1) - (v1x1 * v1y2);
-        
-        
         
         d1 = (a1 * v2x1) + (b1 * v2y1) + c1;
         d2 = (a1 * v2x2) + (b1 * v2y2) + c1;
@@ -657,7 +656,8 @@ class LocationServicesHandler : NSObject {
         }
 
         if ((a1 * b2) - (a2 * b1) == 0.0) {
-            return true; //Colinear
+            //Both lines are parallel and are on the same line
+            return true;
         }
             
         // If they are not collinear, they must intersect in exactly one point.

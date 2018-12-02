@@ -77,7 +77,7 @@ class EditPersonalInfoViewController: UIViewController, UITextFieldDelegate, UIT
         
         caretakerTable.register(ContactNameOnlyTableViewCell.self , forCellReuseIdentifier: cellIdentifier )
     
-        doneButton.layer.cornerRadius = 10
+        doneButton.layer.cornerRadius = 5
         doneButton.clipsToBounds = true
         
     }

@@ -23,12 +23,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     @IBOutlet weak var LoginButton: UIButton!
     
+    @IBOutlet weak var registerButton: UIButton!
+    
+    var loginBeingAttempted = false
+    
     // Function determines if screen is loaded. It then asks the user to requests for username and password.
     // It also sets up the log in button.
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let email = KeychainWrapper.standard.string(forKey: "email"), let password = KeychainWrapper.standard.string(forKey: "password") {
+            loginBeingAttempted = true
            signInandSegueToApp(email: email, password: password)
         }
         
@@ -44,7 +49,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     // Show login button
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        LoginButton.isEnabled = true
+        self.triggerFieldInteractibility()
     }
 
 
@@ -59,7 +64,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         }
         
         if let email = LoginEmail.text, let password = LoginPassword.text {
-                signInandSegueToApp(email: email, password: password)
+            loginBeingAttempted = true
+            signInandSegueToApp(email: email, password: password)
         }
     }
 
@@ -103,16 +109,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     // If signin successfull, then move to paient/caretakers homepage. Show them the regular home page based on if they are caretaker or patient.
     // If sign in unsuccessful, then asked them to try to login again with the right information or after connecting to internet.
     func signInandSegueToApp(email : String!, password: String!) {
-        LoginButton.isEnabled = false
+        triggerFieldInteractibility()
         Auth.auth().signIn(withEmail: email, password: password, completion:
             { (result, error) in
-                
+                self.loginBeingAttempted = false
                 if error == nil {
                     KeychainWrapper.standard.set(email, forKey: "email")
                     KeychainWrapper.standard.set(password, forKey: "password")
                     FirebaseDatabase.sharedInstance.UpdateFromFirebase(completion: {
                         (isFinish) in
                         let userType = FirebaseDatabase.sharedInstance.userObj.type
+                        self.LoginEmail.text = ""
+                        self.LoginPassword.text = ""
                         if userType == "Patient" {
                             FirebaseDatabase.sharedInstance.LoadContacts(){ _ in
                                 self.performSegue(withIdentifier: "toPatientApp", sender: nil)
@@ -128,10 +136,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                     let OKAction = UIAlertAction(title: "OK", style: .default)
                     errorMessage.addAction(OKAction)
                     self.present(errorMessage, animated: true, completion: nil)
-                    self.LoginButton.isEnabled = true
+                    self.triggerFieldInteractibility()
                     return
                 }
         })
+    }
+    
+//Used when logging in to prevent user from pressing any fields
+    func triggerFieldInteractibility(){
+        LoginEmail.isEnabled = !loginBeingAttempted
+        LoginPassword.isEnabled = !loginBeingAttempted
+        LoginButton.isEnabled = !loginBeingAttempted
+        registerButton.isEnabled = !loginBeingAttempted
     }
     
 }
