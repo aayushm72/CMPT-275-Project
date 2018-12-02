@@ -354,7 +354,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         let dispatchQueue = DispatchQueue.global(qos: .userInitiated)
         
         FirebaseDatabase.sharedInstance.contactsRef.child(userID!).observeSingleEvent(of: .value, with: { (snapshot:  DataSnapshot) in
-            print(snapshot)
+            //print(snapshot)
             dispatchQueue.async(group: group,
                                 qos: .userInitiated,
                                 flags: DispatchWorkItemFlags.assignCurrentContext,
@@ -382,7 +382,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                                 newContact.picture = image
                             }
                             self.contactList.append(newContact)
-                            print(newContact)
+                            //print(newContact)
                         }
                         group.leave()
                     })

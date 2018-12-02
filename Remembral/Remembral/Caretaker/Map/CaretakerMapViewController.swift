@@ -30,6 +30,7 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
     var warningIcon: UIImageView?
     var mapObserver: DatabaseHandle!
     var displayedMapForID: String!
+    var initialOpen = true
     
     // Sets a warning indication icon for Caretaker when patient outside of safezone.
     func initializeWarning() {
@@ -100,9 +101,10 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
     // Moves map view on screen to realtime location of patient on the map.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userCoord = (locationManager.location?.coordinate)!
-        if self.mapView.selectedMarker == nil{
+        if self.mapView.selectedMarker == nil && initialOpen{
             let cameraMove = GMSCameraUpdate.setTarget(userCoord, zoom: 12)
             mapView.moveCamera(cameraMove)
+            initialOpen = false
         }
 
     }
@@ -137,7 +139,11 @@ class CaretakerMapViewController: UIViewController, CLLocationManagerDelegate, G
     func updateMap(forID: String, newLocation: LocationObj){
         self.marker.position.latitude = newLocation.latitude
         self.marker.position.longitude = newLocation.longitude
-        self.marker.snippet = "Last Updated @ " + String(newLocation.time)
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "YYYY/MM/dd hh:mm a"
+        let dateObj = Date(timeIntervalSince1970: newLocation.time)
+        
+        self.marker.snippet = "Last Updated @ " + dateFormat.string(from: dateObj)
         
         if let foundContact = FirebaseDatabase.sharedInstance.contactList.firstIndex(where: {$0.identifier == forID}){
            self.marker.title = FirebaseDatabase.sharedInstance.contactList[foundContact].fullName

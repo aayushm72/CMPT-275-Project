@@ -18,6 +18,7 @@ class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPic
     @IBOutlet weak var taskDescription: UITextField!
     @IBOutlet weak var taskDateTime: UIDatePicker!
     @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var submitButton: UIButton!
     
     let dataValues = ["No Recurrence", "Daily", "Weekly", "Monthly"]
     
@@ -45,6 +46,8 @@ class AddReminderViewController: UIViewController, UIPickerViewDataSource, UIPic
         let date = Date()
         taskDateTime.minimumDate = date
         taskDateTime.setValue(UIColor.white, forKey: "textColor")
+        submitButton.layer.cornerRadius = 5
+        submitButton.clipsToBounds = true
     }
     
     // On submit, send all the data about the new reminder to the database. All the data includes all the

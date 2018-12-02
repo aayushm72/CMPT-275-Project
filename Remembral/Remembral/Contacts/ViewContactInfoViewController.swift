@@ -38,9 +38,23 @@ class ViewContactInfoViewController: UIViewController {
             relationLabel.text = contactData.relation
             phoneLabel.text = contactData.phoneNum
             addressLabel.text = contactData.address
+            let callGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(callWith))
+            callGestureRecognizer.numberOfTouchesRequired = 1
+            phoneLabel.addGestureRecognizer(callGestureRecognizer)
+            phoneLabel.isUserInteractionEnabled = true
         }
     }
-
+    
+    @objc
+    func callWith(gestureRecognizer: UIGestureRecognizer){
+        if let contactData = contactDisplayed, let url = URL(string: "tel://\(contactData.phoneNum!)"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 

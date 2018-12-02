@@ -71,23 +71,25 @@ class ReminderViewController: UIViewController, UITableViewDataSource, UITableVi
         labelText.append(String(format: "%2d", reminderData.getHour()))
         labelText.append(":")
         labelText.append(String(format: "%02d", reminderData.getMinute()))
+        
         labelText.append("\nSet by: ")
         labelText.append(reminderData.sender as String)
-        labelText.append("\nStatus: " )
         
-        labelText.append(reminderData.status ? "Complete" : "NotComplete")
+        //labelText.append("\nStatus: " )
+        //labelText.append(reminderData.status ? "Complete" : "NotComplete")
         
         cell.ReminderLabel.text = labelText
         cell.reminderDBKey = reminderData.databaseKey
         cell.delegate = self
         
         if (reminderData.status == true){
-            cell.backgroundColor =  UIColor.lightGray
-            cell.doneButton?.isHidden = true
+            cell.isCompleted()
         } else {
-            cell.backgroundColor = UIColor.white
-            cell.doneButton?.isHidden = false
+            cell.isNotComplete()
         }
+        
+        cell.doneButton?.layer.cornerRadius = 5
+        cell.doneButton?.clipsToBounds = true
         
         if (FirebaseDatabase.sharedInstance.userObj.type == "Caretaker"){
             cell.doneButton?.isHidden = true
