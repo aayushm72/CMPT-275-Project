@@ -65,7 +65,7 @@ class ViewContactInfoViewController: UIViewController {
     @objc 
     func deleteContact(){
         if let contactToRemove = contactDisplayed as? ContactPerson {
-            let name = contactToRemove.fullname
+            let name = contactToRemove.fullName
             let alert = UIAlertController(title: "Delete?", message: "Are you sure you want to delete (\(name)) from your contacts list?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak alert] (_) in
@@ -76,8 +76,8 @@ class ViewContactInfoViewController: UIViewController {
                         self.performSegue(withIdentifier:"UnwindToContacts", sender: self)
                         self.navigationController?.navigationBar.userInteractionEnabled = true
                     }
-                }
-            }))
+                })
+            })
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         
