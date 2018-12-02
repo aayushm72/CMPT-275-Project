@@ -25,8 +25,7 @@ class ViewContactInfoViewController: UIViewController {
         var rightDeleteButton = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteContact))
         rightDeleteButton.tintColor = .red
         self.navigationItem.setRightBarButtonItems([rightDeleteButton], animated: true)
-
-Initial
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
