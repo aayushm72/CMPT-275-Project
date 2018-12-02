@@ -64,7 +64,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         }
         
         if let email = LoginEmail.text, let password = LoginPassword.text {
-                signInandSegueToApp(email: email, password: password)
+            loginBeingAttempted = true
+            signInandSegueToApp(email: email, password: password)
         }
     }
 
@@ -108,7 +109,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     // If signin successfull, then move to paient/caretakers homepage. Show them the regular home page based on if they are caretaker or patient.
     // If sign in unsuccessful, then asked them to try to login again with the right information or after connecting to internet.
     func signInandSegueToApp(email : String!, password: String!) {
-        LoginButton.isEnabled = false
+        triggerFieldInteractibility()
         Auth.auth().signIn(withEmail: email, password: password, completion:
             { (result, error) in
                 self.loginBeingAttempted = false
