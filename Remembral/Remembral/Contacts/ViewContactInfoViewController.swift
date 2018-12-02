@@ -77,7 +77,7 @@ class ViewContactInfoViewController: UIViewController {
                         self.navigationController?.navigationBar.userInteractionEnabled = true
                     }
                 })
-            })
+            }))
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         
