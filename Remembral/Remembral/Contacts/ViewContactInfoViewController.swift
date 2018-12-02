@@ -22,6 +22,11 @@ class ViewContactInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var rightDeleteButton = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteContact))
+        rightDeleteButton.tintColor = .red
+        self.navigationItem.setRightBarButtonItems([rightDeleteButton], animated: true)
+
+Initial
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +50,7 @@ class ViewContactInfoViewController: UIViewController {
         }
     }
     
+    //Call the selected phonenumber
     @objc
     func callWith(gestureRecognizer: UIGestureRecognizer){
         if let contactData = contactDisplayed, let url = URL(string: "tel://\(contactData.phoneNum!)"), UIApplication.shared.canOpenURL(url) {
@@ -53,6 +59,30 @@ class ViewContactInfoViewController: UIViewController {
             } else {
                 UIApplication.shared.openURL(url)
             }
+        }
+    }
+    
+    //Delete the current contact
+    @objc 
+    func deleteContact(){
+        if let contactToRemove = contactDisplayed as? ContactPerson {
+            let name = contactToRemove.fullname
+            let alert = UIAlertController(title: "Delete?", message: "Are you sure you want to delete (\(name)) from your contacts list?", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak alert] (_) in
+                self.navigationController?.navigationBar.userInteractionEnabled = false
+                ContactPerson.deleteContact(contactToDelete: contactToRemove, completion: {
+                    (result) in
+                    if result {
+                        self.performSegue(withIdentifier:"UnwindToContacts", sender: self)
+                        self.navigationController?.navigationBar.userInteractionEnabled = true
+                    }
+                }
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        
+            self.present(alert, animated: true, completion: nil)
         }
     }
     /*
