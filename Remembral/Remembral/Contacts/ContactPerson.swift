@@ -14,6 +14,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 // Structure for a Contact
 struct ContactPerson {
@@ -75,7 +76,7 @@ struct ContactPerson {
     
     // Remove contact by refering to database.
     static func deleteContact(contactToDelete: ContactPerson, completion: ((Bool)->Void)?){
-        let ownID = Auth.auth().currentUser?.uid)!
+        let ownID = (Auth.auth().currentUser?.uid) as! String
         let contactsRef = FirebaseDatabase.sharedInstance.contactsRef.child(ownID)
         contactsRef.queryOrdered(byChild: "key").queryEqualToValue(contactToDelete.identifier).observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot) in
             if snapshot.children.count == 1{
@@ -89,6 +90,7 @@ struct ContactPerson {
                     }
                     completion? (true)                                                                                 
                 })
+            }
             else {
                 completion? (false)
             }
