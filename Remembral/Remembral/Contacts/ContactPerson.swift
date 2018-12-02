@@ -71,6 +71,28 @@ struct ContactPerson {
         let otherNewContact = ["key": (Auth.auth().currentUser?.uid)!, "relation": setRelationAs]
 
         otherPerson.setValue(otherNewContact)
-        
     }
+    
+    // Remove contact by refering to database.
+    static func deleteContact(contactToDelete: ContactPerson, completion: ((Bool)->Void)?){
+        let ownID = Auth.auth().currentUser?.uid)!
+        let contactsRef = FirebaseDatabase.sharedInstance.contactsRef.child(ownID)
+        contactsRef.queryOrdered(byChild: "key").queryEqualToValue(contactToDelete.identifier).observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot) in
+            if snapshot.children.count == 1{
+                let keyToDelete = snapshot.value?.allKeys[0]
+                contactsRef.child(keyToDelete).setValue(nil)
+                let otherContactRef =  FirebaseDatabase.sharedInstance.contactsRef.child(contactToDelete.identifier)
+                otherContactRef.queryOrdered(byChild: "key").queryEqualToValue(ownID).observeSingleEvent(of: .value, with: { (snapshot2: DataSnapshot) in
+                    if snapshot2.children.count == 1{
+                        let keyToDelete2 = snapshot2.value?.allKeys[0]
+                        otherContactRef.child(keyToDelete2).setValue(nil)
+                    }
+                    completion? (true)                                                                                 
+                })
+            else {
+                completion? (false)
+            }
+        })
+    }
+    
 }
