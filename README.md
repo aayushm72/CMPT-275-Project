@@ -14,4 +14,25 @@ Steps to checkout project:
  - Place the downloaded ZIP file where you want the project files to reside in your file structure.
  - Extract the contents of the ZIP folder
  - Open the file "Remembral.xcworkspace" in XCode IDE.
- - Run the application in an iOS simulator and select a user type: Patient or Caretaker.
+ - Run the application in an iOS simulator or load onto an iPhone
+ - Login with the provided details below or Register a new User
+ 
+ - - - - -
+ 
+ Login Notes:
+ * Caretaker Account
+    * Email - caretaker@remembral.com
+    * Password - CaretakerPassword
+ * Patient Account
+    * Email - patient@remembral.com
+    * Password - PatienPassword
+
+- - - - -
+ 
+ Testing Notes:
+ * SOS Testing
+    * The SOS functionality is not available when running test on a simulator as there is no messaging service available on the simulator
+    * To perform SOS testing it is recommended to load the application onto an iPhone.
+ * Current location and Heatmaps Testing
+    * It is recommended to use the above mentioned user accounts for location and heatmap testing as location data already exists in the database.
+    * For testing current location tracking it may be better to use XCode's city-run feature to simulate GPS Movement for the Patient while the Caretaker can observe the movement of the Patient.
