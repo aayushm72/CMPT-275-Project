@@ -25,9 +25,9 @@ import SwiftKeychainWrapper
 
 // Two choices of action for the notifications. Done which means completed task and snooze meaning remind task after 5 min.
 struct choices {
-    static let answer1 = UNNotificationAction(identifier: "answer1", title: "Snooze" , options: UNNotificationActionOptions.foreground)
+    static let answer1 = UNNotificationAction(identifier: "answer1", title: "Snooze" , options: UNNotificationActionOptions(rawValue: 0))
     
-    static let answer2 = UNNotificationAction(identifier: "answer2", title: "Done" , options: UNNotificationActionOptions.foreground)
+    static let answer2 = UNNotificationAction(identifier: "answer2", title: "Done" , options: UNNotificationActionOptions(rawValue: 0))
 }
 
 // Patients Home View

@@ -205,15 +205,14 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
                     if(newR.status == true){
                         return
                     }
-                    let category = UNNotificationCategory(identifier: newR.databaseKey, actions: [choices.answer1, choices.answer2], intentIdentifiers: [], options: [])
-                    UNUserNotificationCenter.current().setNotificationCategories([category])
                     let content = UNMutableNotificationContent()
                     
                     ///should be puled from one of the list arrays list[indexPath.row]
                     content.title = newR.sender
-                    content.categoryIdentifier = newR.databaseKey
+                    content.categoryIdentifier = "ReminderNotif"
                     content.body = newR.description///should be puled from one of the list arrays
                     content.sound = UNNotificationSound.default
+                    content.userInfo = ["Key": newR.databaseKey]
                     
                     var dateComponents = DateComponents()
                     
@@ -261,7 +260,7 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void)
     {
         if (response.actionIdentifier == UNNotificationDismissActionIdentifier){
-            let firebaseKey = response.notification.request.identifier
+            let firebaseKey = response.notification.request.content.userInfo["Key"] as! String
             let uid = Auth.auth().currentUser?.uid
             let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(uid!).child(firebaseKey)
             let date = response.notification.date.timeIntervalSince1970
@@ -269,15 +268,14 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
         }
         else if response.actionIdentifier == choices.answer1.identifier{
             let date = response.notification.date.addingTimeInterval(5.0 * 60.0)
-            let firebaseKey = response.notification.request.content.categoryIdentifier
-            let category = UNNotificationCategory(identifier: firebaseKey, actions: [choices.answer1, choices.answer2], intentIdentifiers: [], options: [])
-            UNUserNotificationCenter.current().setNotificationCategories([category])
-            let content = UNMutableNotificationContent()
+            let firebaseKey = response.notification.request.content.userInfo["Key"] as! String
             
+            let content = UNMutableNotificationContent()
             ///should be puled from one of the list arrays list[indexPath.row]
             content.title = response.notification.request.content.title
-            content.categoryIdentifier = firebaseKey
+            content.categoryIdentifier = "ReminderNotif"
             content.body = response.notification.request.content.body///should be puled from one of the list arrays
+            content.userInfo = ["Key": firebaseKey]
             let calendar = Calendar.current
             content.sound = UNNotificationSound.default
             let dateComponents = calendar.dateComponents(
@@ -288,9 +286,10 @@ class FirebaseDatabase: NSObject, UICollectionViewDelegate ,UNUserNotificationCe
             id.append("Snooze")
             let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+            
         }
         else if response.actionIdentifier == choices.answer2.identifier {
-            let firebaseKey = response.notification.request.content.categoryIdentifier
+            let firebaseKey = response.notification.request.content.userInfo["Key"] as! String
             let uid = Auth.auth().currentUser?.uid
             let reminderRef = FirebaseDatabase.sharedInstance.reminderRef.child(uid!).child(firebaseKey)
             let date = response.notification.date.timeIntervalSince1970

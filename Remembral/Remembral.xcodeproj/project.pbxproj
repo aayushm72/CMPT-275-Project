@@ -109,7 +109,7 @@
 		FB1B9AB8218E589A00D8A0B7 /* RemembralUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemembralUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB1B9ABC218E589A00D8A0B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB34F480219D0BBF0060ACB9 /* LocationServicesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesHandler.swift; sourceTree = "<group>"; };
-		FB48B0E4219E673A00E99ED5 /* HeatmapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeatmapViewController.swift; path = ../Map/HeatmapViewController.swift; sourceTree = "<group>"; };
+		FB48B0E4219E673A00E99ED5 /* HeatmapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeatmapViewController.swift; sourceTree = "<group>"; };
 		FB48B0E7219E677100E99ED5 /* GMUGeoJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGeoJSONParser.h; sourceTree = "<group>"; };
 		FB48B0E8219E677100E99ED5 /* GMUGeoJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGeoJSONParser.m; sourceTree = "<group>"; };
 		FB48B0E9219E677100E99ED5 /* GMUGeometryRenderer+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMUGeometryRenderer+Testing.h"; sourceTree = "<group>"; };
@@ -185,7 +185,7 @@
 		FBD1DEA2219E2710004CF2C8 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		FBD1DEA4219E2740004CF2C8 /* CaretakerHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerHomeViewController.swift; sourceTree = "<group>"; };
 		FBD1DEA5219E2744004CF2C8 /* CaretakerReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerReminderViewController.swift; sourceTree = "<group>"; };
-		FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CaretakerMapViewController.swift; path = ../Map/CaretakerMapViewController.swift; sourceTree = "<group>"; };
+		FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretakerMapViewController.swift; sourceTree = "<group>"; };
 		FBD1DEA7219E274F004CF2C8 /* ReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
 		FBD1DEA8219E2753004CF2C8 /* PatientTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientTabBarViewController.swift; sourceTree = "<group>"; };
 		FBE6B22321AFA1D0005B8F52 /* AddPatientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddPatientViewController.swift; path = Remembral/Caretaker/Home/AddPatientViewController.swift; sourceTree = SOURCE_ROOT; };
