@@ -1428,9 +1428,11 @@
                         <outlet property="nameLabel" destination="k9L-T4-hPE" id="IrS-2b-XZh"/>
                         <outlet property="phoneLabel" destination="cwf-hy-X8Z" id="XtB-0q-kB8"/>
                         <outlet property="relationLabel" destination="2co-s6-FIv" id="FUA-6T-ZrV"/>
+                        <segue destination="Qs8-uN-F80" kind="unwind" identifier="UnwindToContactsFromInfo" unwindAction="UnwindToContacts:" id="ruB-TK-LDi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KFb-Vs-Rek" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Qs8-uN-F80" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2744.8000000000002" y="379.16041979010498"/>
         </scene>

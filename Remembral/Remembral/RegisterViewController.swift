@@ -180,11 +180,15 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 
                 //segue to application
                 let userType = FirebaseDatabase.sharedInstance.userObj.type
-                if userType == "Patient" {
-                    self.performSegue(withIdentifier: "toPatientAppfromRegister", sender: nil)
-                } else {
-                    self.performSegue(withIdentifier: "toCaretakerAppfromRegister", sender: nil)
-                }
+                FirebaseDatabase.sharedInstance.LoadContacts(completion: {
+                    (_) in
+                    if userType == "Patient" {
+                        self.performSegue(withIdentifier: "toPatientAppfromRegister", sender: nil)
+                    } else {
+                        self.performSegue(withIdentifier: "toCaretakerAppfromRegister", sender: nil)
+                    }
+                })
+                
             })
         })
     }

@@ -22,8 +22,16 @@ class ViewContactInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var rightDeleteButton = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteContact))
-        rightDeleteButton.tintColor = .red
+        let deleteBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 25))
+        deleteBtn.setTitle("Delete", for: .normal)
+        deleteBtn.setTitleColor(.red, for: .normal)
+        deleteBtn.backgroundColor = UIColor(displayP3Red: 0.88, green: 0.67, blue: 0.34, alpha: 1.0)
+        deleteBtn.layer.cornerRadius = 4.0
+        deleteBtn.layer.masksToBounds = true
+        deleteBtn.addTarget(self, action: #selector(deleteContact), for: .touchUpInside)
+        let rightDeleteButton = UIBarButtonItem(customView: deleteBtn)
+            //UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteContact))
+        //rightDeleteButton.tintColor = .red
         self.navigationItem.setRightBarButtonItems([rightDeleteButton], animated: true)
         
         // Do any additional setup after loading the view.
@@ -64,17 +72,17 @@ class ViewContactInfoViewController: UIViewController {
     //Delete the current contact
     @objc 
     func deleteContact(){
-        if let contactToRemove = contactDisplayed as? ContactPerson {
-            let name = contactToRemove.fullName
+        if let contactToRemove = contactDisplayed {
+            let name = contactToRemove.fullName!
             let alert = UIAlertController(title: "Delete?", message: "Are you sure you want to delete (\(name)) from your contacts list?", preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak alert] (_) in
-                self.navigationController?.navigationBar.userInteractionEnabled = false
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
+                self.navigationController?.navigationBar.isUserInteractionEnabled = false
                 ContactPerson.deleteContact(contactToDelete: contactToRemove, completion: {
                     (result) in
                     if result {
-                        self.performSegue(withIdentifier:"UnwindToContacts", sender: self)
-                        self.navigationController?.navigationBar.userInteractionEnabled = true
+                        self.navigationController?.navigationBar.isUserInteractionEnabled = true
+                        self.performSegue(withIdentifier:"UnwindToContactsFromInfo", sender: self)
                     }
                 })
             }))

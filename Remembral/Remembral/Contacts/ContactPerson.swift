@@ -76,17 +76,19 @@ struct ContactPerson {
     
     // Remove contact by refering to database.
     static func deleteContact(contactToDelete: ContactPerson, completion: ((Bool)->Void)?){
-        let ownID = (Auth.auth().currentUser?.uid) as! String
+        let ownID = (Auth.auth().currentUser?.uid)!
         let contactsRef = FirebaseDatabase.sharedInstance.contactsRef.child(ownID)
-        contactsRef.queryOrdered(byChild: "key").queryEqualToValue(contactToDelete.identifier).observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot) in
-            if snapshot.children.count == 1{
-                let keyToDelete = snapshot.value?.allKeys[0]
-                contactsRef.child(keyToDelete).setValue(nil)
+        contactsRef.queryOrdered(byChild: "key").queryEqual(toValue: contactToDelete.identifier).observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot) in
+            print(snapshot)
+            if snapshot.childrenCount == 1{
+                let singleProfile = snapshot.children.allObjects[0] as! DataSnapshot
+                singleProfile.ref.removeValue()
+
                 let otherContactRef =  FirebaseDatabase.sharedInstance.contactsRef.child(contactToDelete.identifier)
-                otherContactRef.queryOrdered(byChild: "key").queryEqualToValue(ownID).observeSingleEvent(of: .value, with: { (snapshot2: DataSnapshot) in
-                    if snapshot2.children.count == 1{
-                        let keyToDelete2 = snapshot2.value?.allKeys[0]
-                        otherContactRef.child(keyToDelete2).setValue(nil)
+                otherContactRef.queryOrdered(byChild: "key").queryEqual(toValue: ownID).observeSingleEvent(of: .value, with: { (snapshot2: DataSnapshot) in
+                    if snapshot2.childrenCount == 1{
+                        let singleProfile2 = snapshot2.children.allObjects[0] as! DataSnapshot
+                        singleProfile2.ref.removeValue()
                     }
                     completion? (true)                                                                                 
                 })
