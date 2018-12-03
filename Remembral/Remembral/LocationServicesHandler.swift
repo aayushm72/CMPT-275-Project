@@ -458,18 +458,19 @@ class LocationServicesHandler : NSObject {
     //Sends the location data to firebase
 
     static func sendData(location: CLLocation){
-        let userID = Auth.auth().currentUser?.uid
-        let locationRef = FirebaseDatabase.sharedInstance.locationRef
-        let time = String(format:"%.01f", NSDate().timeIntervalSince1970);
-        
-        let values : [String:Any] = ["longitude": location.coordinate.longitude as Any,
-                                     "latitude": location.coordinate.latitude as Any,
-                                     "time": Double(time) as Any,
-                                     ]
-       // print(databasePath)
-        print(values)
-        let childRef = locationRef.child(userID!).childByAutoId()
-        childRef.setValue(values)
+        if let userID = Auth.auth().currentUser?.uid {
+            let locationRef = FirebaseDatabase.sharedInstance.locationRef
+            let time = String(format:"%.01f", NSDate().timeIntervalSince1970);
+            
+            let values : [String:Any] = ["longitude": location.coordinate.longitude as Any,
+                                         "latitude": location.coordinate.latitude as Any,
+                                         "time": Double(time) as Any,
+                                         ]
+           // print(databasePath)
+            print(values)
+            let childRef = locationRef.child(userID).childByAutoId()
+            childRef.setValue(values)
+        }
 
     }
     // Send updates on location to database

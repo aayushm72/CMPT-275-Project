@@ -314,21 +314,13 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		FB0048A521B364590092CC01 /* Map */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
 		FB0048A621B364EE0092CC01 /* Map */ = {
 			isa = PBXGroup;
 			children = (
 				FBD1DEA6219E274A004CF2C8 /* CaretakerMapViewController.swift */,
 				FB48B0E4219E673A00E99ED5 /* HeatmapViewController.swift */,
 			);
-			name = Map;
-			path = "New Group2";
+			path = Map;
 			sourceTree = "<group>";
 		};
 		FB1B9AA7218E523E00D8A0B7 /* RemembralTests */ = {
@@ -491,7 +483,6 @@
 			isa = PBXGroup;
 			children = (
 				FB0048A621B364EE0092CC01 /* Map */,
-				FB0048A521B364590092CC01 /* Map */,
 				FBD1DEA5219E2744004CF2C8 /* CaretakerReminderViewController.swift */,
 				FBE6B22221AFA19E005B8F52 /* Home */,
 			);
